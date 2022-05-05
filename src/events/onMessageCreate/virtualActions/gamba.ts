@@ -19,11 +19,11 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
 
     if (isWinner) {
         user.money += gambaAmount;
-        return message.reply(`**${user.name}** wins ${gambaAmount} money!`);
+        return message.reply(`**${user.name}** wins ${gambaAmount} :coin:`);
     }
 
     if (!isWinner) {
         user.money -= gambaAmount;
-        return message.reply(`**${user.name}** loses ${gambaAmount} money! What a loser!`);
+        return message.reply(`**${user.name}** loses ${gambaAmount} :coin: What a loser!`);
     }
 };

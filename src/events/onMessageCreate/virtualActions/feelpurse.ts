@@ -18,6 +18,6 @@ export default async (client: Client, message: Message, user: VirtualUser, targe
     }
 
     return message.reply(
-        `**${user.name}** feels **${target.name}** purse and estimates it contains **${target.money}** money.`
+        `**${user.name}** feels **${target.name}** purse and estimates it contains **${target.money}** :coin:.`
     );
 };

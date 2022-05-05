@@ -42,7 +42,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     if (!args || !args[1]) {
         let reply = "__**Shop**__";
         Object.keys(shopItems).forEach(itemName => {
-            reply += `\n${shopItems[itemName].name} | value: **${shopItems[itemName].value}** money | ${shopItems[itemName].description}`;
+            reply += `\n${shopItems[itemName].name} | value: **${shopItems[itemName].value}** :coin: | ${shopItems[itemName].description}`;
         });
         return message.reply(reply);
     }
@@ -74,10 +74,10 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
             if (!meme) {
                 return message.reply(`Subreddit merchant for *${subReddit}* is on vacation`);
             }
-            messageBuilder = `**${user.name}** bought special ${subReddit} **${requestedItem}** for **${memeCost}** money.\n`;
+            messageBuilder = `**${user.name}** bought special ${subReddit} **${requestedItem}** for **${memeCost}** :coin:.\n`;
         } else {
             meme = await MemeAPI.getRandomMeme();
-            messageBuilder = `**${user.name}** bought **${requestedItem}** for **${item.value}** money.\n`;
+            messageBuilder = `**${user.name}** bought **${requestedItem}** for **${item.value}** :coin:.\n`;
         }
 
         if (!meme) {
@@ -119,7 +119,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         user.money -= item.value;
         await user.addItem(item);
         return message.reply(
-            `**<@${user.id}>** bought a **${item.name}** for **${item.value}** money.`
+            `**<@${user.id}>** bought a **${item.name}** for **${item.value}** :coin:.`
         );
     }
 };

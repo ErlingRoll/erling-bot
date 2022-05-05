@@ -63,6 +63,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     });
 
     user.money += totalValue;
-    messageBuilder += `\n**${user.name}** sells loot for a total of ${totalValue} money!`;
+    messageBuilder += `\n**${user.name}** sells loot for a total of ${totalValue} :coin:!`;
     return message.reply(messageBuilder);
 };

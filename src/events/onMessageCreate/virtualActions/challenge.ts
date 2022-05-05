@@ -19,5 +19,5 @@ export default async (client: Client, message: Message, user: VirtualUser, targe
     target.money -= robAmount;
     user.money += robAmount;
     await Promise.all([target.update(), user.update()]);
-    message.reply(`**${user.name}** steals **${robAmount}** money from **${target.name}**.`);
+    message.reply(`**${user.name}** steals **${robAmount}** :coin: from **${target.name}**.`);
 };
