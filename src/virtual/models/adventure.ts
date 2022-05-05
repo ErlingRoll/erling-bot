@@ -12,16 +12,16 @@ export default class Adventure {
         this.monstersAmount = monstersAmount;
         this.monsters = [];
 
-        let adventureMonsters: (Monster | undefined)[] = Object.values(monsters).map(monster => {
+        let adventureMonsters: (Monster | undefined)[] = Object.values(monsters).filter(monster => {
             // Add possible monsters if they are within 1 adventure level
-            if (Math.abs(this.level - monster.adventureLevel) <= 1) {
-                return monster;
-            }
+            return Math.abs(this.level - monster.adventureLevel) <= 1;
         });
 
+        console.log(adventureMonsters);
         for (let i = 0; i < this.monstersAmount; i++) {
             let randomMonster =
                 adventureMonsters[Math.floor(Math.random() * adventureMonsters.length)];
+
             if (!randomMonster) continue;
             this.monsters.push(
                 new Monster(

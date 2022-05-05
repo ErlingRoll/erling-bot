@@ -31,12 +31,14 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     const adventureLevel: AdventureLevel = AdventureLevel[level as any] as AdventureLevel | any;
     const adventure = new Adventure(adventureLevel, 3);
 
-    let messageBuilder = `**<@${user.id}>** goes on a(n) ${level} adventure!`;
+    let messageBuilder = `__**<@${user.id}>** goes on a(n) ${level} adventure!__`;
 
     for (let i = 0; i < adventure.monsters.length; i++) {
         const monster = adventure.monsters[i];
         messageBuilder += `\n**<@${user.id}>** encounters a(n) **${monster.name}**.`;
-        const monsterDamageRoll = monster.getDamageRoll();
+        let monsterDamageRoll = monster.getDamageRoll();
+        if (user.armor) monsterDamageRoll -= user.armor.defense;
+        if (monsterDamageRoll < 0) monsterDamageRoll = 0;
         user.takeDamage(monsterDamageRoll);
         messageBuilder += `\n**${monster.name}** hits **<@${user.id}>** for **${monsterDamageRoll}** monster damage!`;
         if (user.hp <= 0) {
@@ -61,6 +63,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         } else {
             messageBuilder += `\n**${monster.name}** escapes!`;
         }
+        messageBuilder += "\n";
     }
 
     return message.reply(messageBuilder);
