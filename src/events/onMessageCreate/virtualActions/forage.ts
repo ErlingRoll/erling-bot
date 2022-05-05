@@ -97,6 +97,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         await user.addItem(_item);
     });
 
-    messageBuilder += `\n**${user.id}}** tucks the loot safely in their pocket!`;
+    messageBuilder += `\n**${user.id}** tucks the loot safely in their pocket!`;
     return message.reply(messageBuilder);
 };
