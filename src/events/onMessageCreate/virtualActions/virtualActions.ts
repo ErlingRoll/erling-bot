@@ -18,6 +18,7 @@ import use from "./use";
 import equip from "./equip";
 import leaderboard from "./leaderboard";
 import adventure from "./adventure";
+import rest from "./rest";
 
 const virtualActions: Action[] = [
     new Action("adventure", (client: Client, message: Message, user: VirtualUser) =>
@@ -69,6 +70,12 @@ const virtualActions: Action[] = [
         (client: Client, message: Message, user: VirtualUser) => mine(client, message, user),
         { cooldown: 10000 }
     ),
+    new Action(
+        "rest",
+        (client: Client, message: Message, user: VirtualUser) => rest(client, message, user),
+        { cooldown: 120000 }
+    ),
+
     new Action(
         "rob",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
