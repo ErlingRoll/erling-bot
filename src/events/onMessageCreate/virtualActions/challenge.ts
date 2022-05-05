@@ -11,7 +11,7 @@ export default async (client: Client, message: Message, user: VirtualUser, targe
         user.hp -= SHAME_DAMAGE;
         await user.update();
         message.reply(
-            `**${target.name}** catches **${user.name}** red handed! **${user.name}** takes **${SHAME_DAMAGE}** shame damage.`
+            `**<@${target.id}>** catches **<@${user.id}>** red handed! **<@${user.id}>** takes **${SHAME_DAMAGE}** shame damage.`
         );
         return;
     }
@@ -19,5 +19,5 @@ export default async (client: Client, message: Message, user: VirtualUser, targe
     target.money -= robAmount;
     user.money += robAmount;
     await Promise.all([target.update(), user.update()]);
-    message.reply(`**${user.name}** steals **${robAmount}** money from **${target.name}**.`);
+    message.reply(`**<@${user.id}>** steals **${robAmount}** money from **<@${target.id}>**.`);
 };

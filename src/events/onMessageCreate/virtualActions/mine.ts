@@ -1,5 +1,6 @@
+import { weapons } from "../../../assets/items/weapons";
 import { Client, Message } from "discord.js";
-import VirtualUser from "virtual/models/virtualUser";
+import VirtualUser from "../../../virtual/models/virtualUser";
 
 const dropTable: any = {
     "Old meme": {
@@ -42,6 +43,10 @@ const dropTable: any = {
 export default async (client: Client, message: Message, user: VirtualUser) => {
     let loot: any[] = [];
 
+    if (!user.hasItem(weapons.pickaxe)) {
+        return message.reply("You need a **Pickaxe** to mine");
+    }
+
     let mineCollapseRoll = Math.ceil(Math.random() * 100);
     if (mineCollapseRoll <= 10) {
         let mineCollapseDamageRoll = Math.ceil(Math.random() * 10);
@@ -52,6 +57,13 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
             let checkKilledMessage = await user.checkKilled();
             messageBuilder += checkKilledMessage;
         }
+        return message.reply(messageBuilder);
+    }
+
+    let pickaxeBreakRoll = Math.ceil(Math.random() * 100);
+    if (pickaxeBreakRoll <= 5) {
+        let messageBuilder = `**<@${user.id}>** swings the pickaxe at a suprisingly hard rock and the pickaxe breaks :(`;
+        await user.removeItem(weapons.pickaxe);
         return message.reply(messageBuilder);
     }
 
@@ -76,6 +88,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     });
 
     user.money += totalValue;
-    messageBuilder += `\n**${user.name}** sells loot for a total of ${totalValue} money!`;
+    messageBuilder += `\n**<@${user.id}>** sells loot for a total of ${totalValue} money!`;
     return message.reply(messageBuilder);
 };

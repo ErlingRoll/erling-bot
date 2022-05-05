@@ -62,6 +62,18 @@ export default class VirtualUser extends Entity {
         return this.update();
     }
 
+    async removeItem(item: Item, amount: number = 1): Promise<void> {
+        let existingItemStack = this.items[item.id];
+        if (existingItemStack && existingItemStack.count) {
+            existingItemStack.count -= amount;
+            if (existingItemStack.count <= 0) {
+                delete this.items[item.id];
+            }
+            await this.update();
+        }
+        return;
+    }
+
     // Does not actually use it but removes 1 from inventory
     async useItem(item: Item): Promise<void> {
         const existingItem = this.items[item.id];
@@ -117,7 +129,7 @@ export default class VirtualUser extends Entity {
         return messageBuilder;
     }
 
-    getDamage() {
+    getDamage(): number {
         let damage = this.power;
         if (this.weapon) {
             damage += this.weapon.damage;
@@ -125,12 +137,17 @@ export default class VirtualUser extends Entity {
         return damage;
     }
 
-    getDefense() {
+    getDefense(): number {
         let defense = 0;
         if (this.armor) {
             defense += this.armor.defense;
         }
         return defense;
+    }
+
+    hasItem(item: Item): boolean {
+        if (!this.items) return false;
+        return Boolean(this.items[item.id] && this.items[item.id].count > 0);
     }
 
     async takeDamage(damage: number): Promise<void> {

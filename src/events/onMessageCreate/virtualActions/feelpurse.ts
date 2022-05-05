@@ -12,12 +12,12 @@ export default async (client: Client, message: Message, user: VirtualUser, targe
         user.hp -= SHAME_DAMAGE;
         await user.update();
         message.reply(
-            `**${target.name}** catches **${user.name}** red handed! **${user.name}** takes **${SHAME_DAMAGE}** shame damage.`
+            `**<@${target.id}>** catches **<@${user.id}>** red handed! **<@${user.id}>** takes **${SHAME_DAMAGE}** shame damage.`
         );
         return;
     }
 
     return message.reply(
-        `**${user.name}** feels **${target.name}** purse and estimates it contains **${target.money}** money.`
+        `**<@${user.id}>** feels **<@${target.id}>** purse and estimates it contains **${target.money}** money.`
     );
 };

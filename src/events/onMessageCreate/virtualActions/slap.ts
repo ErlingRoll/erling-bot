@@ -8,6 +8,6 @@ export default async (client: Client, message: Message, user: VirtualUser, targe
     target.hp -= SLAP_DAMAGE;
     await target.update();
     message.reply(
-        `**${user.name}** slaps **${target.name}** for **${SLAP_DAMAGE}** damage. **${target.name}** now has ${target.hp} hp.`
+        `**<@${user.id}>** slaps **<@${target.id}>** for **${SLAP_DAMAGE}** damage. **<@${target.id}>** now has ${target.hp} hp.`
     );
 };

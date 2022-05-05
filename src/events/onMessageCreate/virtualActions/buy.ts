@@ -65,7 +65,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
 
         if (user.money < memeCost) {
             return message.reply(
-                `LOL! **${user.name}** is broke and cannot afford a ${requestedItem}`
+                `LOL! **<@${user.id}>** is broke and cannot afford a ${requestedItem}`
             );
         }
 
@@ -74,10 +74,10 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
             if (!meme) {
                 return message.reply(`Subreddit merchant for *${subReddit}* is on vacation`);
             }
-            messageBuilder = `**${user.name}** bought special ${subReddit} **${requestedItem}** for **${memeCost}** money.\n`;
+            messageBuilder = `**<@${user.id}>** bought special ${subReddit} **${requestedItem}** for **${memeCost}** money.\n`;
         } else {
             meme = await MemeAPI.getRandomMeme();
-            messageBuilder = `**${user.name}** bought **${requestedItem}** for **${item.value}** money.\n`;
+            messageBuilder = `**<@${user.id}>** bought **${requestedItem}** for **${item.value}** money.\n`;
         }
 
         if (!meme) {
@@ -112,7 +112,9 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     }
 
     if (user.money < item.value) {
-        return message.reply(`LOL! **${user.name}** is broke and cannot afford a ${requestedItem}`);
+        return message.reply(
+            `LOL! **<@${user.id}>** is broke and cannot afford a ${requestedItem}`
+        );
     }
 
     if (item && requestedItem !== "meme") {
