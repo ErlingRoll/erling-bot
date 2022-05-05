@@ -12,6 +12,7 @@ import challenge from "./challenge";
 import buy from "./buy";
 import mine from "./mine";
 import feelpurse from "./feelpurse";
+import forage from "./forage";
 import duel from "./duel";
 import items from "./items";
 import use from "./use";
@@ -49,6 +50,11 @@ const virtualActions: Action[] = [
             feelpurse(client, message, user, targetUser),
         { cooldown: 10000 }
     ),
+    new Action(
+        "Forage",
+        (client: Client, message: Message, user: VirtualUser) => forage(client,message,user),
+        {cooldown: 10000}
+    )
     new Action(
         "gamba",
         (client: Client, message: Message, user: VirtualUser) => gamba(client, message, user),
