@@ -20,6 +20,7 @@ import equip from "./equip";
 import leaderboard from "./leaderboard";
 import adventure from "./adventure";
 import rest from "./rest";
+import sell from "./sell";
 
 const virtualActions: Action[] = [
     new Action("adventure", (client: Client, message: Message, user: VirtualUser) =>
@@ -81,12 +82,14 @@ const virtualActions: Action[] = [
         (client: Client, message: Message, user: VirtualUser) => rest(client, message, user),
         { cooldown: 120000 }
     ),
-
     new Action(
         "rob",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             rob(client, message, user, targetUser),
         { cooldown: 10000 }
+    ),
+    new Action("sell", (client: Client, message: Message, user: VirtualUser) =>
+        sell(client, message, user)
     ),
     new Action("stats", (client: Client, message: Message, user: VirtualUser) =>
         stats(client, message, user)
@@ -95,7 +98,7 @@ const virtualActions: Action[] = [
         "slap",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             slap(client, message, user, targetUser),
-        { cooldown: 10000 }
+        { cooldown: 60000 }
     ),
     new Action(
         "use",

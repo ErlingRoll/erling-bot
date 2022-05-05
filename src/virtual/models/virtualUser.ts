@@ -40,7 +40,7 @@ export default class VirtualUser extends Entity {
             id: this.id,
             name: this.name,
             hp: this.hp,
-            power: this.power,
+            power: this.power || 5,
             isBusy: this.isBusy,
             money: this.money,
             cooldowns: this.cooldowns || {},
@@ -66,7 +66,12 @@ export default class VirtualUser extends Entity {
         let existingItemStack = this.items[item.id];
         if (existingItemStack && existingItemStack.count) {
             existingItemStack.count -= amount;
+
+            // If you remove the last item also unequip it if you are wearing it
             if (existingItemStack.count <= 0) {
+                if (this.armor && existingItemStack.id === this.armor.id) this.armor = null;
+                if (this.weapon && existingItemStack.id === this.weapon.id) this.weapon = null;
+
                 delete this.items[item.id];
             }
             await this.update();
@@ -166,7 +171,7 @@ export default class VirtualUser extends Entity {
         let damage = damageRoll - targetDefense;
 
         if (hitRoll < 30) {
-            messageBuilder += `\n**<@${this.id}>** attacks **<@${this.id}>** but trips on a small pebble and misses...`;
+            messageBuilder += `\n**<@${this.id}>** attacks **<@${target.id}>** but trips on a small pebble and misses...`;
             return messageBuilder;
         }
 
