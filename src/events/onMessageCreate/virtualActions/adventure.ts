@@ -1,6 +1,6 @@
 import { Client, Message } from "discord.js";
+import { AdventureLevel } from "../../../constants/adventure";
 import { parseArgs } from "../../../events/middleware";
-import { AdventureLevel } from "../../../virtual/models/adventure";
 import VirtualUser from "../../../virtual/models/virtualUser";
 
 export default async (client: Client, message: Message, user: VirtualUser) => {

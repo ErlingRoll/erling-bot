@@ -1,15 +1,7 @@
+import { AdventureLevel } from "../../constants/adventure";
 import { monsters } from "../../assets/monsters/monsters";
 import Monster from "./monster";
 
-export enum AdventureLevel {
-    monkey,
-    beginner,
-    intermediate,
-    expert,
-    master,
-    epic,
-    legendary,
-}
 export default class Adventure {
     level: AdventureLevel;
     monstersAmount: number;
