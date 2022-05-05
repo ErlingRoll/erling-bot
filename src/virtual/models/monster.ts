@@ -1,30 +1,24 @@
 import { AdventureLevel } from "./adventure";
 import { dropTableItem } from "./dropTableItem";
+import Entity from "./entity";
 
-export default class Monster {
-    id: string;
-    name: string;
+export default class Monster extends Entity {
     description: string;
-    level: AdventureLevel;
-    hp: number;
-    damage: number;
+    adventureLevel: AdventureLevel;
     dropTable: { [itemId: string]: dropTableItem };
 
     constructor(
         id: string,
         name: string,
-        description: string,
-        level: AdventureLevel,
         hp: number,
-        damage: number,
+        power: number,
+        description: string,
+        adventureLevel: AdventureLevel,
         dropTable: { [itemId: string]: dropTableItem }
     ) {
-        this.id = id;
-        this.name = name;
+        super(id, name, hp, power);
         this.description = description;
-        this.level = level;
-        this.hp = hp;
-        this.damage = damage;
+        this.adventureLevel = adventureLevel;
         this.dropTable = dropTable;
     }
 }

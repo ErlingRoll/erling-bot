@@ -9,9 +9,9 @@ export const monsters: { [id: string]: Monster } = {
         id: "highschoolbully",
         name: "High school",
         description: "Big meanie",
-        level: AdventureLevel.beginner,
+        adventureLevel: AdventureLevel.beginner,
         hp: 8,
-        damage: 3,
+        power: 3,
         dropTable: {
             cottonsword: {
                 item: weapons.cottonsword,

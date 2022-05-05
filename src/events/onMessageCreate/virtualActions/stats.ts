@@ -5,7 +5,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     let messageBuilder = `**${user.name}**\nMoney: ${user.money}\nHP: ${user.hp}`;
 
     if (user.armor) {
-        messageBuilder += `\nArmor: ${user.armor.name} (+${user.armor.defense} defence)`;
+        messageBuilder += `\nArmor: ${user.armor.name} (+${user.armor.defense} defense)`;
     }
 
     if (user.weapon) {

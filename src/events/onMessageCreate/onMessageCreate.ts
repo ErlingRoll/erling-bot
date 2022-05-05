@@ -6,6 +6,7 @@ import soundActions from "./soundActions/soundActions";
 import defaultActions from "./defaultActions/defaultActions";
 import virtualActions from "./virtualActions/virtualActions";
 import Action from "../../virtual/models/action";
+import VirtualUser from "virtual/models/virtualUser";
 const BOT_PREFIX = process.env.BOT_PREFIX;
 
 const defaultActionGroup = new ActionGroup("commands", defaultActions);
@@ -33,12 +34,12 @@ export async function onMessageCreate(client: Client, message: Message): Promise
     let virtualActionsCommands = Object.keys(virtualActionGroup.actions);
 
     // Pre action stuff
-    const virtualUser = await getVirtualUser(message.author);
-    const targetVirtualUser = await getTargetUser(client, message);
+    const virtualUser = (await getVirtualUser(message.author)) as VirtualUser;
+    const targetVirtualUser = ((await getTargetUser(client, message)) as VirtualUser) || null;
 
     if (targetVirtualUser && targetVirtualUser.id === "905526390764486656") {
         virtualUser.hp = 0;
-        virtualUser.isKilled();
+        virtualUser.checkKilled();
         return message.reply(
             "Stop trying to interact with god. You are smited for **9999999** admin damage and crumble to dust :D"
         );

@@ -1,13 +1,11 @@
 import { doc, setDoc, Timestamp } from "@firebase/firestore";
 import { firestore } from "../../services/firebase";
 import Armor from "./armor";
+import Entity from "./entity";
 import Item, { ItemType } from "./item";
 import Weapon from "./weapon";
 
-export default class VirtualUser {
-    id: string;
-    name: string;
-    hp: number;
+export default class VirtualUser extends Entity {
     money: number;
     isBusy: boolean;
     cooldowns: { [command: string]: number };
@@ -18,23 +16,22 @@ export default class VirtualUser {
     constructor(
         id: string,
         name: string,
+        hp: number,
+        power: number,
         isBusy: boolean = false,
-        hp: number = 100,
         money: number = 0,
         cooldowns: { [command: string]: number } = {},
         items: { [name: string]: Item } = {},
         weapon: Weapon | null = null,
         armor: Armor | null = null
     ) {
-        this.id = id;
-        this.name = name;
+        super(id, name, hp, power);
         this.isBusy = isBusy;
-        this.hp = hp;
         this.money = money;
         this.cooldowns = cooldowns;
         this.items = items;
-        this.weapon = weapon;
-        this.armor = armor;
+        this.weapon = weapon || null;
+        this.armor = armor || null;
     }
 
     // Sync user with database
@@ -47,8 +44,8 @@ export default class VirtualUser {
             money: this.money,
             cooldowns: this.cooldowns || {},
             items: this.items,
-            armor: this.armor,
-            weapon: this.weapon,
+            armor: this.armor || null,
+            weapon: this.weapon || null,
         });
     }
 
@@ -98,7 +95,8 @@ export default class VirtualUser {
         return `You equip **${item.name}**`;
     }
 
-    async isKilled(killer?: VirtualUser): Promise<any> {
+    async checkKilled(killer?: VirtualUser): Promise<string> {
+        let messageBuilder = "";
         if (this.hp <= 0) {
             const moneyToLoot = Math.floor(this.money * 0.5);
 
@@ -109,14 +107,68 @@ export default class VirtualUser {
             if (killer) {
                 killer.money += moneyToLoot;
                 promises.push(killer.update());
+                messageBuilder += `\n**<@${killer.id}>** kills **<@${this.id}>** and loots **${moneyToLoot}** money!`;
             }
 
             await Promise.all(promises);
-
-            return moneyToLoot;
         }
 
-        return false;
+        return messageBuilder;
+    }
+
+    getDamage() {
+        let damage = this.power;
+        if (this.weapon) {
+            damage += this.weapon.damage;
+        }
+        return damage;
+    }
+
+    getDefense() {
+        let defense = 0;
+        if (this.armor) {
+            defense += this.armor.defense;
+        }
+        return defense;
+    }
+
+    async takeDamage(damage: number): Promise<void> {
+        this.hp -= damage;
+        return this.update();
+    }
+
+    async attackPlayer(target: VirtualUser): Promise<string> {
+        let messageBuilder = "";
+        let hitRoll = Math.floor(Math.random() * 100) + 1;
+
+        let damageRoll = this.getDamage();
+        let targetDefense = target.getDefense();
+
+        let damage = damageRoll - targetDefense;
+
+        if (hitRoll < 30) {
+            messageBuilder += `\n**<@${this.id}>** attacks **<@${this.id}>** but trips on a small pebble and misses...`;
+            return messageBuilder;
+        }
+
+        if (this.weapon) {
+            messageBuilder += `\n**<@${this.id}>** attacks with **${this.weapon.name}** (+${this.weapon.damage} damage).`;
+        } else {
+            messageBuilder += `\n**<@${this.id}>** attacks with their bare fists.`;
+        }
+
+        if (target.armor) {
+            messageBuilder += `\n**<@${target.id}>** is protected by **${target.armor.name}** (+${target.armor.defense} defense).`;
+        }
+
+        if (damage <= 0) {
+            messageBuilder += `\n**<@${target.id}>** negates all damage.`;
+            return messageBuilder;
+        }
+
+        messageBuilder += `\n**<@${this.id}>** hits **<@${target.id}>** for ${damage} PvP damage!`;
+        await target.takeDamage(damage);
+        return messageBuilder;
     }
 
     reset() {
