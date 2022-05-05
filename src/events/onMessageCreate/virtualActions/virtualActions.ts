@@ -17,8 +17,12 @@ import items from "./items";
 import use from "./use";
 import equip from "./equip";
 import leaderboard from "./leaderboard";
+import adventure from "./adventure";
 
 const virtualActions: Action[] = [
+    new Action("adventure", (client: Client, message: Message, user: VirtualUser) =>
+        adventure(client, message, user)
+    ),
     new Action("balance", (client: Client, message: Message, user: VirtualUser) =>
         balance(client, message, user)
     ),
