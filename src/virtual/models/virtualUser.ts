@@ -39,8 +39,9 @@ export default class VirtualUser extends Entity {
         return setDoc(doc(firestore, "users", this.id), {
             id: this.id,
             name: this.name,
-            isBusy: this.isBusy,
             hp: this.hp,
+            power: this.power,
+            isBusy: this.isBusy,
             money: this.money,
             cooldowns: this.cooldowns || {},
             items: this.items,
@@ -58,7 +59,7 @@ export default class VirtualUser extends Entity {
             const { ...jsonItem } = item;
             this.items[item.id] = jsonItem;
         }
-        this.update();
+        return this.update();
     }
 
     // Does not actually use it but removes 1 from inventory

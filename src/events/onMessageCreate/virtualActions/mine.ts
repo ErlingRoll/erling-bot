@@ -42,8 +42,21 @@ const dropTable: any = {
 export default async (client: Client, message: Message, user: VirtualUser) => {
     let loot: any[] = [];
 
+    let mineCollapseRoll = Math.ceil(Math.random() * 100);
+    if (mineCollapseRoll <= 10) {
+        let mineCollapseDamageRoll = Math.ceil(Math.random() * 10);
+        await user.takeDamage(mineCollapseDamageRoll);
+        let messageBuilder = `The mine collapses and **<@${user.id}>** takes ${mineCollapseDamageRoll} collapsing-mine damage.`;
+        if (user.hp <= 0) {
+            messageBuilder += `**<@${user.id}>** gets buried in rubble and dies.`;
+            let checkKilledMessage = await user.checkKilled();
+            messageBuilder += checkKilledMessage;
+        }
+        return message.reply(messageBuilder);
+    }
+
     Object.keys(dropTable).forEach(dropName => {
-        let mineRarity = Math.floor(Math.random() * 101) + 1;
+        let mineRarity = Math.ceil(Math.random() * 100);
         const item: any = dropTable[dropName];
         if (mineRarity <= item.chance) {
             loot.push(item);

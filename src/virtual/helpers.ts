@@ -26,12 +26,7 @@ export const getVirtualUser = async (discordUser: User): Promise<VirtualUser | a
 export const createVirtualUser = async (discordUser: User): Promise<VirtualUser | any> => {
     const newUser = new VirtualUser(discordUser.id, discordUser.username, 100, 5);
 
-    await setDoc(doc(firestore, "users", newUser.id), {
-        id: newUser.id,
-        name: newUser.name,
-        hp: newUser.hp,
-        money: newUser.money,
-    });
+    await newUser.update();
 
     return newUser;
 };
