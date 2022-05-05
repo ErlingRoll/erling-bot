@@ -1,4 +1,5 @@
 import { Client, Message } from "discord.js";
+import { dropTableItem } from "virtual/models/dropTableItem";
 import Item from "virtual/models/item";
 import VirtualUser from "virtual/models/virtualUser";
 
@@ -75,20 +76,30 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
 
     Object.keys(dropTable).forEach(dropName => {
         let forageRarity = Math.floor(Math.random() * 100) + 1;
-        let flowerPick = Math.floor(Math.random() * 100) + 1;
-        const item: any = dropTable[dropName];
-        const flower: any = dropTableFlower[dropName];
-        if (flowerPick <= flower.chance){
-            loot.push(flower)
-        }
+        const item: dropTableItem = dropTable[dropName];
         if (forageRarity <= item.chance) {
-            loot.push(item);
+            loot.push(item.item);
         }
     });
+    Object.keys(dropTableFlower).forEach(dropName => {
+        let flowerPick = Math.floor(Math.random() * 100) + 1;
+        const flower: dropTableItem = dropTableFlower[dropName];
+        if (flowerPick <= flower.chance){
+            loot.push(flower.item)
+        }
+    });
+    Object.keys(dropTableTreasure).forEach(dropName => {
+        let treasureRarity = Math.floor(Math.random()*100) + 1;
+        const treasure: dropTableItem = dropTableTreasure[dropName];
+        if (treasureRarity <= treasure.chance){
+            loot.push(treasure.item) 
+        }
+    })
 
     if (loot.length === 0) {
         return message.reply("You couldn't find anything on the trip. You are devastated")
     }
+    
 
     let messageBuilder = "__**Loot**__";
     
