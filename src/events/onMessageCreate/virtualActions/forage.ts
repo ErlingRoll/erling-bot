@@ -103,7 +103,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         ) {
             if (!messageBuilder.includes("Forest Loot")) {
                 messageBuilder += `\n:evergreen_tree:**Forest Loot**:evergreen_tree: `;
-                console.log("ForestTitle");
             }
         }
         if (
@@ -114,14 +113,12 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         ) {
             if (!messageBuilder.includes("Flower")) {
                 messageBuilder += `\n:blossom:**Flower**:blossom:`;
-                console.log("FlowerTitle");
             }
         }
 
         if (_item === items.minecraftstevediamondpickaxe) {
             if (!messageBuilder.includes("Treasure")) {
                 messageBuilder += `\n:gem:**Treasure**:gem:`;
-                console.log("TreasureTitle");
             }
         }
 
