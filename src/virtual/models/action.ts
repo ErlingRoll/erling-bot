@@ -8,8 +8,14 @@ export default class Action {
     name: string;
     cooldown: number;
     cost: number;
+    alias: string[];
 
-    constructor(name: string, action: CallableFunction, actionSettings?: ActionSettings) {
+    constructor(
+        name: string,
+        action: CallableFunction,
+        actionSettings?: ActionSettings,
+        alias?: string[]
+    ) {
         this.name = name;
         this.action = action;
 
@@ -17,5 +23,6 @@ export default class Action {
         let { cooldown, cost } = actionSettings || {};
         this.cooldown = cooldown || 0;
         this.cost = cost || 0;
+        this.alias = alias || [];
     }
 }

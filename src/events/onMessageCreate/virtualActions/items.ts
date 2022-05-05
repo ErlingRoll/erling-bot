@@ -12,5 +12,5 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         messageBuilder += `\n- ${_item.name} x ${_item.count}`;
     });
 
-    message.reply(messageBuilder);
+    message.author.send(messageBuilder);
 };

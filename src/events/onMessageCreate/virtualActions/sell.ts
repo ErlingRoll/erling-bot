@@ -25,14 +25,19 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     }
 
     const sellItem: Item = user.items[requestedItem];
+
     if (!sellItem.count) {
         return message.reply(`You do not own any **${sellItem.name}**`);
+    }
+
+    if (amountString === "all") {
+        sellAmount = sellItem.count;
     }
 
     const moneyEarned = Math.floor((sellItem.value * sellAmount) / 2);
     user.money += moneyEarned;
     await user.removeItem(sellItem, sellAmount);
     return message.reply(
-        `**<@${user.id}>** sold **${sellAmount}** **${sellItem.name}** for **${moneyEarned}** money!`
+        `**<@${user.id}>** sold **${sellItem.name}** x ${sellAmount} for **${moneyEarned}** money!`
     );
 };

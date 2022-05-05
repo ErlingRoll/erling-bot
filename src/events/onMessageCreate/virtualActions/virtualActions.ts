@@ -23,22 +23,29 @@ import rest from "./rest";
 import sell from "./sell";
 
 const virtualActions: Action[] = [
-    new Action("adventure", (client: Client, message: Message, user: VirtualUser) =>
-        adventure(client, message, user)
+    new Action(
+        "adventure",
+        (client: Client, message: Message, user: VirtualUser) => adventure(client, message, user),
+        { cooldown: 10000 }
     ),
-    new Action("balance", (client: Client, message: Message, user: VirtualUser) =>
-        balance(client, message, user)
+    new Action(
+        "balance",
+        (client: Client, message: Message, user: VirtualUser) => balance(client, message, user),
+        {},
+        ["money"]
     ),
     new Action(
         "buy",
         (client: Client, message: Message, user: VirtualUser) => buy(client, message, user),
-        { cooldown: 1000 }
+        { cooldown: 1000 },
+        ["shop", "store"]
     ),
     new Action(
         "duel",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             duel(client, message, user, targetUser),
-        { cooldown: 60 * 1000 }
+        { cooldown: 60000 },
+        ["fight"]
     ),
     new Action(
         "equip",
@@ -50,7 +57,7 @@ const virtualActions: Action[] = [
         "feelpurse",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             feelpurse(client, message, user, targetUser),
-        { cooldown: 10000 }
+        { cooldown: 60000 }
     ),
     new Action(
         "Forage",
@@ -60,12 +67,14 @@ const virtualActions: Action[] = [
     new Action(
         "gamba",
         (client: Client, message: Message, user: VirtualUser) => gamba(client, message, user),
-        { cooldown: 1000 }
+        { cooldown: 1000 },
+        ["gamble"]
     ),
     new Action(
         "items",
         (client: Client, message: Message, user: VirtualUser) => items(client, message, user),
-        { cooldown: 1000 }
+        { cooldown: 1000 },
+        ["inventory"]
     ),
     new Action(
         "leaderboard",
@@ -80,19 +89,24 @@ const virtualActions: Action[] = [
     new Action(
         "rest",
         (client: Client, message: Message, user: VirtualUser) => rest(client, message, user),
-        { cooldown: 120000 }
+        { cooldown: 120000 },
+        ["heal", "sleep"]
     ),
     new Action(
         "rob",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             rob(client, message, user, targetUser),
-        { cooldown: 10000 }
+        { cooldown: 10000 },
+        ["steal"]
     ),
     new Action("sell", (client: Client, message: Message, user: VirtualUser) =>
         sell(client, message, user)
     ),
-    new Action("stats", (client: Client, message: Message, user: VirtualUser) =>
-        stats(client, message, user)
+    new Action(
+        "stats",
+        (client: Client, message: Message, user: VirtualUser) => stats(client, message, user),
+        {},
+        ["status"]
     ),
     new Action(
         "slap",

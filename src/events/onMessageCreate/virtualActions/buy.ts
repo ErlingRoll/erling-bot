@@ -2,7 +2,7 @@ import { Client, Message } from "discord.js";
 import MemeAPI from "../../../services/meme";
 import { parseArgs } from "../../../events/middleware";
 import VirtualUser from "../../../virtual/models/virtualUser";
-import Item from "../../../virtual/models/item";
+import Item, { ItemType } from "../../../virtual/models/item";
 
 import { items } from "../../../assets/items/items";
 import { armors } from "../../../assets/items/armors";
@@ -40,11 +40,39 @@ Object.values(weapons).forEach(item => {
 export default async (client: Client, message: Message, user: VirtualUser) => {
     const args = parseArgs(message);
     if (!args || !args[1]) {
-        let reply = "__**Shop**__";
-        Object.keys(shopItems).forEach(itemName => {
-            reply += `\n${shopItems[itemName].name} (${shopItems[itemName].id}) | value: **${shopItems[itemName].value}** money | ${shopItems[itemName].description}`;
+        const shopWeapon = Object.values(shopItems).filter(
+            shopItem => shopItem.type == ItemType.weapon
+        );
+        const shopArmor = Object.values(shopItems).filter(
+            shopItem => shopItem.type == ItemType.armor
+        );
+        const shopConsumable = Object.values(shopItems).filter(
+            shopItem => shopItem.type == ItemType.consumable
+        );
+        const shopInstant = Object.values(shopItems).filter(
+            shopItem => shopItem.type == ItemType.insant
+        );
+
+        let messageBuild = "__**Shop**__";
+        messageBuild += "\n\n__Weapons__";
+        Object.values(shopWeapon).forEach(shopItem => {
+            const weaponItem = shopItem as Weapon;
+            messageBuild += `\n${shopItem.name} (${shopItem.id}) | **+${weaponItem.damage}** damage | ${shopItem.description}`;
         });
-        return message.reply(reply);
+        messageBuild += "\n\n__Armores__";
+        Object.values(shopArmor).forEach(shopItem => {
+            const armorItem = shopItem as Armor;
+            messageBuild += `\n${armorItem.name} (${armorItem.id}) | **+${armorItem.defense}** defense | value: **${armorItem.value}** money | ${armorItem.description}`;
+        });
+        messageBuild += "\n\n__Consumables__";
+        Object.values(shopConsumable).forEach(shopItem => {
+            messageBuild += `\n${shopItem.name} (${shopItem.id}) | value: **${shopItem.value}** money | ${shopItem.description}`;
+        });
+        messageBuild += "\n\n__Instants__";
+        Object.values(shopInstant).forEach(shopItem => {
+            messageBuild += `\n${shopItem.name} (${shopItem.id}) | value: **${shopItem.value}** money | ${shopItem.description}`;
+        });
+        return message.author.send(messageBuild);
     }
 
     const requestedItem = args[1];

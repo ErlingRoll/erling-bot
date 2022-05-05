@@ -26,4 +26,20 @@ export const weapons: { [id: string]: Weapon } = {
         type: ItemType.weapon,
         damage: 5,
     },
+    baseballbat: {
+        id: "baseballbat",
+        name: "Baseball bat",
+        description: "\"Pimpin' ain't dead 'cause I be the life line.\"",
+        value: 299,
+        type: ItemType.weapon,
+        damage: 9,
+    },
+    pimpcane: {
+        id: "pimpcane",
+        name: "Pimp cane",
+        description: "\"Pimpin' ain't dead 'cause I be the life line.\"",
+        value: 420,
+        type: ItemType.weapon,
+        damage: 12,
+    },
 };

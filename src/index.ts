@@ -10,6 +10,7 @@ const client = new Discord.Client({
         Discord.Intents.FLAGS.GUILD_MESSAGES,
         Discord.Intents.FLAGS.GUILD_VOICE_STATES,
         Discord.Intents.FLAGS.GUILD_PRESENCES,
+        Discord.Intents.FLAGS.DIRECT_MESSAGES,
     ],
 });
 

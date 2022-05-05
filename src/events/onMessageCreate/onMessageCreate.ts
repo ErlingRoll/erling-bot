@@ -76,15 +76,28 @@ export async function onMessageCreate(client: Client, message: Message): Promise
         actionPromise = soundActionGroup.actions[command].action(client, message);
     }
 
+    // Make alias for virtual actions
+    const virtualActionAliasMap: { [alias: string]: string } = virtualActions.reduce(
+        (map, action) => {
+            action.alias.forEach(alias => {
+                map = { ...map, [alias]: action.name };
+            });
+            return map;
+        },
+        {}
+    );
+
+    let commandFromAlias = virtualActionAliasMap[command] || command;
+
     // Virtual actions
-    if (!action && virtualActionsCommands.includes(command)) {
-        action = virtualActionGroup.actions[command];
+    if (!action && virtualActionsCommands.includes(commandFromAlias)) {
+        action = virtualActionGroup.actions[commandFromAlias];
         const cooldownLeft = await cooldown(action, virtualUser);
 
         if (cooldownLeft) {
-            message.reply(`!${action.name} is on ${cooldownLeft.toFixed(2)} seconds cooldown`);
+            message.reply(`!${command} is on ${cooldownLeft.toFixed(2)} seconds cooldown`);
         } else {
-            actionPromise = virtualActionGroup.actions[command].action(
+            actionPromise = virtualActionGroup.actions[commandFromAlias].action(
                 client,
                 message,
                 virtualUser,
