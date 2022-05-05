@@ -1,4 +1,5 @@
 import { Client, Message } from "discord.js";
+import Item from "virtual/models/item";
 import VirtualUser from "virtual/models/virtualUser";
 
 const dropTable: any ={
@@ -26,7 +27,7 @@ const dropTable: any ={
     Treasure:{
         name: "Treasure",
         value: 1500,
-        change: 0.5,
+        chance: 0.5,
 
     },
 }
@@ -70,17 +71,17 @@ const dropTableTreasure: any ={
 }
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    let loot: any[] = [];
+    let loot: Item[] = [];
 
     Object.keys(dropTable).forEach(dropName => {
         let forageRarity = Math.floor(Math.random() * 100) + 1;
         let flowerPick = Math.floor(Math.random() * 100) + 1;
         const item: any = dropTable[dropName];
         const flower: any = dropTableFlower[dropName];
-        if (flowerPick <= flower.change){
+        if (flowerPick <= flower.chance){
             loot.push(flower)
         }
-        if (forageRarity <= item.change) {
+        if (forageRarity <= item.chance) {
             loot.push(item);
         }
     });
@@ -96,6 +97,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         await user.addItem(_item);
     });
 
-    messageBuilder += `\n**${user.name}** tucks the loot safely in their pocket!`;
+    messageBuilder += `\n**${user.id}}** tucks the loot safely in their pocket!`;
     return message.reply(messageBuilder);
 };
