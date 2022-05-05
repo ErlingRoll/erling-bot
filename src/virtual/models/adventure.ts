@@ -22,21 +22,18 @@ export default class Adventure {
         for (let i = 0; i < this.monstersAmount; i++) {
             let randomMonster =
                 adventureMonsters[Math.floor(Math.random() * adventureMonsters.length)];
-        }
-
-        adventureMonsters.forEach(monster => {
-            if (!monster) return;
+            if (!randomMonster) continue;
             this.monsters.push(
                 new Monster(
-                    monster.id,
-                    monster.name,
-                    monster.hp,
-                    monster.power,
-                    monster.description,
-                    monster.adventureLevel,
-                    monster.dropTable
+                    randomMonster.id,
+                    randomMonster.name,
+                    randomMonster.hp,
+                    randomMonster.power,
+                    randomMonster.description,
+                    randomMonster.adventureLevel,
+                    randomMonster.dropTable
                 )
             );
-        });
+        }
     }
 }

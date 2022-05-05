@@ -1,6 +1,6 @@
 export enum AdventureLevel {
-    monkey = 0,
-    beginner = 1,
+    monkey,
+    beginner,
     intermediate,
     expert,
     master,

@@ -129,12 +129,13 @@ export default class VirtualUser extends Entity {
         return messageBuilder;
     }
 
-    getDamage(): number {
+    rollDamage(): number {
         let damage = this.power;
         if (this.weapon) {
             damage += this.weapon.damage;
         }
-        return damage;
+        if (damage < 0) damage = 0;
+        return Math.ceil(Math.random() * damage);
     }
 
     getDefense(): number {
@@ -159,7 +160,7 @@ export default class VirtualUser extends Entity {
         let messageBuilder = "";
         let hitRoll = Math.floor(Math.random() * 100) + 1;
 
-        let damageRoll = this.getDamage();
+        let damageRoll = this.rollDamage();
         let targetDefense = target.getDefense();
 
         let damage = damageRoll - targetDefense;

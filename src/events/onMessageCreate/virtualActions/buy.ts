@@ -42,7 +42,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     if (!args || !args[1]) {
         let reply = "__**Shop**__";
         Object.keys(shopItems).forEach(itemName => {
-            reply += `\n${shopItems[itemName].name} | value: **${shopItems[itemName].value}** money | ${shopItems[itemName].description}`;
+            reply += `\n${shopItems[itemName].name} (${shopItems[itemName].id}) | value: **${shopItems[itemName].value}** money | ${shopItems[itemName].description}`;
         });
         return message.reply(reply);
     }
