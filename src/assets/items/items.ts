@@ -82,8 +82,15 @@ export const items: { [id: string]: Item } = {
         value: 250,
         description: "You lucky motherfucker",
         type: ItemType.material,  
+    },
+    MinecraftSteveDiamondPickaxe:{
+        id: "minecraftstevediamondpickaxe",
+        name: "Minecraft Steve's Diamond Picaxe",
+        value: 400,
+        description: "We don't need to stripmine",
+        type: ItemType.weapon
     }
-} 
-
-
 };
+
+
+

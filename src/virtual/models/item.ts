@@ -25,7 +25,7 @@ export default class Item {
         type: ItemType,
         use: CallableFunction = () => {},
         count: number = 1,
-        change: number = 1,
+        chance: number = 1
     ) {
         this.id = id;
         this.name = name;
@@ -34,7 +34,6 @@ export default class Item {
         this.type = type;
         this.use = use;
         this.count = count;
-        this.chance = change;
-        
+        this.chance = chance;
     }
 }
