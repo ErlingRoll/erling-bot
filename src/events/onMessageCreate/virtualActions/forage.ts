@@ -1,10 +1,10 @@
 import { Client, Message } from "discord.js";
-import { dropTableItem } from "../../../virtual/models/dropTableItem";
-import Item from "virtual/models/item";
-import VirtualUser from "virtual/models/virtualUser";
+import { DropTableItem } from "../../../virtual/models/dropTableItem";
+import Item from "../../../virtual/models/item";
+import VirtualUser from "../../../virtual/models/virtualUser";
 import { items } from "../../../assets/items/items";
 
-const dropTable: { [name: string]: dropTableItem } = {
+const dropTable: { [name: string]: DropTableItem } = {
     wood: {
         item: items.wood,
         chance: 60,
@@ -27,7 +27,7 @@ const dropTable: { [name: string]: dropTableItem } = {
     },
 };
 
-const dropTableFlower: { [name: string]: dropTableItem } = {
+const dropTableFlower: { [name: string]: DropTableItem } = {
     dandelion: {
         item: items.dandelion,
         chance: 60,
@@ -50,7 +50,7 @@ const dropTableFlower: { [name: string]: dropTableItem } = {
     },
 };
 
-const dropTableTreasure: { [name: string]: dropTableItem } = {
+const dropTableTreasure: { [name: string]: DropTableItem } = {
     fourleafedclover: {
         item: items.fourleafedclover,
         chance: 10,
@@ -68,21 +68,21 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
 
     Object.keys(dropTable).forEach(dropName => {
         let forageRarity = Math.floor(Math.random() * 100) + 1;
-        const item: dropTableItem = dropTable[dropName];
+        const item: DropTableItem = dropTable[dropName];
         if (forageRarity <= item.chance) {
             loot.push(item.item);
         }
     });
     Object.keys(dropTableFlower).forEach(dropName => {
         let flowerPick = Math.floor(Math.random() * 120) + 1;
-        const flower: dropTableItem = dropTableFlower[dropName];
+        const flower: DropTableItem = dropTableFlower[dropName];
         if (flowerPick <= flower.chance) {
             loot.push(flower.item);
         }
     });
     Object.keys(dropTableTreasure).forEach(dropName => {
         let treasureRarity = Math.floor(Math.random() * 200) + 1;
-        const treasure: dropTableItem = dropTableTreasure[dropName];
+        const treasure: DropTableItem = dropTableTreasure[dropName];
         if (treasureRarity <= treasure.chance) {
             loot.push(treasure.item);
         }
@@ -127,6 +127,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     });
     await Promise.all(lootSavePromise);
 
-    messageBuilder += `\n**@${user.id}** tucks the loot safely in their pocket!`;
+    messageBuilder += `\n**<@${user.id}>** tucks the loot safely in their pocket!`;
     return message.reply(messageBuilder);
 };
