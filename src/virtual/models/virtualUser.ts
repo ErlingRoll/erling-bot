@@ -1,5 +1,5 @@
 import { doc, getDoc, setDoc } from "@firebase/firestore";
-import { User } from "discord.js";
+import { Message, User } from "discord.js";
 import { firestore } from "../../services/firebase";
 import Armor from "./armor";
 import Entity from "./entity";
@@ -10,6 +10,7 @@ import Weapon from "./weapon";
 export default class VirtualUser extends Entity {
     level: number;
     exp: number;
+    maxExp: number;
     maxHp: number;
     money: number;
     isBusy: boolean;
@@ -26,6 +27,7 @@ export default class VirtualUser extends Entity {
         power: number,
         level: number,
         exp: number,
+        maxExp: number,
         maxHp: number,
         isBusy: boolean = false,
         money: number = 0,
@@ -38,6 +40,7 @@ export default class VirtualUser extends Entity {
         super(id, name, hp, power);
         this.level = level;
         this.exp = exp;
+        this.maxExp = maxExp;
         this.maxHp = maxHp;
         this.isBusy = isBusy;
         this.money = money;
@@ -57,6 +60,7 @@ export default class VirtualUser extends Entity {
             power: this.power || 5,
             level: this.level || 1,
             exp: this.exp || 0,
+            maxExp: this.maxExp || 100,
             maxHp: this.maxHp || 100,
             isBusy: this.isBusy,
             money: this.money,
@@ -246,6 +250,36 @@ export default class VirtualUser extends Entity {
         return messageBuilder;
     }
 
+    async addExp(exp: number, message: Message): Promise<void> {
+        this.exp += exp;
+        this.exp = Math.floor(this.exp);
+        if (this.exp >= this.maxExp) {
+            let messageBuilder = "";
+            let remainingExp = this.exp;
+
+            // Level up!
+            while (remainingExp >= this.maxExp) {
+                remainingExp -= this.maxExp;
+                this.level += 1;
+
+                // Change stats
+                this.maxExp = Math.floor(100 * Math.pow(1.1, this.level - 1));
+                this.maxHp = 100 + 3 * (this.level - 1);
+                this.power = 5 + Math.floor(this.level / 5);
+
+                // Broadcast level up
+                if (messageBuilder !== "") messageBuilder += "\n";
+                messageBuilder += `**<@${this.id}>** is now level ${this.level}!`;
+            }
+
+            this.exp = remainingExp;
+            await this.update();
+            message.channel.send(messageBuilder);
+            return;
+        }
+        return this.update();
+    }
+
     reset() {
         // User keeps their most valuable possession
         let bestItem: Item | any = null;
@@ -265,6 +299,7 @@ export default class VirtualUser extends Entity {
             bestItem.count = 1;
         }
 
+        this.exp = 0;
         this.hp = 100;
         this.money = 0;
         this.cooldowns = {
@@ -289,6 +324,7 @@ export default class VirtualUser extends Entity {
             userData.power,
             userData.level,
             userData.exp,
+            userData.maxExp,
             userData.maxHp,
             userData.isBusy,
             userData.money,
@@ -301,7 +337,16 @@ export default class VirtualUser extends Entity {
     };
 
     static createVirtualUser = async (discordUser: User): Promise<VirtualUser | any> => {
-        const newUser = new VirtualUser(discordUser.id, discordUser.username, 1, 0, 100, 100, 5);
+        const newUser = new VirtualUser(
+            discordUser.id,
+            discordUser.username,
+            1,
+            0,
+            100,
+            100,
+            100,
+            5
+        );
 
         await newUser.update();
 

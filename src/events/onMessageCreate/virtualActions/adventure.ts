@@ -34,6 +34,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     const adventure = new Adventure(adventureLevel, 3);
 
     let messageBuilder = `__**<@${user.id}>** goes on a(n) ${level} adventure!__`;
+    let totalExpDrops = 0;
 
     for (let i = 0; i < adventure.monsters.length; i++) {
         // Start encounter
@@ -73,11 +74,11 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         }
 
         if (monster.hp <= 0) {
-            let lootDropped = monster.dropLoot();
-            if (lootDropped.length === 0) {
-                messageBuilder += `\n**${monster.name}** is slayed but drops nothing.`;
-            } else {
-                messageBuilder += `\n**${monster.name}** is slayed and drops: `;
+            let lootDropped = monster.dropTable.rollLoot();
+            totalExpDrops += monster.expDrop;
+            messageBuilder += `\n**${monster.name}** is slayed and **<@${user.id}>** gains **${monster.expDrop} exp**!`;
+            if (lootDropped.length !== 0) {
+                messageBuilder += `\n**${monster.name}** drops:`;
                 let lootSavePromise = lootDropped.map(async lootItem => {
                     messageBuilder += `\n**${lootItem.name}** x ${lootItem.count}`;
                     return user.addItem(lootItem);
@@ -91,5 +92,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         messageBuilder += "\n";
     }
 
-    return message.reply(messageBuilder);
+    messageBuilder += `\nYou return from your adventure with **${user.hp}** hp.`;
+    message.reply(messageBuilder);
+    return await user.addExp(totalExpDrops, message);
 };

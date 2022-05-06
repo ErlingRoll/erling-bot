@@ -1,12 +1,14 @@
 import { AdventureLevel } from "../../constants/adventure";
-import { dropTableItem } from "./dropTableItem";
+import DropTable from "./dropTable";
+import { DropTableItem } from "./dropTableItem";
 import Entity from "./entity";
 import Item from "./item";
 
 export default class Monster extends Entity {
     description: string;
     adventureLevel: AdventureLevel;
-    dropTable: { [itemId: string]: dropTableItem };
+    expDrop: number;
+    dropTable: DropTable;
 
     constructor(
         id: string,
@@ -15,15 +17,17 @@ export default class Monster extends Entity {
         power: number,
         description: string,
         adventureLevel: AdventureLevel,
-        dropTable: { [itemId: string]: dropTableItem }
+        expDrop: number,
+        dropTableItems: { [itemId: string]: DropTableItem }
     ) {
         super(id, name, hp, power);
         this.description = description;
         this.adventureLevel = adventureLevel;
-        this.dropTable = dropTable;
+        this.expDrop = expDrop;
+        this.dropTable = new DropTable(dropTableItems);
     }
 
-    dropLoot(): Item[] {
+    rollLoot(): Item[] {
         let drops: Item[] = [];
         Object.values(this.dropTable).forEach(dropTableItem => {
             let dropRoll = Math.ceil(Math.random() * 100);

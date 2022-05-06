@@ -24,7 +24,11 @@ client.on("ready", async () => {
     const usersSnapshot = await getDocs(usersQuery);
 
     usersSnapshot.forEach(userDoc => {
-        batch.update(userDoc.ref, { isBusy: false, power: 5 });
+        batch.update(userDoc.ref, { isBusy: false });
+
+        // if (!userDoc.data().level) {
+        //     batch.update(userDoc.ref, { level: 1 });
+        // }
     });
 
     await batch.commit();

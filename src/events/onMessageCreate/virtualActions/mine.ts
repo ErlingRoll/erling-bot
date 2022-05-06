@@ -1,50 +1,51 @@
-import { weapons } from "../../../assets/items/weapons";
 import { Client, Message } from "discord.js";
 import VirtualUser from "../../../virtual/models/virtualUser";
+import DropTable from "../../../virtual/models/dropTable";
+import { weapons } from "../../../assets/items/weapons";
+import { minerals } from "../../../assets/items/minerals";
 
-const dropTable: any = {
-    "Old meme": {
-        name: "Old meme",
-        value: 1,
+const miningDropTable: DropTable = new DropTable({
+    copper: {
+        item: minerals.copper,
         chance: 80,
+        amount: 5,
+        randomAmount: true,
     },
-    Copper: {
-        name: "Copper",
-        value: 2,
-        chance: 50,
+    iron: {
+        item: minerals.iron,
+        chance: 70,
+        amount: 3,
+        randomAmount: true,
     },
-    Iron: {
-        name: "Iron",
-        value: 3,
-        chance: 40,
-    },
-    Silver: {
-        name: "Silver",
-        value: 5,
+    silver: {
+        item: minerals.silver,
         chance: 30,
+        amount: 5,
+        randomAmount: true,
     },
-    Gold: {
-        name: "Gold",
-        value: 10,
-        chance: 10,
+    gold: {
+        item: minerals.gold,
+        chance: 30,
+        amount: 3,
+        randomAmount: true,
     },
-    Diamond: {
-        name: "Diamond",
-        value: 50,
-        chance: 2,
+    diamond: {
+        item: minerals.diamond,
+        chance: 5,
+        amount: 2,
+        randomAmount: true,
     },
-    Netherite: {
-        name: "Netherite",
-        value: 100,
+    netherite: {
+        item: minerals.netherite,
         chance: 1,
+        amount: 1,
+        randomAmount: true,
     },
-};
+});
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    let loot: any[] = [];
-
-    if (!user.hasItem(weapons.pickaxe)) {
-        return message.reply("You need a **Pickaxe** to mine");
+    if (!user.weapon || user.weapon.id !== weapons.pickaxe.id) {
+        return message.reply(`You need to equip a **${weapons.pickaxe.name}** to mine`);
     }
 
     let mineCollapseRoll = Math.ceil(Math.random() * 100);
@@ -63,31 +64,22 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     let pickaxeBreakRoll = Math.ceil(Math.random() * 100);
     if (pickaxeBreakRoll <= 3) {
         let messageBuilder = `**<@${user.id}>** swings the pickaxe at a suprisingly hard rock and the pickaxe breaks :(`;
-        await user.removeItem(weapons.pickaxe);
+        await Promise.all([user.unEquip(weapons.pickaxe), user.removeItem(weapons.pickaxe)]);
         return message.reply(messageBuilder);
     }
 
-    Object.keys(dropTable).forEach(dropName => {
-        let mineRarity = Math.ceil(Math.random() * 100);
-        const item: any = dropTable[dropName];
-        if (mineRarity <= item.chance) {
-            loot.push(item);
-        }
-    });
+    let loot = miningDropTable.rollLoot();
 
     if (loot.length === 0) {
         return message.reply("No loot today. You are sad.");
     }
 
     let messageBuilder = "__**Loot**__";
-    let totalValue = 0;
-
-    loot.forEach(_item => {
-        messageBuilder += `\n${_item.name} | Value: ${_item.value}`;
-        totalValue += _item.value;
+    let lootSavePromise = loot.map(async lootItem => {
+        messageBuilder += `\n**${lootItem.name}** x ${lootItem.count}`;
+        return user.addItem(lootItem);
     });
+    await Promise.all(lootSavePromise);
 
-    user.money += totalValue;
-    messageBuilder += `\n**<@${user.id}>** sells loot for a total of ${totalValue} money!`;
     return message.reply(messageBuilder);
 };

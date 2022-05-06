@@ -12,6 +12,7 @@ export const monsters: { [id: string]: Monster | any } = {
         adventureLevel: AdventureLevel.monkey,
         hp: 4,
         power: 7,
+        expDrop: 10,
         dropTable: {
             [weapons.toothpick.id]: {
                 item: weapons.toothpick,
@@ -27,6 +28,7 @@ export const monsters: { [id: string]: Monster | any } = {
         adventureLevel: AdventureLevel.monkey,
         hp: 3,
         power: 10,
+        expDrop: 10,
         dropTable: {
             [weapons.toothpick.id]: {
                 item: weapons.toothpick,
@@ -43,6 +45,7 @@ export const monsters: { [id: string]: Monster | any } = {
         adventureLevel: AdventureLevel.beginner,
         hp: 9,
         power: 7,
+        expDrop: 14,
         dropTable: {
             [weapons.toothpick.id]: {
                 item: weapons.toothpick,
@@ -63,6 +66,7 @@ export const monsters: { [id: string]: Monster | any } = {
         adventureLevel: AdventureLevel.beginner,
         hp: 8,
         power: 14,
+        expDrop: 14,
         dropTable: {
             [weapons.toothpick.id]: {
                 item: weapons.toothpick,
@@ -78,8 +82,9 @@ export const monsters: { [id: string]: Monster | any } = {
         description:
             "A megalomaniac filled with a deep seated hatred for his fellow chickens and especially humans, his former captors.",
         adventureLevel: AdventureLevel.intermediate,
-        hp: 15,
+        hp: 23,
         power: 18,
+        expDrop: 20,
         dropTable: {
             [weapons.pickaxe.id]: {
                 item: weapons.pickaxe,
@@ -94,8 +99,9 @@ export const monsters: { [id: string]: Monster | any } = {
         name: "Flying pig",
         description: '"I cannot believe it!"',
         adventureLevel: AdventureLevel.intermediate,
-        hp: 17,
+        hp: 20,
         power: 17,
+        expDrop: 20,
         dropTable: {
             [weapons.cottonsword.id]: {
                 item: weapons.cottonsword,
