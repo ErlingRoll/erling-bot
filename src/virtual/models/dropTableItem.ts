@@ -1,6 +1,6 @@
 import Item from "./item";
 
-export type dropTableItem = {
+export type DropTableItem = {
     chance: number;
     item: Item;
     amount: number;

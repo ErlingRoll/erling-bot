@@ -13,14 +13,14 @@ export default async (client: Client, message: Message, user: VirtualUser, targe
         user.hp -= SHAME_DAMAGE;
         await user.update();
         message.reply(
-            `**${target.name}** catches **${user.name}** red handed! **${user.name}** takes **${SHAME_DAMAGE}** shame damage.`
+            `**<@${target.id}>** catches **<@${user.id}>** red handed! **<@${user.id}>** takes **${SHAME_DAMAGE}** shame damage.`
         );
         return;
     }
 
     if (target.money === 0) {
         return message.reply(
-            `**${user.name}** tries to rob **${target.name}** but finds no money.`
+            `**<@${user.id}>** tries to rob **<@${target.id}>** but finds no money.`
         );
     }
 
@@ -30,12 +30,12 @@ export default async (client: Client, message: Message, user: VirtualUser, targe
         user.money += robAmount;
         await Promise.all([target.update(), user.update()]);
         return message.reply(
-            `**${user.name}** steals **${robAmount}** :coin: from **${target.name}**. **${target.name}** has no money left.`
+            `**<@${user.id}>** steals **${robAmount}** money from **<@${target.id}>**. **<@${target.id}>** has no money left.`
         );
     }
 
     target.money -= robAmount;
     user.money += robAmount;
     await Promise.all([target.update(), user.update()]);
-    message.reply(`**${user.name}** steals **${robAmount}** :coin: from **${target.name}**.`);
+    message.reply(`**<@${user.id}>** steals **${robAmount}** money from **<@${target.id}>**.`);
 };

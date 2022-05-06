@@ -10,4 +10,12 @@ export default class Entity {
         this.hp = hp;
         this.power = power;
     }
+
+    rollDamage() {
+        return Math.floor(Math.random() * this.power);
+    }
+
+    async takeDamage(damage: number): Promise<void> {
+        this.hp -= damage;
+    }
 }

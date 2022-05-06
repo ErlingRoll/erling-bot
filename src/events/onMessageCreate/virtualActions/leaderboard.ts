@@ -19,16 +19,20 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     const myIndex = users.findIndex(_user => _user.id === user.id);
     users.slice(0, 10).forEach((user, index) => {
         if (index === myIndex) {
-            messageBuilder += `\n**${index + 1}. <@${user.id}> | ${user.money} :coin:**`;
+            messageBuilder += `\n**${index + 1}. <@${user.id}> (Level ${user.level}) | ${
+                user.money
+            } money**`;
         } else {
-            messageBuilder += `\n${index + 1}. <@${user.id}> | ${user.money} :coin:`;
+            messageBuilder += `\n${index + 1}. <@${user.id}> (Level ${user.level}) | ${
+                user.money
+            } money`;
         }
     });
 
     if (myIndex > 9) {
-        messageBuilder += `\n**You are placed ${myIndex + 1}. <@${user.id}> | ${
-            user.money
-        } :coin:**`;
+        messageBuilder += `\n**You are placed ${myIndex + 1}. <@${user.id}> (Level ${
+            user.level
+        }) | ${user.money} money**`;
     }
 
     message.reply(messageBuilder);

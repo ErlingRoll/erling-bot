@@ -1,9 +1,11 @@
 import { Client, Message } from "discord.js";
+import VirtualUser from "../../../virtual/models/virtualUser";
 import Action from "../../../virtual/models/action";
 import playAudio from "./playAudio";
 
 const soundFiles: { [name: string]: string } = {
     ah: "../../../assets/audio/ah.mp3",
+    amogus: "../../../assets/audio/amogus.mp3",
     augh: "../../../assets/audio/augh.mp3",
     avdol: "../../../assets/audio/avdol.mp3",
     bwabwabwa: "../../../assets/audio/bwabwabwa.mp3",
@@ -25,8 +27,8 @@ const soundFiles: { [name: string]: string } = {
 };
 
 const soundActions: Action[] = Object.keys(soundFiles).map(name => {
-    return new Action(name, (client: Client, message: Message) =>
-        playAudio(client, message, soundFiles[name])
+    return new Action(name, (client: Client, message: Message, virtualUser: VirtualUser) =>
+        playAudio(client, message, virtualUser, soundFiles[name])
     );
 });
 

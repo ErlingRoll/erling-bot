@@ -2,8 +2,8 @@ import { Client, Message } from "discord.js";
 import VirtualUser from "virtual/models/virtualUser";
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    if (user.items === {}) {
-        message.reply("You do not have any items. Feelsbadman.");
+    if (!user.items || Object.keys(user.items).length === 0 || user.items === {}) {
+        return message.reply("You do not have any items. Feelsbadman.");
     }
 
     let messageBuilder = `__**Items**__`;
@@ -12,5 +12,5 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         messageBuilder += `\n- ${_item.name} x ${_item.count}`;
     });
 
-    message.reply(messageBuilder);
+    message.author.send(messageBuilder);
 };

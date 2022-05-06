@@ -22,9 +22,10 @@ export default async (
     }
 
     const item = items[itemId];
-    await user.useItem(item);
 
-    if (item.use) {
+    if (item && item.use) {
+        await user.useItem(item);
+
         const itemMessage = await item.use(client, message, user, targetUser);
 
         if (!itemMessage) {
@@ -32,5 +33,7 @@ export default async (
         }
 
         return message.reply(itemMessage);
+    } else {
+        return message.reply(`**${inventoryItem.name}** is not usable.`);
     }
 };
