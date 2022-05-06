@@ -1,37 +1,51 @@
-import { doc, setDoc, Timestamp } from "@firebase/firestore";
+import { doc, getDoc, setDoc } from "@firebase/firestore";
+import { User } from "discord.js";
 import { firestore } from "../../services/firebase";
 import Armor from "./armor";
 import Entity from "./entity";
 import Item, { ItemType } from "./item";
+import SoulStone from "./soulStone";
 import Weapon from "./weapon";
 
 export default class VirtualUser extends Entity {
+    level: number;
+    exp: number;
+    maxHp: number;
     money: number;
     isBusy: boolean;
     cooldowns: { [command: string]: number };
     items: { [name: string]: Item | any };
-    weapon?: Weapon | null;
-    armor?: Armor | null;
+    weapon: Weapon | null;
+    armor: Armor | null;
+    soulStone: SoulStone | null;
 
     constructor(
         id: string,
         name: string,
         hp: number,
         power: number,
+        level: number,
+        exp: number,
+        maxHp: number,
         isBusy: boolean = false,
         money: number = 0,
         cooldowns: { [command: string]: number } = {},
         items: { [name: string]: Item } = {},
         weapon: Weapon | null = null,
-        armor: Armor | null = null
+        armor: Armor | null = null,
+        soulStone: SoulStone | null = null
     ) {
         super(id, name, hp, power);
+        this.level = level;
+        this.exp = exp;
+        this.maxHp = maxHp;
         this.isBusy = isBusy;
         this.money = money;
         this.cooldowns = cooldowns;
         this.items = items;
         this.weapon = weapon || null;
         this.armor = armor || null;
+        this.soulStone = soulStone || null;
     }
 
     // Sync user with database
@@ -39,14 +53,18 @@ export default class VirtualUser extends Entity {
         return setDoc(doc(firestore, "users", this.id), {
             id: this.id,
             name: this.name,
-            hp: this.hp,
+            hp: this.hp || 100,
             power: this.power || 5,
+            level: this.level || 1,
+            exp: this.exp || 0,
+            maxHp: this.maxHp || 100,
             isBusy: this.isBusy,
             money: this.money,
             cooldowns: this.cooldowns || {},
             items: this.items,
             armor: this.armor || null,
             weapon: this.weapon || null,
+            soulStone: this.soulStone || null,
         });
     }
 
@@ -113,25 +131,32 @@ export default class VirtualUser extends Entity {
         return `You equip **${item.name}**`;
     }
 
-    async checkKilled(killer?: VirtualUser): Promise<string> {
-        let messageBuilder = "";
-        if (this.hp <= 0) {
-            const moneyToLoot = Math.floor(this.money * 0.5);
+    async unEquip(item: Item): Promise<string> {
+        const existingItem = this.items[item.id];
 
-            this.reset();
-
-            let promises = [this.update()];
-
-            if (killer) {
-                killer.money += moneyToLoot;
-                promises.push(killer.update());
-                messageBuilder += `\n**<@${killer.id}>** kills **<@${this.id}>** and loots **${moneyToLoot}** money!`;
-            }
-
-            await Promise.all(promises);
+        if (!existingItem) {
+            return `You do now own a(n) **${item.name}**`;
         }
 
-        return messageBuilder;
+        if (![ItemType.armor, ItemType.weapon].includes(item.type)) {
+            return `${item.name} is not unequipable`;
+        }
+
+        if (item.type === ItemType.armor) {
+            this.armor = null;
+        }
+
+        if (item.type === ItemType.weapon) {
+            this.weapon = null;
+        }
+
+        await this.update();
+        return `You unequip **${item.name}**`;
+    }
+
+    hasItem(item: Item): boolean {
+        if (!this.items) return false;
+        return Boolean(this.items[item.id] && this.items[item.id].count > 0);
     }
 
     rollDamage(): number {
@@ -149,16 +174,6 @@ export default class VirtualUser extends Entity {
             defense += this.armor.defense;
         }
         return defense;
-    }
-
-    hasItem(item: Item): boolean {
-        if (!this.items) return false;
-        return Boolean(this.items[item.id] && this.items[item.id].count > 0);
-    }
-
-    async takeDamage(damage: number): Promise<void> {
-        this.hp -= damage;
-        return this.update();
     }
 
     async attackPlayer(target: VirtualUser): Promise<string> {
@@ -195,14 +210,101 @@ export default class VirtualUser extends Entity {
         return messageBuilder;
     }
 
+    async takeDamage(damage: number): Promise<void> {
+        this.hp -= damage;
+        return this.update();
+    }
+
+    async heal(heal: number): Promise<void> {
+        if (this.hp >= this.maxHp) return;
+        if (this.hp + heal > this.maxHp) {
+            this.hp = this.maxHp;
+            return this.update();
+        }
+        this.hp += heal;
+        return this.update();
+    }
+
+    async checkKilled(killer?: VirtualUser): Promise<string> {
+        let messageBuilder = "";
+        if (this.hp <= 0) {
+            const moneyToLoot = Math.floor(this.money * 0.5);
+
+            this.reset();
+
+            let promises = [this.update()];
+
+            if (killer) {
+                killer.money += moneyToLoot;
+                promises.push(killer.update());
+                messageBuilder += `\n**<@${killer.id}>** kills **<@${this.id}>** and loots **${moneyToLoot}** money!`;
+            }
+
+            await Promise.all(promises);
+        }
+
+        return messageBuilder;
+    }
+
     reset() {
+        // User keeps their most valuable possession
+        let bestItem: Item | any = null;
+
+        let inventoryItems: Item[] = Object.values(this.items);
+
+        inventoryItems.forEach(item => {
+            if (!bestItem) {
+                bestItem = item;
+            } else if (bestItem.value < item.value) {
+                bestItem = item;
+            }
+            bestItem = item;
+        });
+
+        if (bestItem) {
+            bestItem.count = 1;
+        }
+
         this.hp = 100;
         this.money = 0;
         this.cooldowns = {
             duel: Date.now() + 120000,
         };
-        this.items = {};
-        this.armor = undefined;
-        this.weapon = undefined;
+        this.items = bestItem ? { [bestItem.id]: bestItem } : {};
+        this.armor = null;
+        this.weapon = null;
+        this.soulStone = null;
     }
+
+    static getVirtualUser = async (discordUser: User): Promise<VirtualUser | any> => {
+        const userRef = doc(firestore, "users", discordUser.id);
+        const userSnap = await getDoc(userRef);
+        if (!userSnap.exists()) return this.createVirtualUser(discordUser);
+
+        const userData = userSnap.data() as VirtualUser;
+        return new VirtualUser(
+            userData.id,
+            userData.name,
+            userData.hp,
+            userData.power,
+            userData.level,
+            userData.exp,
+            userData.maxHp,
+            userData.isBusy,
+            userData.money,
+            userData.cooldowns,
+            userData.items,
+            userData.weapon,
+            userData.armor,
+            userData.soulStone
+        );
+    };
+
+    static createVirtualUser = async (discordUser: User): Promise<VirtualUser | any> => {
+        const newUser = new VirtualUser(discordUser.id, discordUser.username, 1, 0, 100, 100, 5);
+
+        await newUser.update();
+
+        return newUser;
+    };
 }

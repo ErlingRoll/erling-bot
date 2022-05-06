@@ -21,6 +21,7 @@ import leaderboard from "./leaderboard";
 import adventure from "./adventure";
 import rest from "./rest";
 import sell from "./sell";
+import unequip from "./unequip";
 
 const virtualActions: Action[] = [
     new Action(
@@ -50,7 +51,7 @@ const virtualActions: Action[] = [
     new Action(
         "equip",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
-            equip(client, message, user, targetUser),
+            equip(client, message, user),
         { cooldown: 1000 }
     ),
     new Action(
@@ -113,6 +114,11 @@ const virtualActions: Action[] = [
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             slap(client, message, user, targetUser),
         { cooldown: 60000 }
+    ),
+    new Action(
+        "unequip",
+        (client: Client, message: Message, user: VirtualUser) => unequip(client, message, user),
+        { cooldown: 1000 }
     ),
     new Action(
         "use",

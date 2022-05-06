@@ -1,7 +1,6 @@
 import { Client, Message } from "discord.js";
-import Action from "virtual/models/action";
-import VirtualUser from "virtual/models/virtualUser";
-import { getVirtualUser } from "../virtual/helpers";
+import Action from "../virtual/models/action";
+import VirtualUser from "../virtual/models/virtualUser";
 
 const BOT_PREFIX = process.env.BOT_PREFIX;
 
@@ -28,7 +27,7 @@ export const getTargetUser = async (
     targetId = targetId.replace(/\D/g, ""); // Remove all none digits
     const targetDiscordUser = await client.users.fetch(targetId).catch(_error => {});
     if (!targetDiscordUser) return;
-    return await getVirtualUser(targetDiscordUser);
+    return await VirtualUser.getVirtualUser(targetDiscordUser);
 };
 
 export const cooldown = async (

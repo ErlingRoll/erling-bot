@@ -61,7 +61,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     }
 
     let pickaxeBreakRoll = Math.ceil(Math.random() * 100);
-    if (pickaxeBreakRoll <= 5) {
+    if (pickaxeBreakRoll <= 3) {
         let messageBuilder = `**<@${user.id}>** swings the pickaxe at a suprisingly hard rock and the pickaxe breaks :(`;
         await user.removeItem(weapons.pickaxe);
         return message.reply(messageBuilder);

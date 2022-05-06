@@ -5,6 +5,8 @@ import { parseArgs } from "../../../events/middleware";
 import VirtualUser from "../../../virtual/models/virtualUser";
 import Monster from "../../../virtual/models/monster";
 
+const COMBAT_TURNS: number = 3;
+
 export default async (client: Client, message: Message, user: VirtualUser) => {
     const args = parseArgs(message);
 
@@ -34,21 +36,43 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     let messageBuilder = `__**<@${user.id}>** goes on a(n) ${level} adventure!__`;
 
     for (let i = 0; i < adventure.monsters.length; i++) {
+        // Start encounter
         const monster = adventure.monsters[i];
         messageBuilder += `\n**<@${user.id}>** encounters a(n) **${monster.name}**.`;
-        let monsterDamageRoll = monster.getDamageRoll();
-        if (user.armor) monsterDamageRoll -= user.armor.defense;
-        if (monsterDamageRoll < 0) monsterDamageRoll = 0;
-        user.takeDamage(monsterDamageRoll);
-        messageBuilder += `\n**${monster.name}** hits **<@${user.id}>** for **${monsterDamageRoll}** monster damage!`;
+
+        let monsterDamageMessage = "";
+        let userDamageMessage = "";
+
+        // Damage phases
+        for (let i = 0; i < COMBAT_TURNS; i++) {
+            // Monster hits
+            let monsterDamageRoll = monster.rollDamage();
+            if (user.armor) monsterDamageRoll -= user.armor.defense;
+            if (monsterDamageRoll < 0) monsterDamageRoll = 0;
+            if (monsterDamageMessage !== "") monsterDamageMessage += ", ";
+            monsterDamageMessage += `${monsterDamageRoll}`;
+            user.takeDamage(monsterDamageRoll);
+            if (user.hp <= 0) break;
+
+            // User Hits
+            let userDamageRoll = user.rollDamage();
+            if (userDamageMessage !== "") userDamageMessage += ", ";
+            userDamageMessage += `${userDamageRoll}`;
+            monster.takeDamage(userDamageRoll);
+            if (monster.hp <= 0) break;
+        }
+
+        // Add damage messages
+        messageBuilder += `\n**${monster.name}** hits **<@${user.id}>** for **${monsterDamageMessage}** monster damage!`;
+        messageBuilder += `\n**<@${user.id}>** hits **${monster.name}** for **${userDamageMessage}** PvE damage!`;
+
         if (user.hp <= 0) {
             await user.checkKilled();
             messageBuilder += `\n**${monster.name}** slaughters **<@${user.id}>**!`;
             return message.reply(messageBuilder);
         }
-        const userDamageRoll = user.rollDamage();
-        messageBuilder += `\n**<@${user.id}>** hits **${monster.name}** for **${userDamageRoll}** PvE damage!`;
-        if (userDamageRoll >= monster.hp) {
+
+        if (monster.hp <= 0) {
             let lootDropped = monster.dropLoot();
             if (lootDropped.length === 0) {
                 messageBuilder += `\n**${monster.name}** is slayed but drops nothing.`;
@@ -61,8 +85,9 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
                 await Promise.all(lootSavePromise);
             }
         } else {
-            messageBuilder += `\n**${monster.name}** escapes!`;
+            messageBuilder += `\n**${monster.name}** flees!`;
         }
+
         messageBuilder += "\n";
     }
 

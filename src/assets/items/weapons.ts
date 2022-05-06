@@ -29,7 +29,7 @@ export const weapons: { [id: string]: Weapon } = {
     baseballbat: {
         id: "baseballbat",
         name: "Baseball bat",
-        description: "\"Pimpin' ain't dead 'cause I be the life line.\"",
+        description: "Made of steel!",
         value: 299,
         type: ItemType.weapon,
         damage: 9,

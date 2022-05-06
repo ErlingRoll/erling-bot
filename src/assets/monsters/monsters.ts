@@ -10,7 +10,7 @@ export const monsters: { [id: string]: Monster | any } = {
         name: "Highschool bully",
         description: "Big meanie",
         adventureLevel: AdventureLevel.monkey,
-        hp: 5,
+        hp: 4,
         power: 7,
         dropTable: {
             [weapons.toothpick.id]: {
@@ -25,7 +25,7 @@ export const monsters: { [id: string]: Monster | any } = {
         name: "Marius",
         description: "Proud racist",
         adventureLevel: AdventureLevel.monkey,
-        hp: 4,
+        hp: 3,
         power: 10,
         dropTable: {
             [weapons.toothpick.id]: {
@@ -50,7 +50,7 @@ export const monsters: { [id: string]: Monster | any } = {
                 amount: 1,
             },
             [weapons.pickaxe.id]: {
-                item: weapons.toothpick,
+                item: weapons.pickaxe,
                 chance: 20,
                 amount: 1,
             },
@@ -79,11 +79,27 @@ export const monsters: { [id: string]: Monster | any } = {
             "A megalomaniac filled with a deep seated hatred for his fellow chickens and especially humans, his former captors.",
         adventureLevel: AdventureLevel.intermediate,
         hp: 15,
-        power: 15,
+        power: 18,
         dropTable: {
             [weapons.pickaxe.id]: {
                 item: weapons.pickaxe,
-                chance: 50,
+                chance: 60,
+                amount: 2,
+                randomAmount: true,
+            },
+        },
+    },
+    flyingpig: {
+        id: "flyingpig",
+        name: "Flying pig",
+        description: '"I cannot believe it!"',
+        adventureLevel: AdventureLevel.intermediate,
+        hp: 17,
+        power: 17,
+        dropTable: {
+            [weapons.cottonsword.id]: {
+                item: weapons.cottonsword,
+                chance: 40,
                 amount: 1,
             },
         },

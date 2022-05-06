@@ -17,7 +17,6 @@ export default class Adventure {
             return Math.abs(this.level - monster.adventureLevel) <= 1;
         });
 
-        console.log(adventureMonsters);
         for (let i = 0; i < this.monstersAmount; i++) {
             let randomMonster =
                 adventureMonsters[Math.floor(Math.random() * adventureMonsters.length)];

@@ -57,7 +57,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         messageBuild += "\n\n__Weapons__";
         Object.values(shopWeapon).forEach(shopItem => {
             const weaponItem = shopItem as Weapon;
-            messageBuild += `\n${shopItem.name} (${shopItem.id}) | **+${weaponItem.damage}** damage | ${shopItem.description}`;
+            messageBuild += `\n${shopItem.name} (${shopItem.id}) | **+${weaponItem.damage}** damage | value: **${shopItem.value}** money | ${shopItem.description}`;
         });
         messageBuild += "\n\n__Armores__";
         Object.values(shopArmor).forEach(shopItem => {

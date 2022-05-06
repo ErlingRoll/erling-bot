@@ -9,7 +9,7 @@ import VirtualUser from "../../../virtual/models/virtualUser";
 export default async (client: Client, message: Message, user: VirtualUser) => {
     const args = parseArgs(message);
     if (!args || !args[1]) {
-        return message.reply("Select an item to equip: `!equip cottonsword`");
+        return message.reply("Select an item to unequip: `!unequip cottonsword`");
     }
 
     let itemId = args[1].toLowerCase();
@@ -19,7 +19,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         return message.reply(`You do not have a(n) **${itemId}**`);
     }
 
-    const itemMessage = await user.equipItem(inventoryItem);
+    const itemMessage = await user.unEquip(inventoryItem);
 
     message.reply(itemMessage);
 };

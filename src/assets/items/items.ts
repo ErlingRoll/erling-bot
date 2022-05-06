@@ -15,9 +15,24 @@ export const items: { [id: string]: Item } = {
             user: VirtualUser,
             targetUser: VirtualUser
         ): Promise<string> => {
-            user.hp += 100;
-            await user.update();
-            return `**<@${user.id}>** eats a burger and heals 100 hp!`;
+            await user.heal(50);
+            return `**<@${user.id}>** eats a burger and heals 50 hp!`;
+        },
+    },
+    steamedham: {
+        id: "steamedham",
+        name: "Steamed ham",
+        description: "Crusty burger.",
+        value: 50,
+        type: ItemType.consumable,
+        use: async (
+            client: Client,
+            message: Message,
+            user: VirtualUser,
+            targetUser: VirtualUser
+        ): Promise<string> => {
+            await user.heal(20);
+            return `**<@${user.id}>** eats a steamed clam and heals 20 hp!`;
         },
     },
     meme: {

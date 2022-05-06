@@ -23,10 +23,6 @@ export default class Monster extends Entity {
         this.dropTable = dropTable;
     }
 
-    getDamageRoll() {
-        return Math.floor(Math.random() * this.power);
-    }
-
     dropLoot(): Item[] {
         let drops: Item[] = [];
         Object.values(this.dropTable).forEach(dropTableItem => {
