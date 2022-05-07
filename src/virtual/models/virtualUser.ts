@@ -219,14 +219,18 @@ export default class VirtualUser extends Entity {
         return this.update();
     }
 
-    async heal(heal: number): Promise<void> {
-        if (this.hp >= this.maxHp) return;
+    async heal(heal: number): Promise<number> {
+        let health;
+        if (this.hp >= this.maxHp) return 0;
         if (this.hp + heal > this.maxHp) {
+            health = this.maxHp - this.hp;
             this.hp = this.maxHp;
-            return this.update();
+            await this.update();
+            return health;
         }
         this.hp += heal;
-        return this.update();
+        await this.update();
+        return heal;
     }
 
     async checkKilled(killer?: VirtualUser): Promise<string> {
