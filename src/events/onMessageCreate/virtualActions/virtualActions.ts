@@ -61,7 +61,7 @@ const virtualActions: Action[] = [
         { cooldown: 60000 }
     ),
     new Action(
-        "Forage",
+        "forage",
         (client: Client, message: Message, user: VirtualUser) => forage(client, message, user),
         { cooldown: 10000 }
     ),
