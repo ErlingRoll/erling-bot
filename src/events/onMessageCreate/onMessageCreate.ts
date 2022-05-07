@@ -91,7 +91,7 @@ export async function onMessageCreate(client: Client, message: Message): Promise
     // Virtual actions
     if (!action && virtualActionsCommands.includes(commandFromAlias)) {
         action = virtualActionGroup.actions[commandFromAlias];
-        const cooldownLeft = await cooldown(action, virtualUser);
+        const cooldownLeft = await cooldown(action, message, virtualUser);
 
         if (cooldownLeft) {
             message.reply(`!${command} is on ${cooldownLeft.toFixed(2)} seconds cooldown`);
