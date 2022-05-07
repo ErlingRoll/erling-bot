@@ -300,7 +300,7 @@ export default class VirtualUser extends Entity {
         }
 
         this.exp = 0;
-        this.hp = 100;
+        this.hp = this.maxHp;
         this.money = 0;
         this.cooldowns = {
             duel: Date.now() + 120000,

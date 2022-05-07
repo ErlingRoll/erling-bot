@@ -4,11 +4,17 @@
     "jsx": "react",
     "module": "commonjs",
     "baseUrl": "./src",
+    "rootDir": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "moduleResolution": "node",
     "outDir": "./dist",
+    "sourceMap": true,
   },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.d.ts"
+  ],
   "esModuleInterop": true
 }

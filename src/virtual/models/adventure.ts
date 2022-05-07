@@ -13,16 +13,23 @@ export default class Adventure {
         this.monstersAmount = monstersAmount;
         this.monsters = [];
 
-        let adventureMonsters: Monster[] = Object.values(monsters).filter(monster => {
-            // Add possible monsters if they are within 1 adventure level
-            return Math.abs(this.level - monster.adventureLevel) <= 1;
+        let possibleAdventureMonsters: Monster[] = [];
+
+        Object.keys(monsters).forEach(adventureLevel => {
+            let adventureLevelNumber = parseInt(adventureLevel);
+            if (Math.abs(this.level - adventureLevelNumber) >= 1) return;
+            possibleAdventureMonsters.push(
+                ...(Object.values(monsters[adventureLevelNumber]) as Monster[])
+            );
         });
 
         const encounters = Math.ceil(Math.random() * this.monstersAmount);
 
         for (let i = 0; i < encounters; i++) {
             let randomMonster =
-                adventureMonsters[Math.floor(Math.random() * adventureMonsters.length)];
+                possibleAdventureMonsters[
+                    Math.floor(Math.random() * possibleAdventureMonsters.length)
+                ];
 
             if (!randomMonster) continue;
             this.monsters.push(
