@@ -37,11 +37,7 @@ export async function onMessageCreate(client: Client, message: Message): Promise
     const targetVirtualUser = ((await getTargetUser(client, message)) as VirtualUser) || null;
 
     if (targetVirtualUser && targetVirtualUser.id === "905526390764486656") {
-        virtualUser.hp = 0;
-        virtualUser.checkKilled();
-        return message.reply(
-            "Stop trying to interact with god. You are smited for **9999999** admin damage and crumble to dust :D"
-        );
+        return message.reply("Don't mess with the bot!");
     }
 
     if (virtualUser.isBusy) {
