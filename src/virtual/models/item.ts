@@ -15,7 +15,6 @@ export default class Item {
     type: ItemType;
     use?: CallableFunction;
     count?: number;
-    chance?: number;
 
     constructor(
         id: string,
@@ -24,8 +23,7 @@ export default class Item {
         value: number,
         type: ItemType,
         use: CallableFunction = () => {},
-        count: number = 1,
-        chance: number = 1
+        count: number = 1
     ) {
         this.id = id;
         this.name = name;
@@ -34,6 +32,5 @@ export default class Item {
         this.type = type;
         this.use = use;
         this.count = count;
-        this.chance = chance;
     }
 }

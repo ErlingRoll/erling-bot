@@ -42,4 +42,12 @@ export const weapons: { [id: string]: Weapon } = {
         type: ItemType.weapon,
         damage: 12,
     },
+    minecraftstevediamondpickaxe: {
+        id: "minecraftstevediamondpickaxe",
+        name: "Minecraft Steve's Diamond Pickaxe",
+        description: '"We don\'t need to stripmine."',
+        value: 500,
+        type: ItemType.weapon,
+        damage: 5,
+    },
 };

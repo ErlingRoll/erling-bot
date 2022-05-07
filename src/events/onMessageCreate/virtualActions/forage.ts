@@ -71,7 +71,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         return message.reply("You couldn't find anything on the trip. You are devastated");
     }
 
-    let messageBuilder = `\n**@${user.name}** walks into the woods hoping to find some dank stuff, and so they did! \n__**LOOT**__`;
+    let messageBuilder = `\n**<@${user.id}>** walks into the woods hoping to find some dank stuff, and so they did! \n__**LOOT**__`;
 
     let lootSavePromise = lootForest.map(async _item => {
         if (
@@ -106,6 +106,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     });
     await Promise.all(lootSavePromise);
 
-    messageBuilder += `\n**@${user.name}** tucks the loot safely in their pocket!`;
+    messageBuilder += `\n**<@${user.id}>** tucks the loot safely in their pocket!`;
     return message.reply(messageBuilder);
 };
