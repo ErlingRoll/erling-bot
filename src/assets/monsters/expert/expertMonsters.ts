@@ -1,3 +1,7 @@
 import Monster from "virtual/models/monster";
 
-export const expertMonsters: { [id: string]: Monster | any } = {};
+import dog from "./dog";
+
+export const expertMonsters: { [id: string]: Monster | any } = {
+    dog,
+};

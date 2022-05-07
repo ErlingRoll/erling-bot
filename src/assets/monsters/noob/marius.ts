@@ -5,6 +5,7 @@ export default {
     id: "marius",
     name: "Marius",
     description: "Proud racist",
+    damagetype: "racist",
     adventureLevel: AdventureLevel.noob,
     hp: 3,
     power: 10,

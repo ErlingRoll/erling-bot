@@ -41,6 +41,7 @@ export default class Adventure {
                     randomMonster.description,
                     randomMonster.adventureLevel,
                     randomMonster.expDrop,
+                    randomMonster.damagetype,
                     randomMonster.dropTable as unknown as { [itemId: string]: DropTableItem }
                 )
             );
