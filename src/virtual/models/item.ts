@@ -1,9 +1,9 @@
 export enum ItemType {
-    "insant",
-    "consumable",
-    "weapon",
-    "armor",
-    "material",
+    instant,
+    consumable,
+    weapon,
+    armor,
+    material,
 }
 
 export default class Item {

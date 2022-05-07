@@ -5,18 +5,19 @@ import VirtualUser from "../../../virtual/models/virtualUser";
 import Item, { ItemType } from "../../../virtual/models/item";
 
 import { items } from "../../../assets/items/items";
-import { armors } from "../../../assets/items/armors";
-import { weapons } from "../../../assets/items/weapons";
 import Armor from "../../../virtual/models/armor";
 import Weapon from "../../../virtual/models/weapon";
 
 const shopItems: { [itemId: string]: Item } = {};
 
 // Add items to shop
-Object.values(items).forEach(item => {
+Object.values(items[ItemType.consumable]).forEach(item => {
     shopItems[item.id] = new Item(item.id, item.name, item.description, item.value, item.type);
 });
-Object.values(armors).forEach(item => {
+Object.values(items[ItemType.instant]).forEach(item => {
+    shopItems[item.id] = new Item(item.id, item.name, item.description, item.value, item.type);
+});
+Object.values(items[ItemType.armor]).forEach(item => {
     shopItems[item.id] = new Armor(
         item.id,
         item.name,
@@ -26,7 +27,7 @@ Object.values(armors).forEach(item => {
         item.defense
     );
 });
-Object.values(weapons).forEach(item => {
+Object.values(items[ItemType.weapon]).forEach(item => {
     shopItems[item.id] = new Weapon(
         item.id,
         item.name,
@@ -50,7 +51,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
             shopItem => shopItem.type == ItemType.consumable
         );
         const shopInstant = Object.values(shopItems).filter(
-            shopItem => shopItem.type == ItemType.insant
+            shopItem => shopItem.type == ItemType.instant
         );
 
         let messageBuild = "__**Shop**__";
@@ -59,7 +60,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
             const weaponItem = shopItem as Weapon;
             messageBuild += `\n${shopItem.name} (${shopItem.id}) | **+${weaponItem.damage}** damage | value: **${shopItem.value}** money | ${shopItem.description}`;
         });
-        messageBuild += "\n\n__Armores__";
+        messageBuild += "\n\n__Armors__";
         Object.values(shopArmor).forEach(shopItem => {
             const armorItem = shopItem as Armor;
             messageBuild += `\n${armorItem.name} (${armorItem.id}) | **+${armorItem.defense}** defense | value: **${armorItem.value}** money | ${armorItem.description}`;

@@ -22,6 +22,7 @@ import adventure from "./adventure";
 import rest from "./rest";
 import sell from "./sell";
 import unequip from "./unequip";
+import inspect from "./inspect";
 
 const virtualActions: Action[] = [
     new Action(
@@ -61,15 +62,16 @@ const virtualActions: Action[] = [
         { cooldown: 60000 }
     ),
     new Action(
-        "forage",
-        (client: Client, message: Message, user: VirtualUser) => forage(client, message, user),
-        { cooldown: 10000 }
-    ),
-    new Action(
         "gamba",
         (client: Client, message: Message, user: VirtualUser) => gamba(client, message, user),
         { cooldown: 1000 },
         ["gamble"]
+    ),
+    new Action(
+        "inspect",
+        (client: Client, message: Message, user: VirtualUser) => inspect(client, message, user),
+        { cooldown: 1000 },
+        ["check", "details", "examine"]
     ),
     new Action(
         "items",

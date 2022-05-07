@@ -1,63 +1,62 @@
 import { Client, Message } from "discord.js";
-import { DropTableItem } from "../../../virtual/models/dropTableItem";
 import DropTable from "../../../virtual/models/dropTable";
-import Item from "virtual/models/item";
 import VirtualUser from "virtual/models/virtualUser";
-import { items } from "../../../assets/items/items";
+import { materials } from "../../../assets/items/materials";
+import { weapons } from "../../../assets/items/weapons";
 
 const dropTableForage: DropTable = new DropTable({
     wood: {
-        item: items.wood,
+        item: materials.wood,
         chance: 60,
         amount: 5,
         randomAmount: true,
     },
     pebble: {
-        item: items.pebble,
+        item: materials.pebble,
         chance: 35,
         amount: 4,
         randomAmount: true,
     },
     vine: {
-        item: items.vine,
+        item: materials.vine,
         chance: 30,
         amount: 3,
         randomAmount: true,
     },
     leather: {
-        item: items.leather,
+        item: materials.leather,
         chance: 20,
         amount: 3,
         randomAmount: true,
     },
 
     dandelion: {
-        item: items.dandelion,
+        item: materials.dandelion,
         chance: 37,
         amount: 3,
         randomAmount: true,
     },
     fireweed: {
-        item: items.fireweed,
+        item: materials.fireweed,
         chance: 25,
         amount: 2,
         randomAmount: true,
     },
     meadowbuttercup: {
-        item: items.meadowbuttercup,
+        item: materials.meadowbuttercup,
         chance: 20,
         amount: 3,
         randomAmount: true,
     },
     fourleafedclover: {
-        item: items.fourleafedclover,
+        item: materials.fourleafedclover,
         chance: 6,
         amount: 3,
         randomAmount: true,
     },
 
     minecraftstevediamondpickaxe: {
-        item: items.minecraftstevediamondpickaxe,
+        item: weapons.minecraftstevediamondpickaxe,
         chance: 1,
         amount: 1,
         randomAmount: false,
@@ -75,27 +74,27 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
 
     let lootSavePromise = lootForest.map(async _item => {
         if (
-            _item === items.wood ||
-            _item === items.pebble ||
-            _item === items.vine ||
-            _item === items.leather
+            _item === materials.wood ||
+            _item === materials.pebble ||
+            _item === materials.vine ||
+            _item === materials.leather
         ) {
             if (!messageBuilder.includes("Forest Loot")) {
                 messageBuilder += `\n:evergreen_tree:**Forest Loot**:evergreen_tree: `;
             }
         }
         if (
-            _item === items.dandelion ||
-            _item === items.fireweed ||
-            _item === items.meadowButterCup ||
-            _item === items.fourLeafedClover
+            _item === materials.dandelion ||
+            _item === materials.fireweed ||
+            _item === materials.meadowButterCup ||
+            _item === materials.fourLeafedClover
         ) {
             if (!messageBuilder.includes("Flower")) {
                 messageBuilder += `\n:blossom:**Flower**:blossom:`;
             }
         }
 
-        if (_item === items.minecraftstevediamondpickaxe) {
+        if (_item === weapons.minecraftstevediamondpickaxe) {
             if (!messageBuilder.includes("Treasure")) {
                 messageBuilder += `\n:gem:**Treasure**:gem:`;
             }

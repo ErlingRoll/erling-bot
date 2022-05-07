@@ -44,7 +44,7 @@ const miningDropTable: DropTable = new DropTable({
 });
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    if (!user.hasItem(weapons.pickaxe) || !user.hasItem(weapons.minecraftstevediamondpickaxe)) {
+    if (!user.hasItem(weapons.pickaxe) && !user.hasItem(weapons.minecraftstevediamondpickaxe)) {
         return message.reply(`You need a **${weapons.pickaxe.name}** to mine`);
     }
 

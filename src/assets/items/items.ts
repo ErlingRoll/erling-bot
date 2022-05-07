@@ -1,101 +1,26 @@
-import { Client, Message } from "discord.js";
 import Item, { ItemType } from "../../virtual/models/item";
-import VirtualUser from "../../virtual/models/virtualUser";
+import { armors } from "./armors";
+import { consumables } from "./consumables";
+import { instants } from "./instants";
+import { materials } from "./materials";
+import { weapons } from "./weapons";
 
-export const items: { [id: string]: Item } = {
-    burger: {
-        id: "burger",
-        name: "Burger",
-        description: "Pretty decent BK burger. Greasy AF.",
-        value: 100,
-        type: ItemType.consumable,
-        use: async (
-            client: Client,
-            message: Message,
-            user: VirtualUser,
-            targetUser: VirtualUser
-        ): Promise<string> => {
-            await user.heal(50);
-            return `**<@${user.id}>** eats a burger and heals 50 hp!`;
-        },
-    },
-    steamedham: {
-        id: "steamedham",
-        name: "Steamed ham",
-        description: "Crusty burger.",
-        value: 50,
-        type: ItemType.consumable,
-        use: async (
-            client: Client,
-            message: Message,
-            user: VirtualUser,
-            targetUser: VirtualUser
-        ): Promise<string> => {
-            await user.heal(20);
-            return `**<@${user.id}>** eats a steamed clam and heals 20 hp!`;
-        },
-    },
-    meme: {
-        id: "meme",
-        name: "Meme",
-        description: "Trash or treasure. Best of luck.",
-        value: 5,
-        type: ItemType.insant,
-    },
-    wood: {
-        id: "wood",
-        name: "Wood",
-        description: "Common Wood used in crafting",
-        value: 5,
-        type: ItemType.material,
-    },
-    pebble: {
-        id: "pebble",
-        name: "Pebble",
-        description: "Small rock, used in crafting and tripping foes",
-        value: 5,
-        type: ItemType.material,
-    },
-    vine: {
-        id: "vine",
-        name: "Vine",
-        description: "Used in crafting",
-        value: 25,
-        type: ItemType.material,
-    },
-    leather: {
-        id: "leather",
-        name: "Leather",
-        description: "Used in crafting",
-        value: 35,
-        type: ItemType.material,
-    },
-    dandelion: {
-        id: "dandelion",
-        name: "Dandelion",
-        description: "Common weed with a puffy and yellow flower.",
-        value: 35,
-        type: ItemType.material,
-    },
-    fireweed: {
-        id: "fireweed",
-        name: "Fireweed",
-        description: "A bright pink flower often found by waters and roads.",
-        value: 10,
-        type: ItemType.material,
-    },
-    meadowbuttercup: {
-        id: "meadowbuttercup",
-        name: "Meadow ButterCup",
-        value: 15,
-        description: "A common myth is that meadow Buttercups are made of butter",
-        type: ItemType.material,
-    },
-    fourleafclover: {
-        id: "fourleafclover",
-        name: "4-Leafed Clover",
-        value: 250,
-        description: "You lucky motherfucker",
-        type: ItemType.material,
-    },
+export const items: {
+    [itemType: ItemType | number]: { [itemId: string]: Item | any };
+} = {
+    [ItemType.weapon]: weapons,
+    [ItemType.armor]: armors,
+    [ItemType.consumable]: consumables,
+    [ItemType.instant]: instants,
+    [ItemType.material]: materials,
+};
+
+export const getItem = (itemId: string): Item | null => {
+    const allItems: { [itemId: string]: Item } = {};
+    Object.values(items).forEach(itemGroup => {
+        Object.values(itemGroup).forEach(item => {
+            allItems[item.id] = item;
+        });
+    });
+    return allItems[itemId];
 };

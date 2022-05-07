@@ -1,4 +1,4 @@
-import { items } from "../../../assets/items/items";
+import { getItem, items } from "../../../assets/items/items";
 import { Client, Message } from "discord.js";
 import { parseArgs } from "../../../events/middleware";
 import VirtualUser from "../../../virtual/models/virtualUser";
@@ -21,7 +21,7 @@ export default async (
         return message.reply(`You do not have a(n) **${itemId}**`);
     }
 
-    const item = items[itemId];
+    const item = getItem(itemId);
 
     if (item && item.use) {
         await user.useItem(item);

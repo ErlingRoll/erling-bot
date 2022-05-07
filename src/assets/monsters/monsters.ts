@@ -19,3 +19,13 @@ export const monsters: {
     [AdventureLevel.epic]: epicMonsters,
     [AdventureLevel.legendary]: legendaryMonsters,
 };
+
+export const getMonster = (monsterId: string): Monster | null => {
+    const allMonsters: { [monsterId: string]: Monster } = {};
+    Object.values(monsters).forEach(monsterGroup => {
+        Object.values(monsterGroup).forEach(monster => {
+            allMonsters[monster.id] = monster;
+        });
+    });
+    return allMonsters[monsterId];
+};

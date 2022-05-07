@@ -1,5 +1,5 @@
-import { items } from "../../../assets/items/items";
-import { minerals } from "../../../assets/items/minerals";
+import { consumables } from "../../items/consumables";
+import { minerals } from "../../items/minerals";
 import { AdventureLevel } from "../../../constants/adventure";
 
 export default {
@@ -18,8 +18,8 @@ export default {
             amount: 6,
             randomAmount: true,
         },
-        [items.steamedham.id]: {
-            item: items.steamedham,
+        [consumables.steamedham.id]: {
+            item: consumables.steamedham,
             chance: 20,
             amount: 2,
             randomAmount: true,
