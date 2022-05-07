@@ -5,6 +5,7 @@ export default {
     id: "sentienttoaster",
     name: "Sentient toaster",
     description: "Will toast and roast you.",
+    damagetype: "toast",
     adventureLevel: AdventureLevel.beginner,
     hp: 8,
     power: 14,

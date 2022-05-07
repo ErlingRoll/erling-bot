@@ -5,6 +5,7 @@ export default {
     id: "flyingpig",
     name: "Flying pig",
     description: '"I cannot believe it!"',
+    damagetype: "pig",
     adventureLevel: AdventureLevel.intermediate,
     hp: 20,
     power: 17,
