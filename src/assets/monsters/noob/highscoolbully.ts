@@ -5,6 +5,7 @@ export default {
     id: "highschoolbully",
     name: "Highschool bully",
     description: "Big meanie",
+    damagetype: "bully",
     adventureLevel: AdventureLevel.noob,
     hp: 4,
     power: 7,

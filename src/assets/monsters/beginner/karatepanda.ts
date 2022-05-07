@@ -5,6 +5,7 @@ export default {
     id: "karatepanda",
     name: "Karate panda",
     description: "Probably also knows kung fu!",
+    damagetype: "martial arts",
     adventureLevel: AdventureLevel.beginner,
     hp: 9,
     power: 7,

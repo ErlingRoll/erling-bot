@@ -7,9 +7,10 @@ export default {
     name: "Evil Chicken",
     description:
         "A megalomaniac filled with a deep seated hatred for his fellow chickens and especially humans, his former captors.",
+    damagetype: "evil",
     adventureLevel: AdventureLevel.intermediate,
-    hp: 23,
-    power: 18,
+    hp: 20,
+    power: 15,
     expDrop: 20,
     dropTable: {
         [weapons.pickaxe.id]: {

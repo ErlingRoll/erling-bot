@@ -8,6 +8,7 @@ export default class Monster extends Entity {
     description: string;
     adventureLevel: AdventureLevel;
     expDrop: number;
+    damagetype: string;
     dropTable: DropTable;
 
     constructor(
@@ -18,12 +19,14 @@ export default class Monster extends Entity {
         description: string,
         adventureLevel: AdventureLevel,
         expDrop: number,
+        damagetype: string = "monster",
         dropTableItems: { [itemId: string]: DropTableItem }
     ) {
         super(id, name, hp, power);
         this.description = description;
         this.adventureLevel = adventureLevel;
         this.expDrop = expDrop;
+        this.damagetype = damagetype;
         this.dropTable = new DropTable(dropTableItems);
     }
 
