@@ -1,100 +1,102 @@
 import { Client, Message } from "discord.js";
 import { DropTableItem } from "../../../virtual/models/dropTableItem";
-import Item from "../../../virtual/models/item";
-import VirtualUser from "../../../virtual/models/virtualUser";
+import DropTable from "../../../virtual/models/dropTable";
+import Item from "virtual/models/item";
+import VirtualUser from "virtual/models/virtualUser";
 import { items } from "../../../assets/items/items";
 
-const dropTable: { [name: string]: DropTableItem } = {
+const dropTableForage: DropTable = new DropTable({
     wood: {
         item: items.wood,
         chance: 60,
-        amount: 3,
+        amount: 5,
+        randomAmount: true,
     },
     pebble: {
         item: items.pebble,
         chance: 44,
-        amount: 2,
+        amount: 4,
+        randomAmount: true,
     },
     vine: {
         item: items.vine,
         chance: 33,
-        amount: 1,
+        amount: 3,
+        randomAmount: true,
     },
     leather: {
         item: items.leather,
         chance: 21,
-        amount: 1,
+        amount: 3,
+        randomAmount: true,
     },
-};
 
-const dropTableFlower: { [name: string]: DropTableItem } = {
     dandelion: {
         item: items.dandelion,
         chance: 60,
-        amount: 1,
+        amount: 3,
+        randomAmount: true,
     },
     fireweed: {
         item: items.fireweed,
         chance: 50,
-        amount: 1,
+        amount: 2,
+        randomAmount: true,
     },
     meadowbuttercup: {
         item: items.meadowbuttercup,
         chance: 33,
-        amount: 1,
+        amount: 3,
+        randomAmount: true,
     },
     fourleafedclover: {
         item: items.fourleafedclover,
-        chance: 10,
-        amount: 1,
+        chance: 7,
+        amount: 2,
+        randomAmount: true,
     },
-};
 
-const dropTableTreasure: { [name: string]: DropTableItem } = {
-    fourleafedclover: {
-        item: items.fourleafedclover,
-        chance: 10,
-        amount: 1,
-    },
     minecraftstevediamondpickaxe: {
         item: items.minecraftstevediamondpickaxe,
         chance: 1,
         amount: 1,
+        randomAmount: false,
     },
-};
+});
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    let loot: Item[] = [];
+    let lootForest = dropTableForage.rollLoot();
 
-    Object.keys(dropTable).forEach(dropName => {
-        let forageRarity = Math.floor(Math.random() * 100) + 1;
-        const item: DropTableItem = dropTable[dropName];
-        if (forageRarity <= item.chance) {
-            loot.push(item.item);
-        }
-    });
-    Object.keys(dropTableFlower).forEach(dropName => {
-        let flowerPick = Math.floor(Math.random() * 120) + 1;
-        const flower: DropTableItem = dropTableFlower[dropName];
-        if (flowerPick <= flower.chance) {
-            loot.push(flower.item);
-        }
-    });
-    Object.keys(dropTableTreasure).forEach(dropName => {
-        let treasureRarity = Math.floor(Math.random() * 200) + 1;
-        const treasure: DropTableItem = dropTableTreasure[dropName];
-        if (treasureRarity <= treasure.chance) {
-            loot.push(treasure.item);
-        }
-    });
+    // Object.keys(dropTableForest).forEach(dropName => {
+    //     let forageRarity = Math.floor(Math.random() * 100) + 1;
+    //     const forest: DropTableItem = dropTableForest[dropName];
+    //     if (forageRarity <= forest.chance) {
+    //         loot.push(forest.item);
+    //     }
+    // });
 
-    if (loot.length === 0) {
+    // Object.keys(dropTableFlower).forEach(dropName => {
+    //     let flowerPick = Math.floor(Math.random() * 120) + 1;
+    //     const flower: DropTableItem = dropTableFlower[dropName];
+    //     if (flowerPick <= flower.chance) {
+    //         loot.push(flower.item);
+    //     }
+    // });
+    // Object.keys(dropTableTreasure).forEach(dropName => {
+    //     let treasureRarity = Math.floor(Math.random() * 200) + 1;
+    //     const treasure: DropTableItem = dropTableTreasure[dropName];
+    //     if (treasureRarity <= treasure.chance) {
+    //         loot.push(treasure.item);
+    //     }
+    // });
+
+    if (lootForest.length === 0) {
         return message.reply("You couldn't find anything on the trip. You are devastated");
     }
 
     let messageBuilder = "__**LOOT**__";
 
-    let lootSavePromise = loot.map(async _item => {
+    let lootSavePromise = lootForest.map(async _item => {
         if (
             _item === items.wood ||
             _item === items.pebble ||
@@ -127,6 +129,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     });
     await Promise.all(lootSavePromise);
 
-    messageBuilder += `\n**<@${user.id}>** tucks the loot safely in their pocket!`;
+    messageBuilder += `\n**@${user.name}** tucks the loot safely in their pocket!`;
     return message.reply(messageBuilder);
 };
