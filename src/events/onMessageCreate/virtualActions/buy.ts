@@ -149,7 +149,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         user.money -= item.value;
         await user.addItem(item);
         return message.reply(
-            `**<@${user.id}>** bought a **${item.name}** for **${item.value}** money.`
+            `**<@${user.id}>** bought a **${item.name}** for **${item.value}** :coin:.`
         );
     }
 };

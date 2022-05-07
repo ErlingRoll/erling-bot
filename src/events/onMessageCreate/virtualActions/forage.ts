@@ -1,102 +1,111 @@
 import { Client, Message } from "discord.js";
+import { DropTableItem } from "../../../virtual/models/dropTableItem";
+import DropTable from "../../../virtual/models/dropTable";
 import Item from "virtual/models/item";
 import VirtualUser from "virtual/models/virtualUser";
+import { items } from "../../../assets/items/items";
 
-const dropTable: any ={
-    Wood:{
-        name: "Wood",
-        value: 5,
-        chance: 70,
-    },
-    Pebble:{
-        name: "Pebble",
-        value: 10,
+const dropTableForage: DropTable = new DropTable({
+    wood: {
+        item: items.wood,
         chance: 60,
+        amount: 5,
+        randomAmount: true,
     },
-    Vine:{
-        name: "Vine",
-        value: 20,
-        chance: 40,
+    pebble: {
+        item: items.pebble,
+        chance: 35,
+        amount: 4,
+        randomAmount: true,
     },
-    Leather:{
-        name: "Leather",
-        value: 30,
-        chance: 70,
+    vine: {
+        item: items.vine,
+        chance: 30,
+        amount: 3,
+        randomAmount: true,
     },
-    
-    Treasure:{
-        name: "Treasure",
-        value: 1500,
-        chance: 0.5,
+    leather: {
+        item: items.leather,
+        chance: 20,
+        amount: 3,
+        randomAmount: true,
+    },
 
+    dandelion: {
+        item: items.dandelion,
+        chance: 37,
+        amount: 3,
+        randomAmount: true,
     },
-}
-// Droptable for flower
-const dropTableFlower: any ={
-    Dandelion:{
-        name: "Dandelion",
-        value: 5,
-        chance: 70,
+    fireweed: {
+        item: items.fireweed,
+        chance: 25,
+        amount: 2,
+        randomAmount: true,
     },
-    Fireweed:{
-        name: "Fireweed",
-        value: 10,
-        chance: 60,     
+    meadowbuttercup: {
+        item: items.meadowbuttercup,
+        chance: 20,
+        amount: 3,
+        randomAmount: true,
     },
-    MeadowButterCup:{
-        name: "MeadowButterCup",
-        value: 15,
-        chance: 50,
+    fourleafedclover: {
+        item: items.fourleafedclover,
+        chance: 6,
+        amount: 3,
+        randomAmount: true,
     },
-    FourLeafedClover:{
-        name: "4LeafClover",
-        value: 250,
-        chance: 10,
-    }
-} 
-//Droptable for treasurechest
-const dropTableTreasure: any ={
-    FourLeafedClover:{
-        name: "4LeafClover",
-        value: 250,
-        chance: 10,
-        number: 2,
-    },
-    MinecraftSteveDiamondPickaxe:{
-        name: "Minecraft Steve's Diamond Pickaxe",
-        value: 1000,
-        chance: 80,
-    }
 
-}
+    minecraftstevediamondpickaxe: {
+        item: items.minecraftstevediamondpickaxe,
+        chance: 1,
+        amount: 1,
+        randomAmount: false,
+    },
+});
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    let loot: Item[] = [];
+    let lootForest = dropTableForage.rollLoot();
 
-    Object.keys(dropTable).forEach(dropName => {
-        let forageRarity = Math.floor(Math.random() * 100) + 1;
-        let flowerPick = Math.floor(Math.random() * 100) + 1;
-        const item: any = dropTable[dropName];
-        const flower: any = dropTableFlower[dropName];
-        if (flowerPick <= flower.chance){
-            loot.push(flower)
-        }
-        if (forageRarity <= item.chance) {
-            loot.push(item);
-        }
-    });
-
-    if (loot.length === 0) {
-        return message.reply("You couldn't find anything on the trip. You are devastated")
+    if (lootForest.length === 0) {
+        return message.reply("You couldn't find anything on the trip. You are devastated");
     }
 
-    let messageBuilder = "__**Loot**__";
-    
-    loot.forEach(async _item => {
-        messageBuilder += `\n${_item.name} | Value: ${_item.value}`
-        await user.addItem(_item);
-    });
+    let messageBuilder = `\n**<@${user.id}>** walks into the woods hoping to find some dank stuff, and so they did! \n__**LOOT**__`;
 
-    messageBuilder += `\n**${user.id}** tucks the loot safely in their pocket!`;
+    let lootSavePromise = lootForest.map(async _item => {
+        if (
+            _item === items.wood ||
+            _item === items.pebble ||
+            _item === items.vine ||
+            _item === items.leather
+        ) {
+            if (!messageBuilder.includes("Forest Loot")) {
+                messageBuilder += `\n:evergreen_tree:**Forest Loot**:evergreen_tree: `;
+            }
+        }
+        if (
+            _item === items.dandelion ||
+            _item === items.fireweed ||
+            _item === items.meadowButterCup ||
+            _item === items.fourLeafedClover
+        ) {
+            if (!messageBuilder.includes("Flower")) {
+                messageBuilder += `\n:blossom:**Flower**:blossom:`;
+            }
+        }
+
+        if (_item === items.minecraftstevediamondpickaxe) {
+            if (!messageBuilder.includes("Treasure")) {
+                messageBuilder += `\n:gem:**Treasure**:gem:`;
+            }
+        }
+
+        messageBuilder += `\n*${_item.name}* | ${_item.value} x :coin: `;
+        return user.addItem(_item);
+    });
+    await Promise.all(lootSavePromise);
+
+    messageBuilder += `\n**<@${user.id}>** tucks the loot safely in their pocket!`;
     return message.reply(messageBuilder);
 };

@@ -12,12 +12,12 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     let gambaAmount = Math.floor(Math.random() * (MAX_WINNINGS + 1));
 
     const isWinner = gambaResult > 60;
-    const isMax = gambaResult==100;
+    const isMax = gambaResult == 100;
 
-    let messageBuilder=``;
-    if (isMax){
+    let messageBuilder = ``;
+    if (isMax) {
         messageBuilder += `\t**Jackpot!**\n`;
-        gambaAmount+=100;
+        gambaAmount += 100;
     }
 
     if (gambaAmount === 0) {
@@ -25,7 +25,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     }
 
     if (isWinner) {
-        messageBuilder+=`**<@${user.id}>** wins ${gambaAmount} money!`;
+        messageBuilder += `**<@${user.id}>** wins ${gambaAmount} money!`;
         user.money += gambaAmount;
         return message.reply(messageBuilder);
     }

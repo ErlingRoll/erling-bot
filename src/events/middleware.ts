@@ -1,4 +1,5 @@
 import { Client, Message } from "discord.js";
+import { AdventureLevel } from "../constants/adventure";
 import Action from "../virtual/models/action";
 import VirtualUser from "../virtual/models/virtualUser";
 
@@ -32,20 +33,37 @@ export const getTargetUser = async (
 
 export const cooldown = async (
     action: Action,
+    message: Message,
     virtualUser: VirtualUser
 ): Promise<number | void> => {
     if (action.cooldown) {
         const currentDate = Date.now();
-        const cooldownFinish = virtualUser.cooldowns[action.name];
+        const cooldownFinish = virtualUser.cooldowns[action.name] || 0;
+        let cooldownSecondsLeft = (cooldownFinish - currentDate) / 1000;
+        if (cooldownSecondsLeft < 0) cooldownSecondsLeft = 0;
+        let skipSetCooldown = false;
+        let args = parseArgs(message);
 
-        if (!cooldownFinish || currentDate > cooldownFinish) {
+        // Skip setting some cooldowns
+        if (action.name === "adventure") {
+            if (
+                !args ||
+                !args[1] ||
+                args[1] === "levels" ||
+                !Object.values(AdventureLevel).includes(args[1])
+            ) {
+                skipSetCooldown = true;
+            }
+        }
+
+        if (!skipSetCooldown && (!cooldownFinish || currentDate > cooldownFinish)) {
             virtualUser.cooldowns = {
                 ...virtualUser.cooldowns,
                 [action.name]: currentDate + action.cooldown,
             };
             return;
-        } else {
-            return (cooldownFinish - currentDate) / 1000;
         }
+
+        return cooldownSecondsLeft;
     }
 };

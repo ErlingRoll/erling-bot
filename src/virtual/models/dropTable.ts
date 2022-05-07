@@ -8,10 +8,21 @@ export default class DropTable {
         this.dropTableItems = dropTableItems;
     }
 
-    rollLoot(): Item[] {
+    rollLoot(advantage: number = 0): Item[] {
         let drops: Item[] = [];
         Object.values(this.dropTableItems).forEach(dropTableItem => {
             let dropRoll = Math.ceil(Math.random() * 100);
+
+            for (let i = 0; i < advantage; i++) {
+                let roll = Math.ceil(Math.random() * 100);
+                if (advantage > 0) {
+                    if (roll > dropRoll) dropRoll = roll;
+                }
+                if (advantage < 0) {
+                    if (roll < dropRoll) dropRoll = roll;
+                }
+            }
+
             if (dropRoll <= dropTableItem.chance) {
                 let droppedItem = dropTableItem.item;
                 if (dropTableItem.randomAmount) {
