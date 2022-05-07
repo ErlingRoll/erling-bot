@@ -8,8 +8,8 @@ export default {
     description: "Ed..Ward..",
     damagetype: "emotional",
     adventureLevel: AdventureLevel.expert,
-    hp: 30,
-    power: 25,
+    hp: 27,
+    power: 22,
     expDrop: 28,
     dropTable: {
         [minerals.gold.id]: {

@@ -8,8 +8,8 @@ export default {
     description: "Is it Dracula? Nosferatu? Darren? DIO?",
     damagetype: "succ",
     adventureLevel: AdventureLevel.master,
-    hp: 35,
-    power: 50,
+    hp: 30,
+    power: 40,
     expDrop: 40,
     dropTable: {
         [weapons.pimpcane.id]: {

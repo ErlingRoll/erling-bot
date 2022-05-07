@@ -7,8 +7,8 @@ export default {
     description: '"I cannot believe it!"',
     damagetype: "pig",
     adventureLevel: AdventureLevel.intermediate,
-    hp: 20,
-    power: 17,
+    hp: 17,
+    power: 14,
     expDrop: 20,
     dropTable: {
         [weapons.cottonsword.id]: {
