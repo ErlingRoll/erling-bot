@@ -30,7 +30,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         return message.reply(`You do not own any **${sellItem.name}**`);
     }
 
-    if (sellItem.count <sellAmount) {
+    if (sellItem.count < sellAmount) {
         return message.reply(`You do not own ${sellAmount} **${sellItem.name}**`);
     }
 
