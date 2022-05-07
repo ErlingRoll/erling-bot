@@ -5,10 +5,10 @@ export default {
     id: "karatepanda",
     name: "Karate panda",
     description: "Probably also knows kung fu!",
-    damagetype: "martial arts",
+    damagetype: "screeching",
     adventureLevel: AdventureLevel.beginner,
     hp: 9,
-    power: 7,
+    power: 10,
     expDrop: 14,
     dropTable: {
         [weapons.toothpick.id]: {

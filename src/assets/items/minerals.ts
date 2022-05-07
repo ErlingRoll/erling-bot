@@ -1,6 +1,13 @@
 import Item, { ItemType } from "../../virtual/models/item";
 
 export const minerals: { [id: string]: Item } = {
+    salt: {
+        id: "salt",
+        name: "Salt",
+        description: "Tastes pretty salty",
+        value: 2,
+        type: ItemType.material,
+    },
     copper: {
         id: "copper",
         name: "Copper",

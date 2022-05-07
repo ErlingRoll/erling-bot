@@ -50,4 +50,28 @@ export const weapons: { [id: string]: Weapon } = {
         type: ItemType.weapon,
         damage: 5,
     },
+    hornystick: {
+        id: "hornystick",
+        name: "Hornystick",
+        description: "Bonks hard",
+        value: 690,
+        type: ItemType.weapon,
+        damage: 17,
+    },
+    chainsaw: {
+        id: "chainsaw",
+        name: "Chainsaw",
+        description: "Chainsaw goes *BRRRRRRRRRRRRRRRRR*",
+        value: 800,
+        type: ItemType.weapon,
+        damage: 20,
+    },
+    lightsaber: {
+        id: "lightsaber",
+        name: "Lightsaber",
+        description: "Be careful not to get your arm cut off",
+        value: 1234,
+        type: ItemType.weapon,
+        damage: 25,
+    },
 };

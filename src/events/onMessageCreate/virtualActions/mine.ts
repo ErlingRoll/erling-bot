@@ -44,8 +44,8 @@ const miningDropTable: DropTable = new DropTable({
 });
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    if (!user.weapon || user.weapon.id !== weapons.pickaxe.id) {
-        return message.reply(`You need to equip a **${weapons.pickaxe.name}** to mine`);
+    if (!user.hasItem(weapons.pickaxe) || !user.hasItem(weapons.minecraftstevediamondpickaxe)) {
+        return message.reply(`You need a **${weapons.pickaxe.name}** to mine`);
     }
 
     let mineCollapseRoll = Math.ceil(Math.random() * 100);

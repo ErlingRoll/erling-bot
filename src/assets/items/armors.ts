@@ -18,4 +18,28 @@ export const armors: { [id: string]: Armor } = {
         type: ItemType.armor,
         defense: 7,
     },
+    beesuit: {
+        id: "beesuit",
+        name: "Bubblewrap armor",
+        description: "You do BEE looking nice!",
+        value: 400,
+        type: ItemType.armor,
+        defense: 10,
+    },
+    chainvest: {
+        id: "chainvest",
+        name: "Chainvest",
+        description: "Sturdy and lightweight!",
+        value: 700,
+        type: ItemType.armor,
+        defense: 14,
+    },
+    knightarmor: {
+        id: "knightarmor",
+        name: "Knight armor",
+        description: "*Clunk* *Clunk* *Clunk*",
+        value: 1300,
+        type: ItemType.armor,
+        defense: 20,
+    },
 };
