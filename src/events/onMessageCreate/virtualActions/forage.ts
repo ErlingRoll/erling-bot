@@ -14,45 +14,45 @@ const dropTableForage: DropTable = new DropTable({
     },
     pebble: {
         item: items.pebble,
-        chance: 44,
+        chance: 35,
         amount: 4,
         randomAmount: true,
     },
     vine: {
         item: items.vine,
-        chance: 33,
+        chance: 30,
         amount: 3,
         randomAmount: true,
     },
     leather: {
         item: items.leather,
-        chance: 21,
+        chance: 20,
         amount: 3,
         randomAmount: true,
     },
 
     dandelion: {
         item: items.dandelion,
-        chance: 60,
+        chance: 37,
         amount: 3,
         randomAmount: true,
     },
     fireweed: {
         item: items.fireweed,
-        chance: 50,
+        chance: 25,
         amount: 2,
         randomAmount: true,
     },
     meadowbuttercup: {
         item: items.meadowbuttercup,
-        chance: 33,
+        chance: 20,
         amount: 3,
         randomAmount: true,
     },
     fourleafedclover: {
         item: items.fourleafedclover,
-        chance: 7,
-        amount: 2,
+        chance: 6,
+        amount: 3,
         randomAmount: true,
     },
 
@@ -67,34 +67,11 @@ const dropTableForage: DropTable = new DropTable({
 export default async (client: Client, message: Message, user: VirtualUser) => {
     let lootForest = dropTableForage.rollLoot();
 
-    // Object.keys(dropTableForest).forEach(dropName => {
-    //     let forageRarity = Math.floor(Math.random() * 100) + 1;
-    //     const forest: DropTableItem = dropTableForest[dropName];
-    //     if (forageRarity <= forest.chance) {
-    //         loot.push(forest.item);
-    //     }
-    // });
-
-    // Object.keys(dropTableFlower).forEach(dropName => {
-    //     let flowerPick = Math.floor(Math.random() * 120) + 1;
-    //     const flower: DropTableItem = dropTableFlower[dropName];
-    //     if (flowerPick <= flower.chance) {
-    //         loot.push(flower.item);
-    //     }
-    // });
-    // Object.keys(dropTableTreasure).forEach(dropName => {
-    //     let treasureRarity = Math.floor(Math.random() * 200) + 1;
-    //     const treasure: DropTableItem = dropTableTreasure[dropName];
-    //     if (treasureRarity <= treasure.chance) {
-    //         loot.push(treasure.item);
-    //     }
-    // });
-
     if (lootForest.length === 0) {
         return message.reply("You couldn't find anything on the trip. You are devastated");
     }
 
-    let messageBuilder = "__**LOOT**__";
+    let messageBuilder = `\n**@${user.name}** walks into the woods hoping to find some dank stuff, and so they did! \n__**LOOT**__`;
 
     let lootSavePromise = lootForest.map(async _item => {
         if (
