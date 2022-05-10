@@ -1,4 +1,5 @@
 import { Client, Message } from "discord.js";
+import sendLongMessage from "../../../utils/sendLongMessage";
 import VirtualUser from "virtual/models/virtualUser";
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
@@ -12,5 +13,5 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         messageBuilder += `\n- ${_item.name} x ${_item.count}`;
     });
 
-    message.author.send(messageBuilder);
+    return sendLongMessage(message, messageBuilder, true, true);
 };

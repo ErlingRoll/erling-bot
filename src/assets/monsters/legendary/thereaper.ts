@@ -7,7 +7,7 @@ export default {
     id: "thereaper",
     name: "The Reaper",
     description: "Literally fucking death himself.",
-    damagetype: "emotional",
+    damagetype: "deadly",
     adventureLevel: AdventureLevel.legendary,
     hp: 1000,
     power: 1000,

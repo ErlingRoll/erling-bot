@@ -111,7 +111,7 @@ export const armors: { [id: string]: Armor } = {
     nokiasuit: {
         id: "nokiasuit",
         name: "Nokia suit",
-        description: "https://pbs.twimg.com/media/BFzMOmdCEAIAAJS.jpg",
+        description: "Indestructable technology!",
         value: 21999,
         type: ItemType.armor,
         defence: 420,
