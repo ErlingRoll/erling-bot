@@ -62,6 +62,12 @@ const virtualActions: Action[] = [
         { cooldown: 60000 }
     ),
     new Action(
+        "forage",
+        (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
+            forage(client, message, user),
+        { cooldown: 60000 }
+    ),
+    new Action(
         "gamba",
         (client: Client, message: Message, user: VirtualUser) => gamba(client, message, user),
         { cooldown: 1000 },

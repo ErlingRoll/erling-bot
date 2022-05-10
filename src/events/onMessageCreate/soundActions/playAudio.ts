@@ -13,6 +13,7 @@ export default async (
     virtualUser: VirtualUser,
     soundFile: string
 ) => {
+    // Purchase
     let soundPrice = 20;
 
     if (virtualUser.money < soundPrice) {
@@ -24,15 +25,13 @@ export default async (
 
     message.reply(`**<@${virtualUser.id}>** puts ${soundPrice} money in the jukebox`);
 
+    // Play audio
     const voiceConnection = join(client, message);
     if (!voiceConnection) return;
 
     voiceConnection.subscribe(audioPlayer);
 
-    let resource = createAudioResource(path.join(__dirname, soundFile), {
-        inlineVolume: true,
-    });
-    resource.volume.setVolume(0.3);
+    let resource = createAudioResource(path.join(__dirname, soundFile));
 
     audioPlayer.play(resource);
 };

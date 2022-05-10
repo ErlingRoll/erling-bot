@@ -344,12 +344,12 @@ export default class VirtualUser extends Entity {
         const newUser = new VirtualUser(
             discordUser.id,
             discordUser.username,
+            100,
+            5,
             1,
             0,
             100,
-            100,
-            100,
-            5
+            100
         );
 
         await newUser.update();
