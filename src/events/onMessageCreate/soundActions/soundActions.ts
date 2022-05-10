@@ -8,6 +8,7 @@ const soundFiles: { [name: string]: string } = {
     amogus: "../../../assets/audio/amogus.mp3",
     augh: "../../../assets/audio/augh.mp3",
     avdol: "../../../assets/audio/avdol.mp3",
+    burger: "../../../assets/audio/burger.mp3",
     bwabwabwa: "../../../assets/audio/bwabwabwa.mp3",
     ghosttown: "../../../assets/audio/ghosttown.mp3",
     iprefermen: "../../../assets/audio/iprefermen.mp3",

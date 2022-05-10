@@ -9,9 +9,9 @@ export default {
     description: "You've been hit by, you've been struck by... TRUCK",
     damagetype: "moonwalk",
     adventureLevel: AdventureLevel.epic,
-    hp: 40,
-    power: 35,
-    expDrop: 49,
+    hp: 52,
+    power: 42,
+    expDrop: 50,
     dropTable: {
         [minerals.diamond.id]: {
             item: minerals.diamond,
