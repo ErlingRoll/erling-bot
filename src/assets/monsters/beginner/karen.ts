@@ -9,19 +9,20 @@ export default {
     description: "Be careful it's screeching",
     damagetype: "toast",
     adventureLevel: AdventureLevel.beginner,
-    hp: 12,
-    power: 8,
-    expDrop: 15,
+    hp: 30,
+    power: 9,
+    expDrop: 27,
     dropTable: {
         [armors.plasticbag.id]: {
             item: armors.plasticbag,
-            chance: 30,
-            amount: 1,
+            chance: 70,
+            amount: 2,
         },
         [weapons.toothpick.id]: {
             item: weapons.toothpick,
             chance: 50,
-            amount: 1,
+            amount: 10,
+            randomAmount: true,
         },
         [minerals.salt.id]: {
             item: minerals.salt,

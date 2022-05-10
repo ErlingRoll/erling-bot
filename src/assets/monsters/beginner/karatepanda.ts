@@ -7,9 +7,9 @@ export default {
     description: "Probably also knows kung fu!",
     damagetype: "screeching",
     adventureLevel: AdventureLevel.beginner,
-    hp: 9,
-    power: 10,
-    expDrop: 14,
+    hp: 35,
+    power: 12,
+    expDrop: 29,
     dropTable: {
         [weapons.toothpick.id]: {
             item: weapons.toothpick,

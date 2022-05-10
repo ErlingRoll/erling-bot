@@ -7,8 +7,8 @@ export default {
     description: "Big meanie",
     damagetype: "flame",
     adventureLevel: AdventureLevel.noob,
-    hp: 7,
-    power: 3,
+    hp: 11,
+    power: 5,
     expDrop: 10,
     dropTable: {
         [minerals.salt.id]: {

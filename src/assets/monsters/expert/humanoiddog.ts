@@ -3,24 +3,24 @@ import { minerals } from "../../items/minerals";
 import { AdventureLevel } from "../../../constants/adventure";
 
 export default {
-    id: "dog",
-    name: "Dog",
+    id: "humanoiddog",
+    name: "Humanoid dog",
     description: "Ed..Ward..",
     damagetype: "emotional",
     adventureLevel: AdventureLevel.expert,
-    hp: 35,
-    power: 28,
-    expDrop: 28,
+    hp: 190,
+    power: 55,
+    expDrop: 140,
     dropTable: {
         [minerals.gold.id]: {
             item: minerals.gold,
-            chance: 70,
-            amount: 6,
+            chance: 100,
+            amount: 20,
             randomAmount: true,
         },
         [consumables.steamedham.id]: {
             item: consumables.steamedham,
-            chance: 20,
+            chance: 50,
             amount: 2,
             randomAmount: true,
         },

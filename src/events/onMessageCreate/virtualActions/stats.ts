@@ -4,11 +4,13 @@ import VirtualUser from "virtual/models/virtualUser";
 export default async (client: Client, message: Message, user: VirtualUser) => {
     let messageBuilder = `**<@${user.id}>** (Level ${user.level})`;
     messageBuilder += `\nHP: ${user.hp} / ${user.maxHp}`;
+    messageBuilder += `\nPower: ${user.power}`;
+    messageBuilder += `\nDefence: ${user.defence}`;
     messageBuilder += `\nEXP: ${user.exp} / ${user.maxExp}`;
     messageBuilder += `\nMoney: ${user.money} money`;
 
     if (user.armor) {
-        messageBuilder += `\nArmor: ${user.armor.name} (+${user.armor.defense} defense)`;
+        messageBuilder += `\nArmor: ${user.armor.name} (+${user.armor.defence} defence)`;
     }
 
     if (user.weapon) {

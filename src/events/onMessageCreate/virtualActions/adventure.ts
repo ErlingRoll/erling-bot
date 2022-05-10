@@ -48,7 +48,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         for (let i = 0; i < COMBAT_TURNS; i++) {
             // Monster hits
             let monsterDamageRoll = monster.rollDamage();
-            if (user.armor) monsterDamageRoll -= user.armor.defense;
+            if (user.armor) monsterDamageRoll -= user.armor.defence;
             if (monsterDamageRoll < 0) monsterDamageRoll = 0;
             if (monsterDamageMessage !== "") monsterDamageMessage += ", ";
             monsterDamageMessage += `${monsterDamageRoll}`;

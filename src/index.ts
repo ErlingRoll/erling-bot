@@ -2,7 +2,7 @@ import "dotenv/config";
 // @ts-ignore
 import Discord from "discord.js";
 import { onMessageCreate } from "./events/onMessageCreate/onMessageCreate";
-import { collection, doc, query, writeBatch, getDocs } from "@firebase/firestore";
+import { collection, doc, query, writeBatch, getDocs, deleteField } from "@firebase/firestore";
 import { firestore } from "./services/firebase";
 const client = new Discord.Client({
     intents: [
@@ -24,11 +24,15 @@ client.on("ready", async () => {
     const usersSnapshot = await getDocs(usersQuery);
 
     usersSnapshot.forEach(userDoc => {
+        const userData = userDoc.data();
         batch.update(userDoc.ref, { isBusy: false });
-
-        // if (!userDoc.data().level) {
-        //     batch.update(userDoc.ref, { level: 1 });
-        // }
+        batch.update(userDoc.ref, {
+            defense: deleteField(),
+            defence: Math.floor(userData.level / 5),
+            power: 5 + Math.floor(userData.level / 3),
+            maxExp: Math.floor(100 * Math.pow(1.05, userData.level - 1)),
+            maxHp: Math.floor(100 * Math.pow(1.025, userData.level - 1)),
+        });
     });
 
     await batch.commit();

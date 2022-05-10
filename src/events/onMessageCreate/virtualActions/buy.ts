@@ -24,7 +24,7 @@ Object.values(items[ItemType.armor]).forEach(item => {
         item.description,
         item.value,
         item.type,
-        item.defense
+        item.defence
     );
 });
 Object.values(items[ItemType.weapon]).forEach(item => {
@@ -63,7 +63,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         messageBuild += "\n\n__Armors__";
         Object.values(shopArmor).forEach(shopItem => {
             const armorItem = shopItem as Armor;
-            messageBuild += `\n${armorItem.name} (${armorItem.id}) | **+${armorItem.defense}** defense | value: **${armorItem.value}** money | ${armorItem.description}`;
+            messageBuild += `\n${armorItem.name} (${armorItem.id}) | **+${armorItem.defence}** defence | value: **${armorItem.value}** money | ${armorItem.description}`;
         });
         messageBuild += "\n\n__Consumables__";
         Object.values(shopConsumable).forEach(shopItem => {

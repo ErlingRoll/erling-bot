@@ -4,13 +4,13 @@ import { weapons } from "../../items/weapons";
 import { consumables } from "../../items/consumables";
 
 export default {
-    id: "michaeljackson",
-    name: "Michael Jackson",
-    description: "You've been hit by, you've been struck by... TRUCK",
-    damagetype: "moonwalk",
+    id: "obama",
+    name: "Obama",
+    description: "No, you can't",
+    damagetype: "obamacare",
     adventureLevel: AdventureLevel.epic,
-    hp: 470,
-    power: 190,
+    hp: 500,
+    power: 170,
     expDrop: 330,
     dropTable: {
         [minerals.diamond.id]: {

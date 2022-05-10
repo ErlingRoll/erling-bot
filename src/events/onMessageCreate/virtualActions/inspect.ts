@@ -47,7 +47,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         messageBuilder += `\nDescription: ${item.description}`;
         messageBuilder += `\nType: ${ItemType[item.type]}`;
 
-        if (item.type === ItemType.armor) messageBuilder += `\nDefense: ${(item as Armor).defense}`;
+        if (item.type === ItemType.armor) messageBuilder += `\nDefence: ${(item as Armor).defence}`;
         if (item.type === ItemType.weapon) messageBuilder += `\nDamage: ${(item as Weapon).damage}`;
 
         return message.reply(messageBuilder);

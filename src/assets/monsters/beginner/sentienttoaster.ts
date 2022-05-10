@@ -7,9 +7,9 @@ export default {
     description: "Will toast and roast you.",
     damagetype: "toast",
     adventureLevel: AdventureLevel.beginner,
-    hp: 8,
+    hp: 32,
     power: 14,
-    expDrop: 14,
+    expDrop: 32,
     dropTable: {
         [weapons.toothpick.id]: {
             item: weapons.toothpick,

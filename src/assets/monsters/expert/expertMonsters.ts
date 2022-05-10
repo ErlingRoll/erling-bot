@@ -1,7 +1,9 @@
 import Monster from "virtual/models/monster";
 
-import dog from "./dog";
+import humanoiddog from "./humanoiddog";
+import sexrobot from "./sexrobot";
 
 export const expertMonsters: { [id: string]: Monster | any } = {
-    dog,
+    humanoiddog,
+    sexrobot,
 };

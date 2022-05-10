@@ -12,6 +12,7 @@ export default class VirtualUser extends Entity {
     exp: number;
     maxExp: number;
     maxHp: number;
+    defence: number;
     money: number;
     isBusy: boolean;
     cooldowns: { [command: string]: number };
@@ -29,6 +30,7 @@ export default class VirtualUser extends Entity {
         exp: number,
         maxExp: number,
         maxHp: number,
+        defence: number,
         isBusy: boolean = false,
         money: number = 0,
         cooldowns: { [command: string]: number } = {},
@@ -42,6 +44,7 @@ export default class VirtualUser extends Entity {
         this.exp = exp;
         this.maxExp = maxExp;
         this.maxHp = maxHp;
+        this.defence = defence;
         this.isBusy = isBusy;
         this.money = money;
         this.cooldowns = cooldowns;
@@ -62,10 +65,11 @@ export default class VirtualUser extends Entity {
             exp: this.exp || 0,
             maxExp: this.maxExp || 100,
             maxHp: this.maxHp || 100,
-            isBusy: this.isBusy,
-            money: this.money,
+            defence: this.defence || 0,
+            isBusy: this.isBusy || false,
+            money: this.money || 0,
             cooldowns: this.cooldowns || {},
-            items: this.items,
+            items: this.items || {},
             armor: this.armor || null,
             weapon: this.weapon || null,
             soulStone: this.soulStone || null,
@@ -172,12 +176,12 @@ export default class VirtualUser extends Entity {
         return Math.ceil(Math.random() * damage);
     }
 
-    getDefense(): number {
-        let defense = 0;
+    getDefence(): number {
+        let defence = this.defence;
         if (this.armor) {
-            defense += this.armor.defense;
+            defence += this.armor.defence;
         }
-        return defense;
+        return defence;
     }
 
     async attackPlayer(target: VirtualUser): Promise<string> {
@@ -185,9 +189,9 @@ export default class VirtualUser extends Entity {
         let hitRoll = Math.floor(Math.random() * 100) + 1;
 
         let damageRoll = this.rollDamage();
-        let targetDefense = target.getDefense();
+        let targetDefence = target.getDefence();
 
-        let damage = damageRoll - targetDefense;
+        let damage = damageRoll - targetDefence;
 
         if (hitRoll < 30) {
             messageBuilder += `\n**<@${this.id}>** attacks **<@${target.id}>** but trips on a small pebble and misses...`;
@@ -201,7 +205,7 @@ export default class VirtualUser extends Entity {
         }
 
         if (target.armor) {
-            messageBuilder += `\n**<@${target.id}>** is protected by **${target.armor.name}** (+${target.armor.defense} defense).`;
+            messageBuilder += `\n**<@${target.id}>** is protected by **${target.armor.name}** (+${target.armor.defence} defence).`;
         }
 
         if (damage <= 0) {
@@ -267,9 +271,10 @@ export default class VirtualUser extends Entity {
                 this.level += 1;
 
                 // Change stats
-                this.maxExp = Math.floor(100 * Math.pow(1.1, this.level - 1));
-                this.maxHp = 100 + 3 * (this.level - 1);
-                this.power = 5 + Math.floor(this.level / 5);
+                this.maxExp = Math.floor(100 * Math.pow(1.05, this.level - 1));
+                this.maxHp = Math.floor(100 * Math.pow(1.025, this.level - 1));
+                this.power = 5 + Math.floor(this.level / 3);
+                this.defence = Math.floor(this.level / 5);
 
                 // Broadcast level up
                 if (messageBuilder !== "") messageBuilder += "\n";
@@ -330,6 +335,7 @@ export default class VirtualUser extends Entity {
             userData.exp,
             userData.maxExp,
             userData.maxHp,
+            userData.defence,
             userData.isBusy,
             userData.money,
             userData.cooldowns,
@@ -349,7 +355,8 @@ export default class VirtualUser extends Entity {
             1,
             0,
             100,
-            100
+            100,
+            0
         );
 
         await newUser.update();

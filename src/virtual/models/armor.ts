@@ -1,7 +1,7 @@
 import Item, { ItemType } from "./item";
 
 export default class Armor extends Item {
-    defense: number;
+    defence: number;
 
     constructor(
         id: string,
@@ -9,11 +9,11 @@ export default class Armor extends Item {
         description: string,
         value: number,
         type: ItemType,
-        defense: number,
+        defence: number,
         use: CallableFunction = () => {},
         count: number = 1
     ) {
         super(id, name, description, value, type, use, count);
-        this.defense = defense;
+        this.defence = defence;
     }
 }

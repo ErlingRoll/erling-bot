@@ -1,39 +1,39 @@
 import { AdventureLevel } from "../../../constants/adventure";
-import { weapons } from "../../../assets/items/weapons";
+import { weapons } from "../../items/weapons";
 import { armors } from "../../items/armors";
-import { minerals } from "../../../assets/items/minerals";
+import { minerals } from "../../items/minerals";
 import { consumables } from "../../items/consumables";
 
 export default {
-    id: "vampire",
-    name: "Vampire",
-    description: "Is it Dracula? Nosferatu? Darren? DIO?",
-    damagetype: "succ",
+    id: "vilemaw",
+    name: "Vilemaw",
+    description: "Big ass spider.",
+    damagetype: "spider",
     adventureLevel: AdventureLevel.master,
-    hp: 300,
-    power: 100,
-    expDrop: 220,
+    hp: 240,
+    power: 110,
+    expDrop: 210,
     dropTable: {
-        [armors.dragonarmor.id]: {
-            item: armors.dragonarmor,
+        [armors.knightarmor.id]: {
+            item: armors.knightarmor,
             chance: 5,
-            amount: 2,
+            amount: 5,
             randomAmount: true,
         },
-        [weapons.minigun.id]: {
-            item: weapons.minigun,
-            chance: 3,
+        [weapons.abyssalwhip.id]: {
+            item: weapons.abyssalwhip,
+            chance: 5,
             amount: 1,
         },
         [minerals.diamond.id]: {
             item: minerals.diamond,
-            chance: 70,
-            amount: 4,
+            chance: 80,
+            amount: 5,
             randomAmount: true,
         },
         [minerals.netherite.id]: {
             item: minerals.netherite,
-            chance: 25,
+            chance: 80,
             amount: 2,
             randomAmount: true,
         },

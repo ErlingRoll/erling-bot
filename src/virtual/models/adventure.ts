@@ -31,6 +31,14 @@ export default class Adventure {
                     Math.floor(Math.random() * possibleAdventureMonsters.length)
                 ];
 
+            if (randomMonster.adventureLevel > this.level) {
+                const allowDifficultMonster = Math.ceil(Math.random() * 100) <= 10;
+                if (!allowDifficultMonster) {
+                    i--;
+                    continue;
+                }
+            }
+
             if (!randomMonster) continue;
             this.monsters.push(
                 new Monster(

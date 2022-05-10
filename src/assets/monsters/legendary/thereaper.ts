@@ -16,30 +16,36 @@ export default {
         [minerals.gold.id]: {
             item: minerals.gold,
             chance: 100,
-            amount: 50,
+            amount: 500,
             randomAmount: true,
         },
         [minerals.diamond.id]: {
             item: minerals.diamond,
             chance: 100,
-            amount: 20,
+            amount: 200,
             randomAmount: true,
         },
         [minerals.netherite.id]: {
             item: minerals.netherite,
             chance: 100,
-            amount: 10,
+            amount: 100,
             randomAmount: true,
         },
         [consumables.burger.id]: {
             item: consumables.burger,
             chance: 100,
-            amount: 10,
+            amount: 20,
             randomAmount: true,
         },
-        [weapons.lightsaber.id]: {
-            item: weapons.lightsaber,
-            chance: 50,
+        [weapons.mjolnir.id]: {
+            item: weapons.mjolnir,
+            chance: 30,
+            amount: 1,
+            randomAmount: false,
+        },
+        [weapons.deathstar.id]: {
+            item: weapons.deathstar,
+            chance: 1,
             amount: 1,
             randomAmount: false,
         },
