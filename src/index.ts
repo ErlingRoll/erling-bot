@@ -4,6 +4,7 @@ import Discord from "discord.js";
 import { onMessageCreate } from "./events/onMessageCreate/onMessageCreate";
 import { collection, doc, query, writeBatch, getDocs, deleteField } from "@firebase/firestore";
 import { firestore } from "./services/firebase";
+import items from "events/onMessageCreate/virtualActions/items";
 const client = new Discord.Client({
     intents: [
         Discord.Intents.FLAGS.GUILDS,
@@ -33,6 +34,27 @@ client.on("ready", async () => {
             maxExp: Math.floor(100 * Math.pow(1.05, userData.level - 1)),
             maxHp: Math.floor(100 * Math.pow(1.025, userData.level - 1)),
         });
+
+        //if (userData.items) {
+        //    let items: { [name: string]: any } = userData.items as { [name: string]: any };
+        //    Object.keys(items).forEach(name => {
+        //        if (items[name].defense) {
+        //            items[name].defence = items[name].defense;
+        //            delete items[name].defense;
+        //        }
+        //    });
+        //    userData.items = items;
+        //    batch.update(userDoc.ref, { items: items });
+        //}
+
+        //if (userData.armor) {
+        //    let fixedArmor = userData.armor;
+        //    if (fixedArmor.defense) {
+        //        fixedArmor.defence = fixedArmor.defense;
+        //        delete fixedArmor.defense;
+        //    }
+        //    batch.update(userDoc.ref, { armor: fixedArmor });
+        //}
     });
 
     await batch.commit();
