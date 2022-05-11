@@ -29,7 +29,6 @@ const dropTableForage: DropTable = new DropTable({
         amount: 3,
         randomAmount: true,
     },
-
     dandelion: {
         item: materials.dandelion,
         chance: 37,
@@ -48,13 +47,12 @@ const dropTableForage: DropTable = new DropTable({
         amount: 3,
         randomAmount: true,
     },
-    fourleafedclover: {
-        item: materials.fourleafedclover,
+    fourleafclover: {
+        item: materials.fourleafclover,
         chance: 6,
         amount: 3,
         randomAmount: true,
     },
-
     minecraftstevediamondpickaxe: {
         item: weapons.minecraftstevediamondpickaxe,
         chance: 1,
@@ -100,7 +98,9 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
             }
         }
 
-        messageBuilder += `\n*${_item.name}* | ${_item.value} x :coin: `;
+        messageBuilder += `\n*${_item.count} x ${_item.name}* | ${Math.floor(
+            _item.value / 2
+        )} :coin:`;
         return user.addItem(_item);
     });
     await Promise.all(lootSavePromise);

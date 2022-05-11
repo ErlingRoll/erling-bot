@@ -78,7 +78,7 @@ export const weapons: { [id: string]: Weapon } = {
         id: "abyssalwhip",
         name: "Abyssal whip",
         description: "A weapon from the Abyss.",
-        value: 1200,
+        value: 1700,
         type: ItemType.weapon,
         damage: 40,
     },

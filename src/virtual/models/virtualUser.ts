@@ -1,5 +1,6 @@
 import { doc, getDoc, setDoc } from "@firebase/firestore";
 import { Message, User } from "discord.js";
+import sendLongMessage from "../../utils/sendLongMessage";
 import { firestore } from "../../services/firebase";
 import Armor from "./armor";
 import Entity from "./entity";
@@ -193,7 +194,7 @@ export default class VirtualUser extends Entity {
 
         let damage = damageRoll - targetDefence;
 
-        if (hitRoll < 30) {
+        if (hitRoll < 20) {
             messageBuilder += `\n**<@${this.id}>** attacks **<@${target.id}>** but trips on a small pebble and misses...`;
             return messageBuilder;
         }
@@ -258,7 +259,7 @@ export default class VirtualUser extends Entity {
         return messageBuilder;
     }
 
-    async addExp(exp: number, message: Message): Promise<void> {
+    async addExp(exp: number, message: Message, sendMessage: boolean = true): Promise<void> {
         this.exp += exp;
         this.exp = Math.floor(this.exp);
         if (this.exp >= this.maxExp) {
@@ -273,8 +274,8 @@ export default class VirtualUser extends Entity {
                 // Change stats
                 this.maxExp = Math.floor(100 * Math.pow(1.05, this.level - 1));
                 this.maxHp = Math.floor(100 * Math.pow(1.025, this.level - 1));
-                this.power = 5 + Math.floor(this.level / 3);
-                this.defence = Math.floor(this.level / 5);
+                this.power = Math.floor(5 * Math.pow(1.05, this.level - 1));
+                this.defence = Math.floor(3 * Math.pow(1.05, this.level - 1));
 
                 // Broadcast level up
                 if (messageBuilder !== "") messageBuilder += "\n";
@@ -283,7 +284,9 @@ export default class VirtualUser extends Entity {
 
             this.exp = remainingExp;
             await this.update();
-            message.channel.send(messageBuilder);
+            if (sendMessage) {
+                sendLongMessage(message, messageBuilder, false, false);
+            }
             return;
         }
         return this.update();
@@ -301,7 +304,6 @@ export default class VirtualUser extends Entity {
             } else if (bestItem.value < item.value) {
                 bestItem = item;
             }
-            bestItem = item;
         });
 
         if (bestItem) {

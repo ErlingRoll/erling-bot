@@ -23,6 +23,7 @@ import rest from "./rest";
 import sell from "./sell";
 import unequip from "./unequip";
 import inspect from "./inspect";
+import prestige from "./prestige";
 
 const virtualActions: Action[] = [
     new Action(
@@ -94,6 +95,11 @@ const virtualActions: Action[] = [
         "mine",
         (client: Client, message: Message, user: VirtualUser) => mine(client, message, user),
         { cooldown: 10000 }
+    ),
+    new Action(
+        "prestige",
+        (client: Client, message: Message, user: VirtualUser) => prestige(client, message, user),
+        { cooldown: 1000 }
     ),
     new Action(
         "rest",

@@ -6,7 +6,7 @@ import { AdventureLevel } from "../../../constants/adventure";
 export default {
     id: "karen",
     name: "Karen",
-    description: "Be careful it's screeching",
+    description: "Be careful of it's screeching!",
     damagetype: "toast",
     adventureLevel: AdventureLevel.beginner,
     hp: 30,

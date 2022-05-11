@@ -23,7 +23,7 @@ export default class DropTable {
                 }
             }
 
-            if (dropRoll <= dropTableItem.chance) {
+            if (dropRoll >= 100 - dropTableItem.chance) {
                 let droppedItem = dropTableItem.item;
                 if (dropTableItem.randomAmount) {
                     droppedItem.count = Math.ceil(Math.random() * dropTableItem.amount);

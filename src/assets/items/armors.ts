@@ -20,7 +20,7 @@ export const armors: { [id: string]: Armor } = {
     },
     beesuit: {
         id: "beesuit",
-        name: "Bubblewrap armor",
+        name: "Bee suit",
         description: "You do BEE looking nice!",
         value: 400,
         type: ItemType.armor,

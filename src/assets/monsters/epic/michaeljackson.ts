@@ -15,19 +15,25 @@ export default {
     dropTable: {
         [minerals.diamond.id]: {
             item: minerals.diamond,
-            chance: 90,
-            amount: 5,
+            chance: 100,
+            amount: 10,
             randomAmount: true,
         },
         [consumables.burger.id]: {
             item: consumables.burger,
-            chance: 60,
-            amount: 1,
+            chance: 90,
+            amount: 3,
             randomAmount: true,
         },
         [weapons.chainsaw.id]: {
             item: weapons.chainsaw,
-            chance: 10,
+            chance: 70,
+            amount: 20,
+            randomAmount: true,
+        },
+        [weapons.infinityedge.id]: {
+            item: weapons.infinityedge,
+            chance: 3,
             amount: 1,
             randomAmount: true,
         },
