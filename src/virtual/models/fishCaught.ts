@@ -18,7 +18,6 @@ export default class FishCaught {
             if (catchRoll <= fishCaughtItems.chance) {
                 catchedFishId += fishCaughtItems.specieId;
                 let fishAmount: number = fishCaughtItems.amount;
-                console.log(`catchedFish ${catchedFishId}`);
                 Object.values(fishes).forEach(fishyfishy => {
                     if (catchedFishId === fishyfishy.id) {
                         fishyfishy.count = fishAmount;
