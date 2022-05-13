@@ -25,6 +25,8 @@ import rest from "./rest";
 import sell from "./sell";
 import unequip from "./unequip";
 import inspect from "./inspect";
+import prestige from "./prestige";
+import devildeal from "./devildeal";
 
 const virtualActions: Action[] = [
     new Action(
@@ -35,7 +37,7 @@ const virtualActions: Action[] = [
     new Action(
         "balance",
         (client: Client, message: Message, user: VirtualUser) => balance(client, message, user),
-        {},
+        { cooldown: 1000 },
         ["money"]
     ),
     new Action(
@@ -43,6 +45,12 @@ const virtualActions: Action[] = [
         (client: Client, message: Message, user: VirtualUser) => buy(client, message, user),
         { cooldown: 1000 },
         ["shop", "store"]
+    ),
+    new Action(
+        "devildeal",
+        (client: Client, message: Message, user: VirtualUser) => devildeal(client, message, user),
+        { cooldown: 1000 },
+        ["devildeals", "dealdevil"]
     ),
     new Action(
         "duel",
@@ -103,6 +111,11 @@ const virtualActions: Action[] = [
         { cooldown: 10000 }
     ),
     new Action(
+        "prestige",
+        (client: Client, message: Message, user: VirtualUser) => prestige(client, message, user),
+        { cooldown: 1000 }
+    ),
+    new Action(
         "rest",
         (client: Client, message: Message, user: VirtualUser) => rest(client, message, user),
         { cooldown: 120000 },
@@ -115,13 +128,15 @@ const virtualActions: Action[] = [
         { cooldown: 10000 },
         ["steal"]
     ),
-    new Action("sell", (client: Client, message: Message, user: VirtualUser) =>
-        sell(client, message, user)
+    new Action(
+        "sell",
+        (client: Client, message: Message, user: VirtualUser) => sell(client, message, user),
+        { cooldown: 1000 }
     ),
     new Action(
         "stats",
         (client: Client, message: Message, user: VirtualUser) => stats(client, message, user),
-        {},
+        { cooldown: 1000 },
         ["status"]
     ),
     new Action(

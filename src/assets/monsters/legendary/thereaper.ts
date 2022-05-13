@@ -16,25 +16,25 @@ export default {
         [minerals.gold.id]: {
             item: minerals.gold,
             chance: 100,
-            amount: 500,
+            amount: 100,
             randomAmount: true,
         },
         [minerals.diamond.id]: {
             item: minerals.diamond,
             chance: 100,
-            amount: 200,
+            amount: 50,
             randomAmount: true,
         },
         [minerals.netherite.id]: {
             item: minerals.netherite,
             chance: 100,
-            amount: 100,
+            amount: 20,
             randomAmount: true,
         },
         [consumables.burger.id]: {
             item: consumables.burger,
             chance: 100,
-            amount: 20,
+            amount: 3,
             randomAmount: true,
         },
         [weapons.mjolnir.id]: {

@@ -24,8 +24,7 @@ export default async (
     const item = getItem(itemId);
 
     if (item && item.use) {
-        await user.useItem(item);
-
+        await user.removeItem(item);
         const itemMessage = await item.use(client, message, user, targetUser);
 
         if (!itemMessage) {

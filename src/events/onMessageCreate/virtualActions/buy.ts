@@ -141,17 +141,23 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         }
     }
 
-    if (user.money < item.value) {
+    let amountString = args[2];
+    let buyAmount = 1;
+    if (!isNaN(Number(amountString))) {
+        buyAmount = Number(amountString);
+    }
+    let cost = item.value * buyAmount;
+    item.count = buyAmount;
+
+    if (user.money < cost) {
         return message.reply(
-            `LOL! **<@${user.id}>** is broke and cannot afford a ${requestedItem}`
+            `LOL! **<@${user.id}>** is broke and cannot afford ${requestedItem} x ${buyAmount}`
         );
     }
 
-    if (item && requestedItem !== "meme") {
-        user.money -= item.value;
-        await user.addItem(item);
-        return message.reply(
-            `**<@${user.id}>** bought a **${item.name}** for **${item.value}** :coin:.`
-        );
-    }
+    user.money -= cost;
+    await user.addItem(item);
+    return message.reply(
+        `**<@${user.id}>** bought **${item.name}** x ${buyAmount} for **${cost}** :coin:`
+    );
 };

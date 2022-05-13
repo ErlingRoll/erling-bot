@@ -14,7 +14,7 @@ const miningDropTable: DropTable = new DropTable({
     iron: {
         item: minerals.iron,
         chance: 70,
-        amount: 3,
+        amount: 5,
         randomAmount: true,
     },
     silver: {
@@ -25,20 +25,20 @@ const miningDropTable: DropTable = new DropTable({
     },
     gold: {
         item: minerals.gold,
-        chance: 30,
-        amount: 3,
+        chance: 20,
+        amount: 5,
         randomAmount: true,
     },
     diamond: {
         item: minerals.diamond,
         chance: 5,
-        amount: 2,
+        amount: 5,
         randomAmount: true,
     },
     netherite: {
         item: minerals.netherite,
         chance: 1,
-        amount: 1,
+        amount: 3,
         randomAmount: true,
     },
 });
@@ -62,13 +62,15 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     }
 
     let pickaxeBreakRoll = Math.ceil(Math.random() * 100);
-    if (pickaxeBreakRoll <= 3) {
+    if (pickaxeBreakRoll <= 3 && !user.hasItem(weapons.minecraftstevediamondpickaxe)) {
         let messageBuilder = `**<@${user.id}>** swings the pickaxe at a suprisingly hard rock and the pickaxe breaks :(`;
-        await Promise.all([user.unEquip(weapons.pickaxe), user.removeItem(weapons.pickaxe)]);
+        await user.removeItem(weapons.pickaxe);
         return message.reply(messageBuilder);
     }
 
-    let loot = miningDropTable.rollLoot();
+    let loot = miningDropTable.rollLoot(
+        user.luck + (user.hasItem(weapons.minecraftstevediamondpickaxe) ? 2 : 1)
+    );
 
     if (loot.length === 0) {
         return message.reply("No loot today. You are sad.");

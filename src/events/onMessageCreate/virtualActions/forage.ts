@@ -32,7 +32,6 @@ const dropTableForage: DropTable = new DropTable({
         amount: 3,
         randomAmount: true,
     },
-
     mums: {
         item: materials.mums,
         chance: 40,
@@ -69,7 +68,6 @@ const dropTableForage: DropTable = new DropTable({
         amount: 3,
         randomAmount: true,
     },
-
     minecraftstevediamondpickaxe: {
         item: weapons.minecraftstevediamondpickaxe,
         chance: 1,
@@ -79,7 +77,7 @@ const dropTableForage: DropTable = new DropTable({
 });
 
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    let lootForest = dropTableForage.rollLoot();
+    let lootForest = dropTableForage.rollLoot(user.luck);
 
     if (lootForest.length === 0) {
         return message.reply("You couldn't find anything on the trip. You are devastated");
