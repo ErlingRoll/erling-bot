@@ -4,6 +4,7 @@ export enum ItemType {
     weapon,
     armor,
     material,
+    fish,
 }
 
 export default class Item {

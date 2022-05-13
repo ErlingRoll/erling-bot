@@ -57,9 +57,9 @@ export async function onMessageCreate(client: Client, message: Message): Promise
             client,
             message,
             {
-                commands: defaultActionCommands,
-                sounds: soundActionsCommands,
-                virtual: virtualActionsCommands,
+                virtual: virtualActionGroup,
+                commands: defaultActionGroup,
+                sounds: soundActionGroup,
             },
             args[0]
         );

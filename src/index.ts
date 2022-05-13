@@ -28,9 +28,9 @@ client.on("ready", async () => {
         const userData = userDoc.data();
         batch.update(userDoc.ref, { isBusy: false });
         batch.update(userDoc.ref, {
-            defence: Math.floor(3 * Math.pow(1.05, userData.level - 1)),
             power: Math.floor(5 * Math.pow(1.05, userData.level - 1)),
-            maxExp: Math.floor(100 * Math.pow(1.05, userData.level - 1)),
+            defence: Math.floor(3 * Math.pow(1.05, userData.level - 1)),
+            maxExp: Math.floor(100 * Math.pow(1.08, userData.level - 1)),
             maxHp: Math.floor(100 * Math.pow(1.025, userData.level - 1)),
         });
 

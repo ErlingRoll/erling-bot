@@ -22,7 +22,22 @@ export default {
         },
         [weapons.abyssalwhip.id]: {
             item: weapons.abyssalwhip,
-            chance: 5,
+            chance: 10,
+            amount: 1,
+        },
+        [weapons.minigun.id]: {
+            item: weapons.minigun,
+            chance: 3,
+            amount: 1,
+        },
+        [weapons.megagun.id]: {
+            item: weapons.megagun,
+            chance: 1,
+            amount: 1,
+        },
+        [weapons.abyssalwhip.id]: {
+            item: weapons.abyssalwhip,
+            chance: 10,
             amount: 1,
         },
         [minerals.diamond.id]: {

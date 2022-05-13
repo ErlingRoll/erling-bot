@@ -3,27 +3,30 @@ import Action from "../../../virtual/models/action";
 import VirtualUser from "virtual/models/virtualUser";
 
 // Actions
-import slap from "./slap";
-import rob from "./rob";
-import balance from "./balance";
-import stats from "./stats";
-import gamba from "./gamba";
-import challenge from "./challenge";
-import buy from "./buy";
-import mine from "./mine";
-import feelpurse from "./feelpurse";
-import forage from "./forage";
-import duel from "./duel";
-import items from "./items";
-import use from "./use";
-import equip from "./equip";
-import leaderboard from "./leaderboard";
 import adventure from "./adventure";
+import balance from "./balance";
+import buy from "./buy";
+import challenge from "./challenge";
+import duel from "./duel";
+import equip from "./equip";
+import feelpurse from "./feelpurse";
+import fish from "./fish";
+import forage from "./forage";
+import gamba from "./gamba";
+import items from "./items";
+import leaderboard from "./leaderboard";
+import mine from "./mine";
+import rob from "./rob";
+import slap from "./slap";
+import stats from "./stats";
+import use from "./use";
+
 import rest from "./rest";
 import sell from "./sell";
 import unequip from "./unequip";
 import inspect from "./inspect";
 import prestige from "./prestige";
+import devildeal from "./devildeal";
 
 const virtualActions: Action[] = [
     new Action(
@@ -34,7 +37,7 @@ const virtualActions: Action[] = [
     new Action(
         "balance",
         (client: Client, message: Message, user: VirtualUser) => balance(client, message, user),
-        {},
+        { cooldown: 1000 },
         ["money"]
     ),
     new Action(
@@ -42,6 +45,12 @@ const virtualActions: Action[] = [
         (client: Client, message: Message, user: VirtualUser) => buy(client, message, user),
         { cooldown: 1000 },
         ["shop", "store"]
+    ),
+    new Action(
+        "devildeal",
+        (client: Client, message: Message, user: VirtualUser) => devildeal(client, message, user),
+        { cooldown: 1000 },
+        ["devildeals", "dealdevil"]
     ),
     new Action(
         "duel",
@@ -54,6 +63,11 @@ const virtualActions: Action[] = [
         "equip",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             equip(client, message, user),
+        { cooldown: 1000 }
+    ),
+    new Action(
+        "fish",
+        (client: Client, message: Message, user: VirtualUser) => fish(client, message, user),
         { cooldown: 1000 }
     ),
     new Action(
@@ -114,13 +128,15 @@ const virtualActions: Action[] = [
         { cooldown: 10000 },
         ["steal"]
     ),
-    new Action("sell", (client: Client, message: Message, user: VirtualUser) =>
-        sell(client, message, user)
+    new Action(
+        "sell",
+        (client: Client, message: Message, user: VirtualUser) => sell(client, message, user),
+        { cooldown: 1000 }
     ),
     new Action(
         "stats",
         (client: Client, message: Message, user: VirtualUser) => stats(client, message, user),
-        {},
+        { cooldown: 1000 },
         ["status"]
     ),
     new Action(

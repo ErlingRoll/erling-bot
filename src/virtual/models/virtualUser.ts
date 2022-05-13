@@ -1,7 +1,8 @@
-import { doc, getDoc, setDoc } from "@firebase/firestore";
 import { Message, User } from "discord.js";
-import sendLongMessage from "../../utils/sendLongMessage";
 import { firestore } from "../../services/firebase";
+import { doc, getDoc, setDoc } from "@firebase/firestore";
+import sendLongMessage from "../../utils/sendLongMessage";
+import { MetaSkill } from "../../constants/user";
 import Armor from "./armor";
 import Entity from "./entity";
 import Item, { ItemType } from "./item";
@@ -14,6 +15,9 @@ export default class VirtualUser extends Entity {
     maxExp: number;
     maxHp: number;
     defence: number;
+    levelCost: number;
+    luck: number;
+    cdr: number;
     money: number;
     isBusy: boolean;
     cooldowns: { [command: string]: number };
@@ -32,6 +36,9 @@ export default class VirtualUser extends Entity {
         maxExp: number,
         maxHp: number,
         defence: number,
+        levelCost: number,
+        luck: number,
+        cdr: number,
         isBusy: boolean = false,
         money: number = 0,
         cooldowns: { [command: string]: number } = {},
@@ -46,6 +53,9 @@ export default class VirtualUser extends Entity {
         this.maxExp = maxExp;
         this.maxHp = maxHp;
         this.defence = defence;
+        this.levelCost = levelCost;
+        this.luck = luck;
+        this.cdr = cdr;
         this.isBusy = isBusy;
         this.money = money;
         this.cooldowns = cooldowns;
@@ -67,6 +77,9 @@ export default class VirtualUser extends Entity {
             maxExp: this.maxExp || 100,
             maxHp: this.maxHp || 100,
             defence: this.defence || 0,
+            levelCost: this.levelCost || 0,
+            luck: this.luck || 0,
+            cdr: this.cdr || 0,
             isBusy: this.isBusy || false,
             money: this.money || 0,
             cooldowns: this.cooldowns || {},
@@ -75,6 +88,40 @@ export default class VirtualUser extends Entity {
             weapon: this.weapon || null,
             soulStone: this.soulStone || null,
         });
+    }
+
+    roll(max: number = 100, advantage: number = 0) {
+        const totalAdvantage = advantage + this.luck;
+        let roll = Math.ceil(Math.random() * max);
+        for (let i = 0; i < totalAdvantage; i++) {
+            let extraRoll = Math.ceil(Math.random() * max);
+            if (advantage > 0) {
+                if (extraRoll > roll) roll = extraRoll;
+            }
+            if (advantage < 0) {
+                if (extraRoll < roll) roll = extraRoll;
+            }
+        }
+        return roll;
+    }
+
+    getCDR(): number {
+        return (80 - 400 / (this.cdr + 5)) / 100; // Percent
+    }
+
+    async levelUpMetaSkill(metaSkill: MetaSkill): Promise<void> {
+        if (Number(MetaSkill[metaSkill]) === MetaSkill.luck) this.luck += 1;
+        if (Number(MetaSkill[metaSkill]) === MetaSkill.cdr) this.cdr += 1;
+
+        // Update next devil deal cost
+        let metaLevels = 0;
+        metaLevels += this.luck;
+        metaLevels += this.cdr;
+        this.level -= this.levelCost;
+        this.levelCost = Math.floor(50 + 4 * Math.pow(metaLevels, 1.05));
+        this.validateStats();
+
+        return this.update();
     }
 
     async addItem(item: Item): Promise<void> {
@@ -104,17 +151,6 @@ export default class VirtualUser extends Entity {
             await this.update();
         }
         return;
-    }
-
-    // Does not actually use it but removes 1 from inventory
-    async useItem(item: Item): Promise<void> {
-        const existingItem = this.items[item.id];
-        if (existingItem.count && existingItem.count > 1) {
-            existingItem.count -= 1;
-        } else {
-            delete this.items[item.id];
-        }
-        return this.update();
     }
 
     async equipItem(item: Item): Promise<string> {
@@ -185,14 +221,19 @@ export default class VirtualUser extends Entity {
         return defence;
     }
 
+    getDamageReduction(): number {
+        const defence = this.getDefence();
+        return (100 - 10000 / (defence + 100)) / 100; // Percentage
+    }
+
     async attackPlayer(target: VirtualUser): Promise<string> {
         let messageBuilder = "";
         let hitRoll = Math.floor(Math.random() * 100) + 1;
 
         let damageRoll = this.rollDamage();
-        let targetDefence = target.getDefence();
+        let targetDamageReduction = target.getDamageReduction();
 
-        let damage = damageRoll - targetDefence;
+        let damage = Math.floor(damageRoll * (1 - targetDamageReduction));
 
         if (hitRoll < 20) {
             messageBuilder += `\n**<@${this.id}>** attacks **<@${target.id}>** but trips on a small pebble and misses...`;
@@ -206,7 +247,7 @@ export default class VirtualUser extends Entity {
         }
 
         if (target.armor) {
-            messageBuilder += `\n**<@${target.id}>** is protected by **${target.armor.name}** (+${target.armor.defence} defence).`;
+            messageBuilder += `\n**<@${target.id}>** is protected by **${target.armor.name}** (${targetDamageReduction}% damage reduction).`;
         }
 
         if (damage <= 0) {
@@ -214,13 +255,15 @@ export default class VirtualUser extends Entity {
             return messageBuilder;
         }
 
-        messageBuilder += `\n**<@${this.id}>** hits **<@${target.id}>** for ${damage} PvP damage!`;
+        messageBuilder += `\n**<@${this.id}>** hits **<@${target.id}>** for ${damage.toFixed(
+            2
+        )} PvP damage!`;
         await target.takeDamage(damage);
         return messageBuilder;
     }
 
     async takeDamage(damage: number): Promise<void> {
-        this.hp -= damage;
+        this.hp -= Math.floor(damage);
         return this.update();
     }
 
@@ -272,10 +315,7 @@ export default class VirtualUser extends Entity {
                 this.level += 1;
 
                 // Change stats
-                this.maxExp = Math.floor(100 * Math.pow(1.05, this.level - 1));
-                this.maxHp = Math.floor(100 * Math.pow(1.025, this.level - 1));
-                this.power = Math.floor(5 * Math.pow(1.05, this.level - 1));
-                this.defence = Math.floor(3 * Math.pow(1.05, this.level - 1));
+                this.validateStats();
 
                 // Broadcast level up
                 if (messageBuilder !== "") messageBuilder += "\n";
@@ -310,6 +350,8 @@ export default class VirtualUser extends Entity {
             bestItem.count = 1;
         }
 
+        this.validateStats();
+
         this.exp = 0;
         this.hp = this.maxHp;
         this.money = 0;
@@ -320,6 +362,16 @@ export default class VirtualUser extends Entity {
         this.armor = null;
         this.weapon = null;
         this.soulStone = null;
+    }
+
+    async validateStats(): Promise<void> {
+        this.power = Math.floor(5 * Math.pow(1.05, this.level - 1));
+        this.defence = Math.floor(3 * Math.pow(1.05, this.level - 1));
+        this.maxExp = Math.floor(100 * Math.pow(1.08, this.level - 1));
+        this.maxHp = Math.floor(100 * Math.pow(1.025, this.level - 1));
+        if (this.hp > this.maxHp) {
+            this.hp = this.maxHp;
+        }
     }
 
     static getVirtualUser = async (discordUser: User): Promise<VirtualUser | any> => {
@@ -338,6 +390,9 @@ export default class VirtualUser extends Entity {
             userData.maxExp,
             userData.maxHp,
             userData.defence,
+            userData.levelCost,
+            userData.luck,
+            userData.cdr,
             userData.isBusy,
             userData.money,
             userData.cooldowns,
@@ -358,6 +413,9 @@ export default class VirtualUser extends Entity {
             0,
             100,
             100,
+            0,
+            50,
+            0,
             0
         );
 

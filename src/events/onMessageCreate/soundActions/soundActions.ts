@@ -14,7 +14,6 @@ const soundFiles: { [name: string]: string } = {
     iprefermen: "../../../assets/audio/iprefermen.mp3",
     marius: "../../../assets/audio/marius.mp3",
     meeting: "../../../assets/audio/meeting.mp3",
-    nasty: "../../../assets/audio/nasty.mp3",
     no: "../../../assets/audio/no.mp3",
     nolife: "../../../assets/audio/nolife.mp3",
     omg: "../../../assets/audio/omg.mp3",
