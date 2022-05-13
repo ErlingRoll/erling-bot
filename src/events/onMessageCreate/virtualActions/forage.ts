@@ -1,50 +1,65 @@
 import { Client, Message } from "discord.js";
+import { DropTableItem } from "../../../virtual/models/dropTableItem";
 import DropTable from "../../../virtual/models/dropTable";
+import Item from "../../../virtual/models/item";
 import VirtualUser from "virtual/models/virtualUser";
-import { materials } from "../../../assets/items/materials";
+import { items } from "../../../assets/items/items";
 import { weapons } from "../../../assets/items/weapons";
+import { materials } from "../../../assets/items/materials";
 
 const dropTableForage: DropTable = new DropTable({
     wood: {
         item: materials.wood,
-        chance: 60,
+        chance: 40,
         amount: 5,
         randomAmount: true,
     },
     pebble: {
         item: materials.pebble,
-        chance: 35,
+        chance: 30,
         amount: 4,
         randomAmount: true,
     },
     vine: {
         item: materials.vine,
-        chance: 30,
+        chance: 20,
         amount: 3,
         randomAmount: true,
     },
     leather: {
         item: materials.leather,
-        chance: 20,
+        chance: 15,
         amount: 3,
         randomAmount: true,
     },
 
-    dandelion: {
-        item: materials.dandelion,
-        chance: 37,
+    mums: {
+        item: materials.mums,
+        chance: 40,
         amount: 3,
         randomAmount: true,
     },
-    fireweed: {
-        item: materials.fireweed,
-        chance: 25,
+    cosmos: {
+        item: materials.cosmos,
+        chance: 30,
         amount: 2,
         randomAmount: true,
     },
-    meadowbuttercup: {
-        item: materials.meadowbuttercup,
+    pansies: {
+        item: materials.pansies,
+        chance: 25,
+        amount: 3,
+        randomAmount: true,
+    },
+    roses: {
+        item: materials.roses,
         chance: 20,
+        amount: 3,
+        randomAmount: true,
+    },
+    carnations: {
+        item: materials.carnations,
+        chance: 10,
         amount: 3,
         randomAmount: true,
     },
@@ -84,9 +99,11 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
             }
         }
         if (
-            _item === materials.dandelion ||
-            _item === materials.fireweed ||
-            _item === materials.meadowButterCup ||
+            _item === materials.mums ||
+            _item === materials.cosmos ||
+            _item === materials.pansies ||
+            _item === materials.roses ||
+            _item === materials.carnations ||
             _item === materials.fourLeafedClover
         ) {
             if (!messageBuilder.includes("Flower")) {
@@ -100,11 +117,13 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
             }
         }
 
-        messageBuilder += `\n*${_item.name}* | ${_item.value} x :coin: `;
+        messageBuilder += `\n*${_item.count} x ${_item.name}* | ${Math.floor(
+            _item.value / 2
+        )} :coin: `;
         return user.addItem(_item);
     });
+    messageBuilder += `\n**<@${user.id}>** tucks the loot safely in their pocket!`;
     await Promise.all(lootSavePromise);
 
-    messageBuilder += `\n**<@${user.id}>** tucks the loot safely in their pocket!`;
     return message.reply(messageBuilder);
 };

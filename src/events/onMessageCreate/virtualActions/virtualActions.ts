@@ -3,22 +3,24 @@ import Action from "../../../virtual/models/action";
 import VirtualUser from "virtual/models/virtualUser";
 
 // Actions
-import slap from "./slap";
-import rob from "./rob";
-import balance from "./balance";
-import stats from "./stats";
-import gamba from "./gamba";
-import challenge from "./challenge";
-import buy from "./buy";
-import mine from "./mine";
-import feelpurse from "./feelpurse";
-import forage from "./forage";
-import duel from "./duel";
-import items from "./items";
-import use from "./use";
-import equip from "./equip";
-import leaderboard from "./leaderboard";
 import adventure from "./adventure";
+import balance from "./balance";
+import buy from "./buy";
+import challenge from "./challenge";
+import duel from "./duel";
+import equip from "./equip";
+import feelpurse from "./feelpurse";
+import fish from "./fish";
+import forage from "./forage";
+import gamba from "./gamba";
+import items from "./items";
+import leaderboard from "./leaderboard";
+import mine from "./mine";
+import rob from "./rob";
+import slap from "./slap";
+import stats from "./stats";
+import use from "./use";
+
 import rest from "./rest";
 import sell from "./sell";
 import unequip from "./unequip";
@@ -53,6 +55,11 @@ const virtualActions: Action[] = [
         "equip",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             equip(client, message, user),
+        { cooldown: 1000 }
+    ),
+    new Action(
+        "fish",
+        (client: Client, message: Message, user: VirtualUser) => fish(client, message, user),
         { cooldown: 1000 }
     ),
     new Action(
