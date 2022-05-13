@@ -8,6 +8,9 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     if (user.weapon) messageBuilder += ` (+${user.weapon.damage})`;
     messageBuilder += `\nDefence: ${user.defence}`;
     if (user.armor) messageBuilder += ` (+${user.armor.defence})`;
+    messageBuilder += `\nDamage reduction: ${(100 * user.getDamageReduction()).toFixed(2)}%`;
+    messageBuilder += `\nLuck: ${user.luck}`;
+    messageBuilder += `\nCDR: ${(100 * user.getCDR()).toFixed(2)}%`;
     messageBuilder += `\nEXP: ${user.exp} / ${user.maxExp}`;
     messageBuilder += `\nMoney: ${user.money} money`;
 

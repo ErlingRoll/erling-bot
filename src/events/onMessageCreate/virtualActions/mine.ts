@@ -7,14 +7,14 @@ import { minerals } from "../../../assets/items/minerals";
 const miningDropTable: DropTable = new DropTable({
     copper: {
         item: minerals.copper,
-        chance: 80, // 40, 50, 10, 20, 99, 50
+        chance: 80,
         amount: 5,
         randomAmount: true,
     },
     iron: {
         item: minerals.iron,
         chance: 70,
-        amount: 3,
+        amount: 5,
         randomAmount: true,
     },
     silver: {
@@ -25,20 +25,20 @@ const miningDropTable: DropTable = new DropTable({
     },
     gold: {
         item: minerals.gold,
-        chance: 30,
-        amount: 3,
+        chance: 20,
+        amount: 5,
         randomAmount: true,
     },
     diamond: {
         item: minerals.diamond,
         chance: 5,
-        amount: 2,
+        amount: 5,
         randomAmount: true,
     },
     netherite: {
         item: minerals.netherite,
         chance: 1,
-        amount: 1,
+        amount: 3,
         randomAmount: true,
     },
 });
@@ -68,7 +68,9 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         return message.reply(messageBuilder);
     }
 
-    let loot = miningDropTable.rollLoot(user.hasItem(weapons.minecraftstevediamondpickaxe) ? 2 : 1);
+    let loot = miningDropTable.rollLoot(
+        user.luck + (user.hasItem(weapons.minecraftstevediamondpickaxe) ? 2 : 1)
+    );
 
     if (loot.length === 0) {
         return message.reply("No loot today. You are sad.");

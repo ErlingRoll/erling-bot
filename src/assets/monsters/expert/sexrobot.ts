@@ -13,6 +13,12 @@ export default {
     power: 60,
     expDrop: 135,
     dropTable: {
+        [minerals.diamond.id]: {
+            item: minerals.diamond,
+            chance: 50,
+            amount: 5,
+            randomAmount: true,
+        },
         [weapons.abyssalwhip.id]: {
             item: weapons.abyssalwhip,
             chance: 10,
@@ -21,7 +27,7 @@ export default {
         [weapons.hornystick.id]: {
             item: weapons.hornystick,
             chance: 10,
-            amount: 2,
+            amount: 3,
             randomAmount: true,
         },
         [consumables.steamedham.id]: {

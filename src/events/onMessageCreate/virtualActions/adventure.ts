@@ -47,8 +47,8 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         // Damage phases
         for (let i = 0; i < COMBAT_TURNS; i++) {
             // Monster hits
-            let monsterDamageRoll = monster.rollDamage();
-            if (user.armor) monsterDamageRoll -= user.armor.defence;
+            let userDamageReduction = user.getDamageReduction();
+            let monsterDamageRoll = Math.floor(monster.rollDamage() * (1 - userDamageReduction));
             if (monsterDamageRoll < 0) monsterDamageRoll = 0;
             if (monsterDamageMessage !== "") monsterDamageMessage += ", ";
             monsterDamageMessage += `${monsterDamageRoll}`;
@@ -74,7 +74,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         }
 
         if (monster.hp <= 0) {
-            let lootDropped = monster.dropTable.rollLoot();
+            let lootDropped = monster.dropTable.rollLoot(user.luck);
             totalExpDrops += monster.expDrop;
             messageBuilder += `\n**${monster.name}** is slayed and **<@${user.id}>** gains **${monster.expDrop} exp**!`;
             if (lootDropped.length !== 0) {

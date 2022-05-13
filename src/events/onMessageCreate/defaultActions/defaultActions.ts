@@ -1,4 +1,5 @@
 import { Client, Message } from "discord.js";
+import ActionGroup from "../../../events/actionGroup";
 import Action from "../../../virtual/models/action";
 
 // Actions
@@ -13,7 +14,7 @@ const defaultActions: Action[] = [
         (
             client: Client,
             message: Message,
-            actionCommands: { [actionGroup: string]: string[] },
+            actionCommands: { [actionGroup: string]: ActionGroup },
             groupName: string
         ) => help(client, message, actionCommands, groupName)
     ),

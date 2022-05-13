@@ -22,13 +22,13 @@ export default {
         },
         [weapons.minigun.id]: {
             item: weapons.minigun,
-            chance: 3,
+            chance: 5,
             amount: 1,
         },
         [minerals.diamond.id]: {
             item: minerals.diamond,
             chance: 70,
-            amount: 4,
+            amount: 6,
             randomAmount: true,
         },
         [minerals.netherite.id]: {

@@ -1,3 +1,4 @@
+import _ from "lodash";
 import Item, { ItemType } from "../../virtual/models/item";
 import { armors } from "./armors";
 import { consumables } from "./consumables";
@@ -22,5 +23,7 @@ export const getItem = (itemId: string): Item | null => {
             allItems[item.id] = item;
         });
     });
-    return allItems[itemId];
+    const item = allItems[itemId];
+    if (!item) return null;
+    return _.cloneDeep(item);
 };

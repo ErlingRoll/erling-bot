@@ -59,7 +59,7 @@ export const cooldown = async (
         if (!skipSetCooldown && (!cooldownFinish || currentDate > cooldownFinish)) {
             virtualUser.cooldowns = {
                 ...virtualUser.cooldowns,
-                [action.name]: currentDate + action.cooldown,
+                [action.name]: currentDate + action.cooldown * (1 - virtualUser.getCDR()),
             };
             return;
         }
