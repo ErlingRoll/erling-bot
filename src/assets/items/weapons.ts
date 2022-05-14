@@ -4,7 +4,7 @@ import { ItemType } from "../../virtual/models/item";
 export const weapons: { [id: string]: Weapon } = {
     toothpick: {
         id: "toothpick",
-        name: "Toothpick",
+        name: "<:toothpick:974849170827522099> Toothpick",
         description: "You COULD play golf with this",
         value: 20,
         type: ItemType.weapon,
@@ -12,7 +12,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     pickaxe: {
         id: "pickaxe",
-        name: "Pickaxe",
+        name: "<:pickaxe:974849170819125268> Pickaxe",
         description: "Looks a bit rusty but probably useful for mining.",
         value: 30,
         type: ItemType.weapon,
@@ -28,7 +28,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     baseballbat: {
         id: "baseballbat",
-        name: "Baseball bat",
+        name: "<:baseballBat:974849169065906196> Baseball bat",
         description: "Made of steel!",
         value: 299,
         type: ItemType.weapon,
@@ -44,7 +44,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     minecraftstevediamondpickaxe: {
         id: "minecraftstevediamondpickaxe",
-        name: "Minecraft Steve's Diamond Pickaxe",
+        name: "<:diamondPickaxe:974849168562597910>  Minecraft Steve's Diamond Pickaxe",
         description: '"We don\'t need to stripmine."',
         value: 500,
         type: ItemType.weapon,
@@ -52,7 +52,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     hornystick: {
         id: "hornystick",
-        name: "Hornystick",
+        name: "<:hornystick:974849169510527057> Hornystick",
         description: "Bonks hard",
         value: 690,
         type: ItemType.weapon,
@@ -60,7 +60,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     chainsaw: {
         id: "chainsaw",
-        name: "Chainsaw",
+        name: "<:chainsaw:974849170848489513> Chainsaw",
         description: "Chainsaw goes *BRRRRRRRRRRRRRRRRR*",
         value: 800,
         type: ItemType.weapon,
@@ -68,7 +68,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     lightsaber: {
         id: "lightsaber",
-        name: "Lightsaber",
+        name: "<:lightsaber:974849170773012500> Lightsaber",
         description: "Be careful not to get your arm cut off",
         value: 1234,
         type: ItemType.weapon,
@@ -76,14 +76,14 @@ export const weapons: { [id: string]: Weapon } = {
     },
     abyssalwhip: {
         id: "abyssalwhip",
-        name: "Abyssal whip",
+        name: "<:abyssalWhip:974849168617111572> Abyssal whip",
         description: "A weapon from the Abyss.",
         value: 1700,
         type: ItemType.weapon,
         damage: 40,
     },
     rpg7: {
-        id: "rpg7",
+        id: "<:rpg7:974849170118696970> rpg7",
         name: "RPG-7",
         description:
             "A portable, reusable, unguided, shoulder-launched, anti-tank, rocket-propelled grenade launcher.",
@@ -93,7 +93,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     minigun: {
         id: "minigun",
-        name: "Minigun",
+        name: "<:minigun:974849171184029756> Minigun",
         description: "3200 freedoms per second!",
         value: 3500,
         type: ItemType.weapon,
@@ -109,7 +109,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     infinityedge: {
         id: "infinityedge",
-        name: "Infinity Edge",
+        name: "<:infinityEdge:974849169867030548>  Infinity Edge",
         description: "Yeah, the one from from league of legends.",
         value: 6900,
         type: ItemType.weapon,
@@ -117,7 +117,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     apacheattackhelictoper: {
         id: "apacheattackhelictoper",
-        name: "Apache attack helicopter",
+        name: "<:apacheHelicopter:974849170546516058> Apache attack helicopter",
         description: "How do you wield this???",
         value: 9999,
         type: ItemType.weapon,
@@ -125,7 +125,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     theinfinityblade: {
         id: "theinfinityblade",
-        name: "The Infinity Blade",
+        name: "<:infinityBlade:974849170504564746> The Infinity Blade",
         description:
             "A weapon created by Galath, the Worker of Secrets, to undo his invention of the Deathless.",
         value: 14000,
@@ -134,7 +134,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     mjolnir: {
         id: "mjolnir",
-        name: "Mjölnir",
+        name: "<:mjolnir:974849170663956530>  Mjölnir",
         description:
             "A portable, reusable, unguided, shoulder-launched, anti-tank, rocket-propelled grenade launcher.",
         value: 22000,
@@ -143,7 +143,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     infinitygauntlet: {
         id: "infinitygauntlet",
-        name: "Infinity gauntlet",
+        name: "<:infinityGauntlet:974849171058225192> Infinity gauntlet",
         description:
             "You may buy it as long as you promise not to commit fully or partial genocide.",
         value: 42000,
@@ -152,7 +152,7 @@ export const weapons: { [id: string]: Weapon } = {
     },
     deathstar: {
         id: "deathstar",
-        name: "Death star",
+        name: "<:deathStar:974849171574124585> Death star",
         description:
             "Can obliterate planets! Make sure to cover any vents which might allow an attacker to reach and shoot the vulnerable core.",
         value: 99999,
