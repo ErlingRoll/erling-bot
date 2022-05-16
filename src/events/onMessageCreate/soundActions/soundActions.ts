@@ -21,6 +21,7 @@ const soundFiles: { [name: string]: string } = {
     purpledrapes: "../../../assets/audio/purpledrapes.mp3",
     stfu: "../../../assets/audio/stfu.mp3",
     stop: "../../../assets/audio/stop.mp3",
+    supersus: "../../../assets/audio/supersus.mp3",
     sus: "../../../assets/audio/sus.mp3",
     whatisthat: "../../../assets/audio/whatisthat.mp3",
     yes: "../../../assets/audio/yes.mp3",

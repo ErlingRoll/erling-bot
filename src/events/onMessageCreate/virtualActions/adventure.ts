@@ -65,7 +65,9 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
 
         // Add damage messages
         messageBuilder += `\n**${monster.name}** hits **<@${user.id}>** for **${monsterDamageMessage}** ${monster.damagetype} damage!`;
-        messageBuilder += `\n**<@${user.id}>** hits **${monster.name}** for **${userDamageMessage}** PvE damage!`;
+        if (userDamageMessage !== "") {
+            messageBuilder += `\n**<@${user.id}>** hits **${monster.name}** for **${userDamageMessage}** PvE damage!`;
+        }
 
         if (user.hp <= 0) {
             await user.checkKilled();

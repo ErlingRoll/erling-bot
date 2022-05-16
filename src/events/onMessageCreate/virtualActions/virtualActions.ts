@@ -68,7 +68,7 @@ const virtualActions: Action[] = [
     new Action(
         "fish",
         (client: Client, message: Message, user: VirtualUser) => fish(client, message, user),
-        { cooldown: 1000 }
+        { cooldown: 10000 }
     ),
     new Action(
         "feelpurse",
