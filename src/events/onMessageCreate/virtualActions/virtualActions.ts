@@ -4,9 +4,11 @@ import VirtualUser from "virtual/models/virtualUser";
 
 // Actions
 import adventure from "./adventure";
+import aquarium from "./aquarium";
 import balance from "./balance";
 import buy from "./buy";
 import challenge from "./challenge";
+import donate from "./donate";
 import duel from "./duel";
 import equip from "./equip";
 import feelpurse from "./feelpurse";
@@ -27,12 +29,18 @@ import unequip from "./unequip";
 import inspect from "./inspect";
 import prestige from "./prestige";
 import devildeal from "./devildeal";
+import { getTargetUser } from "events/middleware";
 
 const virtualActions: Action[] = [
     new Action(
         "adventure",
         (client: Client, message: Message, user: VirtualUser) => adventure(client, message, user),
         { cooldown: 10000 }
+    ),
+    new Action(
+        "aquarium",
+        (client: Client, message: Message, user: VirtualUser) => aquarium(client, message, user),
+        { cooldown: 5000 }
     ),
     new Action(
         "balance",
@@ -51,6 +59,17 @@ const virtualActions: Action[] = [
         (client: Client, message: Message, user: VirtualUser) => devildeal(client, message, user),
         { cooldown: 1000 },
         ["devildeals", "dealdevil"]
+    ),
+    new Action(
+        "donate",
+        (
+            client: Client,
+            message: Message,
+            user: VirtualUser,
+            targetUser: VirtualUser,
+            booleanCheck: boolean
+        ) => donate(client, message, user, targetUser, (booleanCheck = false)),
+        { cooldown: 1000 }
     ),
     new Action(
         "duel",
@@ -123,8 +142,13 @@ const virtualActions: Action[] = [
     ),
     new Action(
         "rob",
-        (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
-            rob(client, message, user, targetUser),
+        (
+            client: Client,
+            message: Message,
+            user: VirtualUser,
+            targetUser: VirtualUser,
+            booleanCheck: boolean = false
+        ) => rob(client, message, user, targetUser, (booleanCheck = false)),
         { cooldown: 10000 },
         ["steal"]
     ),
