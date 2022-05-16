@@ -9,6 +9,7 @@ export default class Action {
     cooldown: number;
     cost: number;
     alias: string[];
+    booleanCheck?: boolean;
 
     constructor(
         name: string,

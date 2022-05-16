@@ -15,6 +15,7 @@ export default class Item {
     type: ItemType;
     use?: CallableFunction;
     count?: number;
+    emoji?: string;
 
     constructor(
         id: string,
@@ -23,7 +24,8 @@ export default class Item {
         value: number,
         type: ItemType,
         use: CallableFunction = () => {},
-        count: number = 1
+        count: number = 1,
+        emoji: string = ""
     ) {
         this.id = id;
         this.name = name;
@@ -32,5 +34,6 @@ export default class Item {
         this.type = type;
         this.use = use;
         this.count = count;
+        this.emoji = emoji;
     }
 }
