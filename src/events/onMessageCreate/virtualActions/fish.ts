@@ -4,11 +4,11 @@ import FishCaught from "../../../virtual/models/fishCaught";
 import VirtualUser from "../../../virtual/models/virtualUser";
 import Item from "virtual/models/item";
 import { randomAdjective } from "../../../constants/adjectives";
-const fishSpecieTable: FishCaught = new FishCaught({
+import { parseArgs } from "../../../events/middleware";
+const freshwaterFish: FishCaught = new FishCaught({
     yellowperch: {
         specieId: "yellowperch",
         chance: 80,
-        habitat: "lake",
         medianSize: 35,
         amount: 1,
     },
@@ -16,7 +16,6 @@ const fishSpecieTable: FishCaught = new FishCaught({
     carp: {
         specieId: "carp",
         chance: 60,
-        habitat: "lake",
         medianSize: 70,
         amount: 1,
     },
@@ -24,7 +23,6 @@ const fishSpecieTable: FishCaught = new FishCaught({
     salmon: {
         specieId: "salmon",
         chance: 40,
-        habitat: "lake",
         medianSize: 100,
         amount: 1,
     },
@@ -32,7 +30,6 @@ const fishSpecieTable: FishCaught = new FishCaught({
     koi: {
         specieId: "koi",
         chance: 30,
-        habitat: "lake",
         medianSize: 75,
         amount: 1,
     },
@@ -40,7 +37,6 @@ const fishSpecieTable: FishCaught = new FishCaught({
     piranha: {
         specieId: "piranha",
         chance: 20,
-        habitat: "lake",
         medianSize: 30,
         amount: 1,
     },
@@ -48,7 +44,6 @@ const fishSpecieTable: FishCaught = new FishCaught({
     freshwatergoby: {
         specieId: "freshwatergoby",
         chance: 5,
-        habitat: "lake",
         medianSize: 15,
         amount: 1,
     },
@@ -56,21 +51,81 @@ const fishSpecieTable: FishCaught = new FishCaught({
     sturgeon: {
         specieId: "sturgeon",
         chance: 1,
-        habitat: "lake",
+        medianSize: 160,
+        amount: 1,
+    },
+});
+const oceanFish: FishCaught = new FishCaught({
+    seabass: {
+        specieId: "seabass",
+        chance: 80,
+        medianSize: 160,
+        amount: 1,
+    },
+    squid: {
+        specieId: "squid",
+        chance: 70,
+        medianSize: 160,
+        amount: 1,
+    },
+    redsnapper: {
+        specieId: "redsnapper",
+        chance: 1,
+        medianSize: 160,
+        amount: 1,
+    },
+    morayeel: {
+        specieId: "morayeel",
+        chance: 50,
+        medianSize: 160,
+        amount: 1,
+    },
+    pufferfish: {
+        specieId: "pufferfish",
+        chance: 1,
+        medianSize: 160,
+        amount: 1,
+    },
+    oarfish: {
+        specieId: "oarfish",
+        chance: 1,
+        medianSize: 160,
+        amount: 1,
+    },
+    ray: {
+        specieId: "ray",
+        chance: 1,
+        medianSize: 160,
+        amount: 1,
+    },
+    bluemarlin: {
+        specieId: "bluemarlin",
+        chance: 1,
         medianSize: 160,
         amount: 1,
     },
 });
 export default async (client: Client, message: Message, user: VirtualUser) => {
-    let freshWaterFish = fishSpecieTable.calculateCatch();
+    const args = parseArgs(message);
+    let fishPool: Item[] = [];
+    if (!args || !args[1] || !args[0]) {
+        return message.reply("Please choose a location to fish (*lake*,*ocean*");
+    }
+    if (args[1] === "lake") {
+        fishPool = freshwaterFish.calculateCatch();
+    }
+    if (args[1] === "ocean") {
+        fishPool = oceanFish.calculateCatch();
+    }
+
     let adjectiveItem = randomAdjective("item");
-    if (freshWaterFish.length === 0) {
+    if (fishPool.length === 0) {
         return message.reply(`\nFish ain't biting today, you are bad fisher`);
     }
 
     let messageBuilder = `\n**<@${user.id}>** grabs their ${adjectiveItem} fishing rod and walks to the beach`;
 
-    let fishSavePromise = freshWaterFish.map(async (_fish: Item) => {
+    let fishSavePromise = fishPool.map(async (_fish: Item) => {
         messageBuilder += `\n${_fish.name} | Value: ${_fish.value} `;
         return user.addItem(_fish);
     });

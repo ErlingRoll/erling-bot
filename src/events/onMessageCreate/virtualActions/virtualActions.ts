@@ -21,8 +21,9 @@ import mine from "./mine";
 import rob from "./rob";
 import slap from "./slap";
 import stats from "./stats";
+import time from "./time";
 import use from "./use";
-
+import stockmarked from "./stockmarked";
 import rest from "./rest";
 import sell from "./sell";
 import unequip from "./unequip";
@@ -99,7 +100,7 @@ const virtualActions: Action[] = [
         "forage",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             forage(client, message, user),
-        { cooldown: 60000 }
+        { cooldown: 1000 }
     ),
     new Action(
         "gamba",
@@ -164,10 +165,22 @@ const virtualActions: Action[] = [
         ["status"]
     ),
     new Action(
+        "stockmarked",
+        (client: Client, message: Message, user: VirtualUser) => stockmarked(client, message, user),
+        { cooldown: 1000 },
+        ["stock"]
+    ),
+    new Action(
         "slap",
         (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
             slap(client, message, user, targetUser),
         { cooldown: 60000 }
+    ),
+    new Action(
+        "time",
+        (client: Client, message: Message, user: VirtualUser, targetUser: VirtualUser) =>
+            time(client, message, user),
+        { cooldown: 1000 }
     ),
     new Action(
         "unequip",

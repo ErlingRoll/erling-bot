@@ -24,7 +24,7 @@ export const materials: { [id: string]: Item } = {
     },
     leather: {
         id: "leather",
-        name: "Leather",
+        name: "<:leatherItem:975073449141743626> Leather",
         description: "Used in crafting",
         value: 35,
         type: ItemType.material,

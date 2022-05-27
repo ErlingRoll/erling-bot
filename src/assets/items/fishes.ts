@@ -1,5 +1,5 @@
 import Item, { ItemType } from "../../virtual/models/item";
-
+import { Location } from "../../constants/locations";
 //Fish Items
 export const fishes: { [id: string]: Item } = {
     commonyellowperch: {
@@ -9,6 +9,7 @@ export const fishes: { [id: string]: Item } = {
             "These fish are relatives of sea bass, though they're preyed on by other, larger fish, such as black bass. Their defining features are their large, prickly dorsal fins and gray stripes on pale-yellow bodies. Ice fishing on frozen lakes is a very popular way to catch them in their native United States and Canada. They are often fried before being eaten, which makes them a simple but tasty meal.",
         value: 2,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:yellowperch:974640810488389672>",
     },
     silveryellowperch: {
@@ -18,6 +19,7 @@ export const fishes: { [id: string]: Item } = {
             "[SILVER-QUALITY] These fish are relatives of sea bass, though they're preyed on by other, larger fish, such as black bass. Their defining features are their large, prickly dorsal fins and gray stripes on pale-yellow bodies. Ice fishing on frozen lakes is a very popular way to catch them in their native United States and Canada. They are often fried before being eaten, which makes them a simple but tasty meal.",
         value: 4,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:yellowperch:974640810488389672>",
     },
     goldyellowperch: {
@@ -27,6 +29,7 @@ export const fishes: { [id: string]: Item } = {
             "[GOLD-QUALITY] These fish are relatives of sea bass, though they're preyed on by other, larger fish, such as black bass. Their defining features are their large, prickly dorsal fins and gray stripes on pale-yellow bodies. Ice fishing on frozen lakes is a very popular way to catch them in their native United States and Canada. They are often fried before being eaten, which makes them a simple but tasty meal.",
         value: 6,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:yellowperch:974640810488389672>",
     },
 
@@ -35,8 +38,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:carp:974640810400313354> Carp",
         description:
             "These tough fish have very long life spans, capping out at ages surpassing 100 years. Their whiskers are one of their trademark features, making them relatively easy to identify. They're omnivorous and eat waterweed and bugs by sucking their food into their mouths. They also have teeth in the back of their throats that help break down shellfish for digestion.",
-        value: 20,
+        value: 5,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:carp:974640810400313354>",
     },
     silvercarp: {
@@ -44,8 +48,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:silverquality:974666608050069534><:carp:974640810400313354> Carp",
         description:
             "[SILVER-QUALITY] These tough fish have very long life spans, capping out at ages surpassing 100 years. Their whiskers are one of their trademark features, making them relatively easy to identify. They're omnivorous and eat waterweed and bugs by sucking their food into their mouths. They also have teeth in the back of their throats that help break down shellfish for digestion.",
-        value: 20,
+        value: 7,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:carp:974640810400313354>",
     },
     goldcarp: {
@@ -53,8 +58,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:goldquality:974666607974555758><:carp:974640810400313354> Carp",
         description:
             "[GOLD-QUALITY] These tough fish have very long life spans, capping out at ages surpassing 100 years. Their whiskers are one of their trademark features, making them relatively easy to identify. They're omnivorous and eat waterweed and bugs by sucking their food into their mouths. They also have teeth in the back of their throats that help break down shellfish for digestion.",
-        value: 20,
+        value: 12,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:carp:974640810400313354>",
     },
 
@@ -63,8 +69,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:salmon:974640810584862720> Salmon",
         description:
             "Ah, salmon... Did you know their coloration is due specifically to their diet? Indeed, this is the case! The more they fill their diet with crustaceans such as krill and shrimp, the deeper shade of pink they are.",
-        value: 12,
+        value: 20,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:salmon:974640810584862720>",
     },
     silversalmon: {
@@ -72,8 +79,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:silverquality:974666608050069534><:salmon:974640810584862720> Salmon",
         description:
             "[SILVER-QUALITY] Ah, salmon... Did you know their coloration is due specifically to their diet? Indeed, this is the case! The more they fill their diet with crustaceans such as krill and shrimp, the deeper shade of pink they are.",
-        value: 12,
+        value: 25,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:salmon:974640810584862720>",
     },
     goldsalmon: {
@@ -81,8 +89,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:goldquality:974666607974555758><:salmon:974640810584862720> Salmon",
         description:
             "[GOLD-QUALITY] Ah, salmon... Did you know their coloration is due specifically to their diet? Indeed, this is the case! The more they fill their diet with crustaceans such as krill and shrimp, the deeper shade of pink they are.",
-        value: 12,
+        value: 30,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:salmon:974640810584862720>",
     },
 
@@ -93,6 +102,7 @@ export const fishes: { [id: string]: Item } = {
             "Koi are a variety of carp bred for their color mutations...starting more than a thousand years ago! Well, one glance at their impressive coloring tells you that the centuries of effort were worth it. And even today people still selectively breed koi in search of new color combinations! One marvels at the thought of what the koi may look like in another thousand years.",
         value: 12,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:koi:974640810551304202>",
     },
     silverkoi: {
@@ -100,8 +110,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:silverquality:974666608050069534><:koi:974640810551304202> Koi",
         description:
             "[SILVER-QUALITY] Koi are a variety of carp bred for their color mutations...starting more than a thousand years ago! Well, one glance at their impressive coloring tells you that the centuries of effort were worth it. And even today people still selectively breed koi in search of new color combinations! One marvels at the thought of what the koi may look like in another thousand years.",
-        value: 12,
+        value: 18,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:koi:974640810551304202>",
     },
     goldkoi: {
@@ -109,8 +120,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:goldquality:974666607974555758><:koi:974640810551304202> Koi",
         description:
             "[GOLD-QUALITY] Koi are a variety of carp bred for their color mutations...starting more than a thousand years ago! Well, one glance at their impressive coloring tells you that the centuries of effort were worth it. And even today people still selectively breed koi in search of new color combinations! One marvels at the thought of what the koi may look like in another thousand years.",
-        value: 12,
+        value: 22,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:koi:974640810551304202>",
     },
 
@@ -119,8 +131,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:piranha:974640810412896296> Piranha",
         description:
             "They have terrifyingly sharp teeth, which contributes to their ferocious reputation. Oddly enough, they are actually quite timid, though they are still very dangerous fish. If they can't find food, they will resort to cannibalism or tear apart any animal they can grab hold of. Take care when catching them so they don't end up biting your hand with their sharp teeth!",
-        value: 12,
+        value: 40,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:piranha:974640810412896296>",
     },
     silverpiranha: {
@@ -128,8 +141,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:silverquality:974666608050069534><:piranha:974640810412896296> Piranha",
         description:
             "[SILVER-QUALITY]They have terrifyingly sharp teeth, which contributes to their ferocious reputation. Oddly enough, they are actually quite timid, though they are still very dangerous fish. If they can't find food, they will resort to cannibalism or tear apart any animal they can grab hold of. Take care when catching them so they don't end up biting your hand with their sharp teeth!",
-        value: 12,
+        value: 46,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:piranha:974640810412896296>",
     },
     goldpiranha: {
@@ -137,8 +151,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:goldquality:974666607974555758><:piranha:974640810412896296> Piranha",
         description:
             "[GOLD-QUALITY] They have terrifyingly sharp teeth, which contributes to their ferocious reputation. Oddly enough, they are actually quite timid, though they are still very dangerous fish. If they can't find food, they will resort to cannibalism or tear apart any animal they can grab hold of. Take care when catching them so they don't end up biting your hand with their sharp teeth!",
-        value: 12,
+        value: 52,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:piranha:974640810412896296>",
     },
 
@@ -147,8 +162,9 @@ export const fishes: { [id: string]: Item } = {
         name: "<:freshwatergoby:974640810396098590> Freshwater Goby",
         description:
             "The freshwater goby is an unassuming specimen. But beneath that calm, fishy exterior, true gluttony resides! It will eat anything that will fit in its mouth... And its mouth is quite the gaping maw, so I recommend you refrain from drawing attention to yourself!",
-        value: 12,
+        value: 90,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:freshwatergoby:974640810396098590>",
     },
     silverfreshwatergoby: {
@@ -156,8 +172,9 @@ export const fishes: { [id: string]: Item } = {
         description:
             "[SILVER-QUALITY] The freshwater goby is an unassuming specimen. But beneath that calm, fishy exterior, true gluttony resides! It will eat anything that will fit in its mouth... And its mouth is quite the gaping maw, so I recommend you refrain from drawing attention to yourself!",
         name: "<:silverquality:974666608050069534><:freshwatergoby:974640810396098590> Freshwater Goby",
-        value: 12,
+        value: 100,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:freshwatergoby:974640810396098590>",
     },
     goldfreshwatergoby: {
@@ -165,8 +182,9 @@ export const fishes: { [id: string]: Item } = {
         description:
             "[GOLD-QUALITY] The freshwater goby is an unassuming specimen. But beneath that calm, fishy exterior, true gluttony resides! It will eat anything that will fit in its mouth... And its mouth is quite the gaping maw, so I recommend you refrain from drawing attention to yourself!",
         name: "<:goldquality:974666607974555758><:freshwatergoby:974640810396098590> Freshwater Goby",
-        value: 12,
+        value: 120,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:freshwatergoby:974640810396098590>",
     },
     commonsturgeon: {
@@ -174,8 +192,9 @@ export const fishes: { [id: string]: Item } = {
         description:
             "The sturgeon is a large and long-lived fish which has changed little in the last 300 million years. One curious behavior of theirs is leaping high out of the water and falling back in on their sides. The smacking sounds of their re-entry can be heard for up to half a mile away, likely more underwater! No one knows why they do it, but I like to think it's their impression of bread popping out of toaster! ",
         name: "<:sturgeon:974640810794582047> Sturgeon",
-        value: 12,
+        value: 150,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:sturgeon:974640810794582047>",
     },
     silversturgeon: {
@@ -183,8 +202,9 @@ export const fishes: { [id: string]: Item } = {
         description:
             "[SILVER-QUALITY] The sturgeon is a large and long-lived fish which has changed little in the last 300 million years. One curious behavior of theirs is leaping high out of the water and falling back in on their sides. The smacking sounds of their re-entry can be heard for up to half a mile away, likely more underwater! No one knows why they do it, but I like to think it's their impression of bread popping out of toaster! ",
         name: "<:silverquality:974666608050069534><:sturgeon:974640810794582047> Sturgeon",
-        value: 12,
+        value: 250,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:sturgeon:974640810794582047>",
     },
     goldsturgeon: {
@@ -192,56 +212,233 @@ export const fishes: { [id: string]: Item } = {
         description:
             "[GOLD-QUALITY] The sturgeon is a large and long-lived fish which has changed little in the last 300 million years. One curious behavior of theirs is leaping high out of the water and falling back in on their sides. The smacking sounds of their re-entry can be heard for up to half a mile away, likely more underwater! No one knows why they do it, but I like to think it's their impression of bread popping out of toaster! ",
         name: "<:goldquality:974666607974555758><:sturgeon:974640810794582047> Sturgeon",
-        value: 12,
+        value: 320,
         type: ItemType.fish,
+        habitatLocation: Location.lake,
         emoji: "<:sturgeon:974640810794582047>",
     },
+    //OCEAN FISH
+    commonseabass: {
+        id: "commonseabass",
+        name: "<:seabass:979729739826741258> Sea bass",
+        description: "I caught a sea bass! Not you again!",
+        value: 5,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:seabass:979729739826741258>",
+    },
+    silverseabass: {
+        id: "silverseabass",
+        name: "<:silverquality:974666608050069534><:seabass:979729739826741258> Sea bass",
+        description: "I caught a sea bass! Not you again!",
+        value: 7,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:seabass:979729739826741258>",
+    },
+    goldseabass: {
+        id: "goldseabass",
+        name: "<:goldquality:974666607974555758><:seabass:979729739826741258> Sea bass",
+        description: "I caught a sea bass! Not you again!",
+        value: 10,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:seabass:979729739826741258>",
+    },
+
+    commonsquid: {
+        id: "commonsquid",
+        name: "<:squidItem:979729739768033310> Squid",
+        description: "I caught a horse mackerel! Holy mackerel!",
+        value: 12,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:squidItem:979729739768033310>",
+    },
+    silversquid: {
+        id: "silversquid",
+        name: "<:silverquality:974666608050069534><:squidItem:979729739768033310> Squid",
+        description: "I caught a horse mackerel! Holy mackerel!",
+        value: 15,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:squidItem:979729739768033310>",
+    },
+    goldsquid: {
+        id: "goldsquid",
+        name: "<:goldquality:974666607974555758><:squidItem:979729739768033310> Squid",
+        description: "I caught a horse mackerel! Holy mackerel!",
+        value: 20,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:squidItem:979729739768033310>",
+    },
+
+    commonredsnapper: {
+        id: "commonredsnapper",
+        name: "<:pufferfish:979731330906591233> Redsnapper",
+        description: "I caught a red snapper! Ooh, SNAP!",
+        value: 40,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:pufferfish:979731330906591233>",
+    },
+    silverredsnapper: {
+        id: "silverredsnapper",
+        name: "<:silverquality:974666608050069534><:pufferfish:979731330906591233> Redsnapper",
+        description: "I caught a red snapper! Ooh, SNAP!",
+        value: 47,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:pufferfish:979731330906591233>",
+    },
+    goldredsnapper: {
+        id: "goldredsnapper",
+        name: "<:goldquality:974666607974555758><:pufferfish:979731330906591233> Redsnapper",
+        description: "I caught a red snapper! Ooh, SNAP!",
+        value: 60,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:pufferfish:979731330906591233>",
+    },
+
+    commonmorayeel: {
+        id: "commonmorayeel",
+        name: "<:morayeel:979729739805753394> Moray Eel",
+        description: "I caught a moray eel! Now that's a moray!",
+        value: 50,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:morayeel:979729739805753394>",
+    },
+    silvermorayeel: {
+        id: "silvermorayeel",
+        name: "<:silverquality:974666608050069534><:morayeel:979729739805753394> Moray Eel",
+        description: "I caught a moray eel! Now that's a moray!",
+        value: 60,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:morayeel:979729739805753394> ",
+    },
+    goldmorayeel: {
+        id: "goldmorayeel",
+        name: "<:goldquality:974666607974555758><:morayeel:979729739805753394> Moray Eel",
+        description: "I caught a moray eel! Now that's a moray!",
+        value: 70,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:morayeel:979729739805753394> ",
+    },
+
+    commonpufferfish: {
+        id: "commonpufferfish",
+        name: "<:redsnapper:979731331024052284> Pufferfish",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 90,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:redsnapper:979731331024052284>",
+    },
+    silverpufferfish: {
+        id: "silverpufferfish",
+        name: "<:silverquality:974666608050069534><:redsnapper:979731331024052284> Pufferfish",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 100,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:redsnapper:979731331024052284>",
+    },
+    goldpufferfish: {
+        id: "goldpufferfish",
+        name: "<:goldquality:974666607974555758><:redsnapper:979731331024052284> Pufferfish",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 120,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:redsnapper:979731331024052284>",
+    },
+
+    commonoarfish: {
+        id: "commonoarfish",
+        name: "<:oarfish:979729739684143115> Oarfish",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 300,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:oarfish:979729739684143115>",
+    },
+    silveroarfish: {
+        id: "silveroarfish",
+        name: "<:silverquality:974666608050069534><:oarfish:979729739684143115> Oarfish",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 390,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:oarfish:979729739684143115>",
+    },
+    goldoarfish: {
+        id: "goldoarfish",
+        name: "<:goldquality:974666607974555758><:oarfish:979729739684143115> Oarfish",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 500,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:oarfish:979729739684143115>",
+    },
+
+    commonray: {
+        id: "commonray",
+        name: "<:ray:979729739755425843> Ray",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 150,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:ray:979729739755425843>",
+    },
+    silverray: {
+        id: "silverray",
+        name: "<:silverquality:974666608050069534><:ray:979729739755425843> Ray",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 180,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:ray:979729739755425843>",
+    },
+    goldray: {
+        id: "goldray",
+        name: "<:goldquality:974666607974555758><:ray:979729739755425843> Ray",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 220,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:ray:979729739755425843>",
+    },
+
+    commonbluemarlin: {
+        id: "commonbluemarlin",
+        name: "<:bluemarlin:979729739474411552> Bluemarlin",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 200,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:bluemarlin:979729739474411552>",
+    },
+    silverbluemarlin: {
+        id: "silverbluemarlin",
+        name: "<:silverquality:974666608050069534><:bluemarlin:979729739474411552> Bluemarlin",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 230,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:bluemarlin:979729739474411552>",
+    },
+    goldbluemarlin: {
+        id: "goldbluemarlin",
+        name: "<:goldquality:974666607974555758><:bluemarlin:979729739474411552> Bluemarlin",
+        description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
+        value: 280,
+        type: ItemType.fish,
+        habitatLocation: Location.ocean,
+        emoji: "<:bluemarlin:979729739474411552>",
+    },
 };
-//OceanFish
-// seabass: {
-//     id: "seabass",
-//     name: "Sea Bass",
-//     description: "I caught a sea bass! Not you again!",
-//     value: 10,
-//     type: ItemType.fish,
-//     fishingSpot: FishingSpot.ocean,
-//     emoji: ":seabass:",
-// },
-
-// horsemackrel: {
-//     id: "horsemackrel",
-//     name: "Horsemackrel",
-//     description: "I caught a horse mackerel! Holy mackerel!",
-//     value: 10,
-//     type: ItemType.fish,
-//     fishingSpot: FishingSpot.ocean,
-//     emoji: ":horsemackrel:",
-// },
-
-// morayeel: {
-//     id: "morayeel",
-//     name: "Moray Eel",
-//     description: "I caught a moray eel! Now that's a moray!",
-//     value: 10,
-//     type: ItemType.fish,
-//     fishingSpot: FishingSpot.ocean,
-// },
-
-// redsnapper: {
-//     id: "redsnapper",
-//     name: "Redsnapper",
-//     description: "I caught a red snapper! Ooh, SNAP!",
-//     value: 10,
-//     type: ItemType.fish,
-//     fishingSpot: FishingSpot.ocean,
-// },
-
-// pufferfish: {
-//     id: "pufferfish",
-//     name: "Pufferfish",
-//     description: "I caught a puffer fish! Aww... Or should I say 'OW?!'",
-//     value: 10,
-//     type: ItemType.fish,
-//     fishingSpot: FishingSpot.ocean,
-// },
-// };

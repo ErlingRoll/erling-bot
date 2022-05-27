@@ -1,3 +1,4 @@
+import { Location } from "../../constants/locations";
 export enum ItemType {
     instant,
     consumable,
@@ -5,6 +6,7 @@ export enum ItemType {
     armor,
     material,
     fish,
+    bug,
 }
 
 export default class Item {
@@ -16,6 +18,7 @@ export default class Item {
     use?: CallableFunction;
     count?: number;
     emoji?: string;
+    habitatLocation?: Location;
 
     constructor(
         id: string,
@@ -25,7 +28,8 @@ export default class Item {
         type: ItemType,
         use: CallableFunction = () => {},
         count: number = 1,
-        emoji: string = ""
+        emoji: string = "",
+        habitatLocation?: Location
     ) {
         this.id = id;
         this.name = name;
@@ -35,5 +39,6 @@ export default class Item {
         this.use = use;
         this.count = count;
         this.emoji = emoji;
+        this.habitatLocation = habitatLocation;
     }
 }

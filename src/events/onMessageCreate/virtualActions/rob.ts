@@ -25,7 +25,7 @@ export default async (
             user.hp -= SHAME_DAMAGE;
             await user.update();
             message.reply(
-                `rob1 **<@${target.id}>** catches **<@${user.id}>** red handed! **<@${user.id}>** takes **${SHAME_DAMAGE}** shame damage.`
+                `**<@${target.id}>** catches **<@${user.id}>** red handed! **<@${user.id}>** takes **${SHAME_DAMAGE}** shame damage.`
             );
 
             return;
@@ -33,7 +33,7 @@ export default async (
 
         if (target.money === 0) {
             return message.reply(
-                `rob2 **<@${user.id}>** tries to rob **<@${target.id}>** but finds no money.`
+                `**<@${user.id}>** tries to rob **<@${target.id}>** but finds no money.`
             );
         }
     }
@@ -44,7 +44,7 @@ export default async (
         user.money += robAmount;
         await Promise.all([target.update(), user.update()]);
         return message.reply(
-            `rob4 **<@${user.id}>** steals **${robAmount}** money from **<@${target.id}>**. **<@${target.id}>** has no money left.`
+            `**<@${user.id}>** steals **${robAmount}** money from **<@${target.id}>**. **<@${target.id}>** has no money left.`
         );
     }
     target.money -= robAmount;

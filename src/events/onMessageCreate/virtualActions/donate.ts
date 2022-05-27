@@ -54,21 +54,21 @@ export default async (
     } else {
         if (user.money < donationAmount) {
             return message.reply(
-                `donation1**<@${user.id}>** tries to give ${donationAmount} shekels to **<@${target.id}>** but to do so, he needs a donation (or ${randomNum}).`
+                `**<@${user.id}>** tries to give ${donationAmount} shekels to **<@${target.id}>** but to do so, he needs a donation (or ${randomNum}).`
             );
         }
 
         if (user.money < donationAmount) {
             if (user.money === 0 || user.money < 0) {
                 return message.reply(
-                    `donation2**<@${user.id}>**, you are by definition broke. Maybe try to ask for a donation you poor ${adjectivepoor} bastard.).`
+                    `**<@${user.id}>**, you are by definition broke. Maybe try to ask for a donation you poor ${adjectivepoor} bastard.).`
                 );
             }
         }
 
         if (donationAmount === 0) {
             return message.reply(
-                `donation3**<@${user.id}>**... I'm sorry? Are you by any chance retarded or profoundly dumb? A donation is something you give, you can't give away zero of something `
+                `**<@${user.id}>**... I'm sorry? Are you by any chance retarded or profoundly dumb? A donation is something you give, you can't give away zero of something `
             );
         }
         if (donationAmount < 0) {
@@ -80,7 +80,7 @@ export default async (
             user.money -= donationAmount;
             await Promise.all([target.update(), user.update()]);
             return message.reply(
-                `donation4**<@${user.id}>** gives ${donationAmount} shekles to *<@${target.id}>** (Cheapskate)`
+                `**<@${user.id}>** gives ${donationAmount} shekles to *<@${target.id}>** (Cheapskate)`
             );
         }
 
@@ -89,7 +89,7 @@ export default async (
             user.money -= donationAmount;
             await Promise.all([target.update(), user.update()]);
             return message.reply(
-                `donation5**<@${user.id}>** gives **${donationAmount}** shekels to **<@${target.id}>**.`
+                `**<@${user.id}>** gives **${donationAmount}** shekels to **<@${target.id}>**.`
             );
         }
     }

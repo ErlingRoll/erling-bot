@@ -86,35 +86,6 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     let messageBuilder = `\n**<@${user.id}>** walks into the woods hoping to find some dank stuff, and so they did! \n__**LOOT**__`;
 
     let lootSavePromise = lootForest.map(async _item => {
-        if (
-            _item === materials.wood ||
-            _item === materials.pebble ||
-            _item === materials.vine ||
-            _item === materials.leather
-        ) {
-            if (!messageBuilder.includes("Forest Loot")) {
-                messageBuilder += `\n:evergreen_tree:**Forest Loot**:evergreen_tree: `;
-            }
-        }
-        if (
-            _item === materials.mums ||
-            _item === materials.cosmos ||
-            _item === materials.pansies ||
-            _item === materials.roses ||
-            _item === materials.carnations ||
-            _item === materials.fourLeafedClover
-        ) {
-            if (!messageBuilder.includes("Flower")) {
-                messageBuilder += `\n:blossom:**Flower**:blossom:`;
-            }
-        }
-
-        if (_item === weapons.minecraftstevediamondpickaxe) {
-            if (!messageBuilder.includes("Treasure")) {
-                messageBuilder += `\n:gem:**Treasure**:gem:`;
-            }
-        }
-
         messageBuilder += `\n*${_item.count} x ${_item.name}* | ${Math.floor(
             _item.value / 2
         )} :coin: `;
