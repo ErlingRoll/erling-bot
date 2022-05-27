@@ -58,49 +58,49 @@ const freshwaterFish: FishCaught = new FishCaught({
 const oceanFish: FishCaught = new FishCaught({
     seabass: {
         specieId: "seabass",
-        chance: 80,
+        chance: 70,
         medianSize: 160,
         amount: 1,
     },
     squid: {
         specieId: "squid",
-        chance: 70,
+        chance: 60,
         medianSize: 160,
         amount: 1,
     },
     redsnapper: {
         specieId: "redsnapper",
-        chance: 1,
+        chance: 55,
         medianSize: 160,
         amount: 1,
     },
     morayeel: {
         specieId: "morayeel",
-        chance: 50,
+        chance: 45,
         medianSize: 160,
         amount: 1,
     },
     pufferfish: {
         specieId: "pufferfish",
-        chance: 1,
-        medianSize: 160,
-        amount: 1,
-    },
-    oarfish: {
-        specieId: "oarfish",
-        chance: 1,
+        chance: 30,
         medianSize: 160,
         amount: 1,
     },
     ray: {
         specieId: "ray",
-        chance: 1,
+        chance: 20,
         medianSize: 160,
         amount: 1,
     },
     bluemarlin: {
         specieId: "bluemarlin",
-        chance: 1,
+        chance: 10,
+        medianSize: 160,
+        amount: 1,
+    },
+    oarfish: {
+        specieId: "oarfish",
+        chance: 2,
         medianSize: 160,
         amount: 1,
     },
@@ -109,7 +109,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     const args = parseArgs(message);
     let fishPool: Item[] = [];
     if (!args || !args[1] || !args[0]) {
-        return message.reply("Please choose a location to fish (*lake*,*ocean*");
+        return message.reply("Please choose a location to fish (*lake*,*ocean*)");
     }
     if (args[1] === "lake") {
         fishPool = freshwaterFish.calculateCatch();
