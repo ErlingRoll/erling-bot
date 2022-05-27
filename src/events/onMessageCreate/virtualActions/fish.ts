@@ -126,7 +126,7 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
     let messageBuilder = `\n**<@${user.id}>** grabs their ${adjectiveItem} fishing rod and walks to the beach`;
 
     let fishSavePromise = fishPool.map(async (_fish: Item) => {
-        messageBuilder += `\n${_fish.name} | Value: ${_fish.value} `;
+        messageBuilder += `\n${_fish.name} | Value: ${_fish.value} x :coin: `;
         return user.addItem(_fish);
     });
     let adjectiveFish = randomAdjective("fish");
