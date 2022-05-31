@@ -6,6 +6,7 @@ import { instants } from "./instants";
 import { materials } from "./materials";
 import { weapons } from "./weapons";
 import { fishes } from "./fishes";
+import { bugs } from "./bugs";
 
 export const items: {
     [itemType: ItemType | number]: { [itemId: string]: Item | any };
@@ -16,6 +17,7 @@ export const items: {
     [ItemType.instant]: instants,
     [ItemType.material]: materials,
     [ItemType.fish]: fishes,
+    [ItemType.bug]: bugs,
 };
 
 export const getItem = (itemId: string): Item | null => {

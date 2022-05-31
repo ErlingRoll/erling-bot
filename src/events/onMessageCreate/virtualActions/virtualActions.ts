@@ -7,6 +7,7 @@ import adventure from "./adventure";
 import aquarium from "./aquarium";
 import balance from "./balance";
 import buy from "./buy";
+import buggin from "./buggin";
 import challenge from "./challenge";
 import donate from "./donate";
 import duel from "./duel";
@@ -54,6 +55,11 @@ const virtualActions: Action[] = [
         (client: Client, message: Message, user: VirtualUser) => buy(client, message, user),
         { cooldown: 1000 },
         ["shop", "store"]
+    ),
+    new Action(
+        "buggin",
+        (client: Client, message: Message, user: VirtualUser) => buggin(client, message, user),
+        { cooldown: 1000 }
     ),
     new Action(
         "devildeal",

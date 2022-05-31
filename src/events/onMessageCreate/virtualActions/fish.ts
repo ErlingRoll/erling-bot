@@ -1,11 +1,11 @@
 import { fishes } from "../../../assets/items/fishes";
 import { Client, Message } from "discord.js";
-import FishCaught from "../../../virtual/models/fishCaught";
+import CreatureCaught from "../../../virtual/models/creatureCaught";
 import VirtualUser from "../../../virtual/models/virtualUser";
 import Item from "virtual/models/item";
 import { randomAdjective } from "../../../constants/adjectives";
 import { parseArgs } from "../../../events/middleware";
-const freshwaterFish: FishCaught = new FishCaught({
+const freshwaterFish: CreatureCaught = new CreatureCaught({
     yellowperch: {
         specieId: "yellowperch",
         chance: 80,
@@ -55,7 +55,7 @@ const freshwaterFish: FishCaught = new FishCaught({
         amount: 1,
     },
 });
-const oceanFish: FishCaught = new FishCaught({
+const oceanFish: CreatureCaught = new CreatureCaught({
     seabass: {
         specieId: "seabass",
         chance: 70,
@@ -112,10 +112,10 @@ export default async (client: Client, message: Message, user: VirtualUser) => {
         return message.reply("Please choose a location to fish (*lake*,*ocean*)");
     }
     if (args[1] === "lake") {
-        fishPool = freshwaterFish.calculateCatch();
+        fishPool = freshwaterFish.calculateCatch("fish");
     }
     if (args[1] === "ocean") {
-        fishPool = oceanFish.calculateCatch();
+        fishPool = oceanFish.calculateCatch("fish");
     }
 
     let adjectiveItem = randomAdjective("item");
